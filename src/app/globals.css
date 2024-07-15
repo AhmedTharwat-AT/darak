@@ -70,4 +70,18 @@
   input[type="number"] {
     -moz-appearance: textfield;
   }
+
+  /* scroll bar */
+
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+    margin-block: 5px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--stroke);
+    border-radius: 10px;
+  }
 }

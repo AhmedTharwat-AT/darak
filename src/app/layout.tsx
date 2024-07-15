@@ -29,9 +29,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <div
-          className={`relative overflow-hidden ${playfair.variable} ${poppins.variable}`}
-        >
+        <div className={`relative  ${playfair.variable} ${poppins.variable}`}>
           <NavBar />
           <main className="min-h-[calc(100vh-104px)] grid"> {children}</main>
         </div>
