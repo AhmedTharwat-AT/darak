@@ -6,28 +6,31 @@ import { getProperties } from "@/lib/services";
 
 import SortBy from "./SortBy";
 import Link from "next/link";
+import { use } from "react";
 
 function PropertiesList({
   properties,
 }: {
-  properties: Awaited<ReturnType<typeof getProperties>>;
+  properties: ReturnType<typeof getProperties>;
 }) {
   const searchParams = useSearchParams();
   const sortBy = searchParams.get("sortBy") || "";
 
-  let filteredProperties = properties;
+  const awaitedProperties = use(properties);
+  let filteredProperties;
 
-  if (!properties) return <div>no properties to load</div>;
+  if (!awaitedProperties || awaitedProperties.length === 0)
+    return <div>no properties to load</div>;
 
-  if (!sortBy || sortBy === "default") filteredProperties = properties;
+  if (!sortBy || sortBy === "default") filteredProperties = awaitedProperties;
   if (sortBy === "htlprice")
-    filteredProperties = properties.sort((a, b) => b.price - a.price);
+    filteredProperties = awaitedProperties.sort((a, b) => b.price - a.price);
   if (sortBy === "lthprice")
-    filteredProperties = properties.sort((a, b) => a.price - b.price);
+    filteredProperties = awaitedProperties.sort((a, b) => a.price - b.price);
   if (sortBy === "htlspace")
-    filteredProperties = properties.sort((a, b) => b.space - a.space);
+    filteredProperties = awaitedProperties.sort((a, b) => b.space - a.space);
   if (sortBy === "lthspace")
-    filteredProperties = properties.sort((a, b) => a.space - b.space);
+    filteredProperties = awaitedProperties.sort((a, b) => a.space - b.space);
 
   return (
     <main>

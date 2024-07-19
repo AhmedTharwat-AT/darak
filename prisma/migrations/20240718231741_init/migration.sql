@@ -12,6 +12,7 @@ CREATE TABLE "Properties" (
     "description" TEXT NOT NULL,
     "location" TEXT NOT NULL,
     "type" TEXT NOT NULL,
+    "mode" TEXT NOT NULL,
     "images" TEXT NOT NULL DEFAULT '',
     "price" INTEGER NOT NULL,
     "space" INTEGER NOT NULL,

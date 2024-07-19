@@ -11,7 +11,7 @@ function NavLinks() {
       <li>
         <Link
           className={` ${
-            pathname === "/" ? "text-alt font-semibold" : "text-blacker"
+            pathname === "/" ? "text-alt  font-semibold" : "text-blacker"
           }`}
           href="/"
         >

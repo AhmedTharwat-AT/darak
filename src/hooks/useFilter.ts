@@ -3,19 +3,28 @@
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useState } from "react";
 
+export type PropertyMode = "rent" | "sell";
+export type PropertyType = "all" | "apartment" | "building" | "store";
+
 function useFilter() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const [propertyType, setPropertyType] = useState<"rent" | "sell">(
-    (searchParams.get("type") as "rent" | "sell") || "rent"
+  const [propertyMode, setPropertyMode] = useState<PropertyMode>(
+    (searchParams.get("mode") as PropertyMode) || "rent"
+  );
+  const [propertyType, setPropertyType] = useState<PropertyType>(
+    (searchParams.get("type") as PropertyType) || "all"
   );
   const [rooms, setRooms] = useState<number>(() =>
     searchParams.get("rooms") ? Number(searchParams.get("rooms")) : 1
   );
   const [bathrooms, setBathrooms] = useState<number>(() =>
     searchParams.get("bathrooms") ? Number(searchParams.get("bathrooms")) : 1
+  );
+  const [location, setLocation] = useState<string>(() =>
+    searchParams.get("location") ? (searchParams.get("location") as string) : ""
   );
   const [priceRange, setPriceRange] = useState<{ from: number; to: number }>(
     () =>
@@ -40,18 +49,17 @@ function useFilter() {
           to: 200,
         }
   );
-  const [location, setLocation] = useState<string>(() =>
-    searchParams.get("location") ? (searchParams.get("location") as string) : ""
-  );
 
   // helper to set search params
 
   const createAllQueryString = useCallback(() => {
     const params = new URLSearchParams(searchParams.toString());
-
+    console.log(propertyType);
+    console.log("params : ", searchParams.get("type"));
     params.set("price", `${priceRange.from}-${priceRange.to}`);
     params.set("space", `${space.from}-${space.to}`);
     params.set("type", propertyType);
+    params.set("mode", propertyMode);
     params.set("rooms", String(rooms));
     params.set("bathrooms", String(bathrooms));
     params.set("location", location);
@@ -65,10 +73,15 @@ function useFilter() {
     space,
     location,
     bathrooms,
+    propertyMode,
   ]);
 
-  function handlePropertyType(type: "rent" | "sell") {
+  function handlePropertyType(type: PropertyType) {
     setPropertyType(type);
+  }
+
+  function handlePropertyMode(mode: PropertyMode) {
+    setPropertyMode(mode);
   }
 
   function handleRooms(value: number) {
@@ -91,8 +104,13 @@ function useFilter() {
     setSpace({ from, to });
   }
 
+  function handleLocation(value: string) {
+    setLocation(value);
+  }
+
   function reset() {
-    setPropertyType("rent");
+    setPropertyType("all");
+    setPropertyMode("rent");
     setRooms(1);
     setBathrooms(1);
     setPriceRange({ from: 100000, to: 1000_000 });
@@ -104,21 +122,24 @@ function useFilter() {
   function submitFilter() {
     // create query string for all fitlers
     const queryString = createAllQueryString();
-    router.push(pathname + "?" + queryString, { scroll: false });
+    router.push("/properties" + "?" + queryString, { scroll: false });
   }
 
   return {
     propertyType,
-    handlePropertyType,
+    propertyMode,
     rooms,
-    handleRooms,
     bathrooms,
-    handleBathrooms,
     priceRange,
-    handlePriceRange,
     location,
     space,
+    handlePropertyType,
+    handlePropertyMode,
+    handleRooms,
+    handleBathrooms,
+    handlePriceRange,
     handleSpaceRange,
+    handleLocation,
     submitFilter,
     reset,
   };

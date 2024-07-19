@@ -23,6 +23,7 @@ model Properties {
   description String
   location    String
   type        String
+  mode        String
   images      String   @default("")
   price       Int
   space       Int

@@ -1,25 +1,19 @@
 "use client";
 
 import Image from "next/image";
-import useFilter from "@/hooks/useFilter";
 import { Button } from "./ui/button";
-import { formatCurrency } from "@/lib/utils";
-
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-
 import QuantityHandler from "./QuantityHandler";
 import Slider from "./Slider";
+import PropertyTypeMenu from "./PropertyTypeMenu";
+
+import { formatCurrency } from "@/lib/utils";
+import { useFilterContext } from "@/context/FilterContext";
+import LocationInput from "./LocationInput";
 
 function PropertiesFilter() {
   const {
-    propertyType,
-    handlePropertyType,
+    propertyMode,
+    handlePropertyMode,
     handleSpaceRange,
     space,
     rooms,
@@ -30,7 +24,7 @@ function PropertiesFilter() {
     handlePriceRange,
     submitFilter,
     reset,
-  } = useFilter();
+  } = useFilterContext();
 
   return (
     <div className="font-poppins w-full max-w-80 bg-bgDark p-6 rounded-lg max-h-[870px] h-screen sticky top-4 overflow-y-auto filter-scroll">
@@ -40,19 +34,19 @@ function PropertiesFilter() {
         <div className="text-main border-main border rounded-lg overflow-hidden mb-6">
           <Button
             className={`text-main py-2 w-1/2 rounded-bl-none disabled:opacity-100 font-medium rounded-r-none uppercase ${
-              propertyType === "rent" ? "bg-main text-white" : "bg-transparent"
+              propertyMode === "rent" ? "bg-main text-white" : "bg-transparent"
             }`}
-            disabled={propertyType === "rent"}
-            onClick={() => handlePropertyType("rent")}
+            disabled={propertyMode === "rent"}
+            onClick={() => handlePropertyMode("rent")}
           >
             rent
           </Button>
           <Button
             className={`text-main py-2 w-1/2 rounded-bl-none disabled:opacity-100 font-medium rounded-l-none uppercase ${
-              propertyType === "sell" ? "bg-main text-white" : "bg-transparent"
+              propertyMode === "sell" ? "bg-main text-white" : "bg-transparent"
             }`}
-            disabled={propertyType === "sell"}
-            onClick={() => handlePropertyType("sell")}
+            disabled={propertyMode === "sell"}
+            onClick={() => handlePropertyMode("sell")}
           >
             sale
           </Button>
@@ -62,13 +56,7 @@ function PropertiesFilter() {
           <div className="space-y-2 pb-4 border-b border-grayLight">
             <h3 className="text-font capitalize">Location</h3>
             <div className="flex  items-center w-full bg-white p-1 ps-2 rounded-lg">
-              <input
-                type="text"
-                name="location"
-                id="location"
-                className="w-full"
-                placeholder="Search location"
-              />
+              <LocationInput icon={false} className="border-none p-0 w-full" />
               <Image
                 src="/assets/icons/gps.svg"
                 alt="search"
@@ -81,16 +69,7 @@ function PropertiesFilter() {
 
           <div className="space-y-2 pb-4 border-b border-grayLight">
             <h3 className="text-font capitalize ">type</h3>
-            <Select>
-              <SelectTrigger className="w-full p-1 ps-2  focus:ring-0 border-none bg-white rounded-lg ring-0 shadow-none appearance-none">
-                <SelectValue placeholder="All" />
-              </SelectTrigger>
-              <SelectContent side="bottom">
-                <SelectItem value="all">All</SelectItem>
-                <SelectItem value="apartment">Apartment</SelectItem>
-                <SelectItem value="building">Building</SelectItem>
-              </SelectContent>
-            </Select>
+            <PropertyTypeMenu className="w-full p-1 ps-2  focus:ring-0 border-none bg-white rounded-lg ring-0 shadow-none appearance-none" />
           </div>
 
           <div className="space-y-2 pb-4 border-b border-grayLight">

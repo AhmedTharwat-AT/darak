@@ -3,6 +3,7 @@ import "./globals.css";
 import { Playfair_Display, Poppins } from "next/font/google";
 
 import NavBar from "@/components/NavBar";
+import FilterProvider from "@/context/FilterContext";
 
 export const metadata: Metadata = {
   title: "Darak | Get Your Real State",
@@ -31,7 +32,9 @@ export default function RootLayout({
       <body>
         <div className={`relative  ${playfair.variable} ${poppins.variable}`}>
           <NavBar />
-          <main className="min-h-[calc(100vh-104px)] grid"> {children}</main>
+          <main className="min-h-[calc(100vh-104px)] grid font-playfair">
+            <FilterProvider>{children}</FilterProvider>
+          </main>
         </div>
       </body>
     </html>

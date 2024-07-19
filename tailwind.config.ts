@@ -19,12 +19,11 @@ const config = {
         "2xl": "9.75rem",
       },
     },
-    fontFamily: {
-      sans: ["var(--font-playfair)", "sans-serif"],
-    },
+
     extend: {
       fontFamily: {
         poppins: ["var(--font-poppins)", "sans-serif"],
+        playfair: ["var(--font-playfair)", "serif"],
       },
       colors: {
         main: "var(--main) ",
