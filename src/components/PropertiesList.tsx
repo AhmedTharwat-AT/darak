@@ -14,9 +14,9 @@ function PropertiesList({
   properties: ReturnType<typeof getProperties>;
 }) {
   const searchParams = useSearchParams();
+  const awaitedProperties = use(properties);
   const sortBy = searchParams.get("sortBy") || "";
 
-  const awaitedProperties = use(properties);
   let filteredProperties;
 
   if (!awaitedProperties || awaitedProperties.length === 0)

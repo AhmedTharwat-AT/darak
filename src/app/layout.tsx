@@ -4,6 +4,7 @@ import { Playfair_Display, Poppins } from "next/font/google";
 
 import NavBar from "@/components/NavBar";
 import FilterProvider from "@/context/FilterContext";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "Darak | Get Your Real State",
@@ -33,7 +34,10 @@ export default function RootLayout({
         <div className={`relative  ${playfair.variable} ${poppins.variable}`}>
           <NavBar />
           <main className="min-h-[calc(100vh-104px)] grid font-playfair">
-            <FilterProvider>{children}</FilterProvider>
+            {/* this suspense is for useSearchParams inside useFilter in the context provider */}
+            <Suspense fallback={null}>
+              <FilterProvider>{children}</FilterProvider>
+            </Suspense>
           </main>
         </div>
       </body>
