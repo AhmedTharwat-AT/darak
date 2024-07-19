@@ -6,9 +6,18 @@ import PropertyTypeMenu from "./PropertyTypeMenu";
 
 import { useFilterContext } from "@/context/FilterContext";
 import LocationInput from "./LocationInput";
+import Slider from "./Slider";
+import { formatCurrency } from "@/lib/utils";
+import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 
 function HomeFilter() {
-  const { propertyMode, handlePropertyMode, submitFilter } = useFilterContext();
+  const {
+    propertyMode,
+    handlePropertyMode,
+    submitFilter,
+    priceRange,
+    handlePriceRange,
+  } = useFilterContext();
 
   return (
     <div className="font-poppins mt-14 grid max-md:justify-center">
@@ -72,12 +81,32 @@ function HomeFilter() {
 
         <div className="flex flex-col w-full max-w-80 h-24 p-4 justify-between bg-bgLight rounded-md border border-grayLight">
           <h3 className="text-font text-sm lg:text-base uppercase">price</h3>
+
           <div className="flex justify-between items-center ">
-            <p className="capitalize text-base lg:text-xl">
-              egp 500,000 - 3,000,000
-            </p>
+            <Popover>
+              <PopoverTrigger>
+                <div className="flex gap-x-2 flex-wrap items-center">
+                  <p className="capitalize text-sm p-0 bg-none appearance-none h-auto">
+                    {formatCurrency(priceRange.from)}
+                  </p>
+                  <span>&mdash;</span>
+                  <p className="capitalize text-sm p-0 bg-none appearance-none h-auto">
+                    {formatCurrency(priceRange.to)}
+                  </p>
+                </div>
+              </PopoverTrigger>
+              <PopoverContent>
+                <Slider
+                  min={10}
+                  max={10000000}
+                  step={1000}
+                  value={priceRange}
+                  handler={handlePriceRange}
+                />
+              </PopoverContent>
+            </Popover>
             <Image
-              src={"/assets/icons/house.svg"}
+              src={"/assets/icons/money.svg"}
               alt="search"
               width={24}
               height={24}

@@ -15,7 +15,7 @@ function Slider({
   min: number;
   max: number;
   step?: number;
-  render: (value: { from: number; to: number }) => ReactNode;
+  render?: (value: { from: number; to: number }) => ReactNode;
 }) {
   const minValue = value.from >= min ? value.from : min;
   const maxValue =
@@ -24,7 +24,7 @@ function Slider({
   return (
     <>
       {/* label */}
-      {render({ from: minValue, to: maxValue })}
+      {render && render({ from: minValue, to: maxValue })}
 
       <MultiRangeSlider
         min={min}
@@ -42,10 +42,8 @@ function Slider({
           boxShadow: "none",
           paddingInline: "0",
         }}
-        minValue={value.from >= min ? value.from : min}
-        maxValue={
-          value.to >= max ? max : value.to < value.from ? value.from : value.to
-        }
+        minValue={minValue}
+        maxValue={maxValue}
         onChange={(e) => {
           handler({ from: e.minValue, to: e.maxValue });
         }}

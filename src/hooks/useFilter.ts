@@ -85,7 +85,7 @@ function useFilter() {
   }
 
   function handleRooms(value: number) {
-    if (value < 1) return;
+    if (value < 0) return;
     setRooms(value);
   }
 

@@ -27,7 +27,7 @@ function PropertiesFilter() {
   } = useFilterContext();
 
   return (
-    <div className="font-poppins w-full max-w-80 bg-bgDark p-6 rounded-lg max-h-[870px] h-screen sticky top-4 overflow-y-auto filter-scroll">
+    <div className="font-poppins w-full max-w-80 bg-bgDark p-6 rounded-lg max-h-[870px] h-screen lg:sticky top-4 overflow-y-auto filter-scroll shrink-0">
       <div>
         <h2 className="uppercase font-medium text-blacker mb-10">filter</h2>
 
@@ -105,6 +105,7 @@ function PropertiesFilter() {
 
           <div className="space-y-2 pb-4 border-b border-grayLight">
             <h3 className="text-font capitalize ">Price</h3>
+
             <Slider
               render={(value) => (
                 <div className="flex gap-2 items-center">
