@@ -9,7 +9,7 @@ async function properties() {
 
   return (
     <div className=" my-[3.5rem] relative">
-      <div className="container flex gap-8 md:flex-nowrap flex-wrap max-lg:justify-center">
+      <div className="container flex gap-8 md:flex-nowrap flex-wrap max-md:justify-center">
         <PropertiesFilter />
 
         <Suspense

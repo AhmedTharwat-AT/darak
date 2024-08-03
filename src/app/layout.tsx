@@ -31,7 +31,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <div className={`relative  ${playfair.variable} ${poppins.variable}`}>
+        <div
+          className={`relative bg-bgLight  ${playfair.variable} ${poppins.variable}`}
+        >
           <NavBar />
           <main className="min-h-[calc(100vh-104px)] grid font-playfair">
             {/* this suspense is for useSearchParams inside useFilter in the context provider */}

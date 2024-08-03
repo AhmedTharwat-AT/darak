@@ -38,7 +38,7 @@ function PropertiesList({
         <SortBy />
       </div>
       <div className="">
-        <ul className="grid grid-cols-1 lg:grid-cols-2  gap-4 2xl:grid-cols-3">
+        <ul className="grid md:grid-cols-1 sm:grid-cols-2 grid-cols-1 lg:grid-cols-2  gap-4 2xl:grid-cols-3">
           {filteredProperties?.map((property) => (
             <PropertyItem key={property.id} property={property} />
           ))}
