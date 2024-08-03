@@ -27,6 +27,7 @@ const config = {
       },
       colors: {
         main: "var(--main) ",
+        mainHover: "var(--main-hover) ",
         alt: "var(--alt)",
         font: "var(--font)",
         stroke: "var(--stroke)",

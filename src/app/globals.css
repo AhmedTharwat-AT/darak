@@ -5,6 +5,7 @@
 @layer base {
   :root {
     --main: #3e50d5;
+    --main-hover: #3e50d5ee;
     --alt: #f57c4e;
 
     --font: #676b7a;

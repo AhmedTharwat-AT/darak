@@ -1,14 +1,14 @@
 "use client";
 
 import Image from "next/image";
-import { Button } from "./ui/button";
+import { useFilterContext } from "@/context/FilterContext";
+import { formatCurrency } from "@/lib/utils";
+
 import QuantityHandler from "./QuantityHandler";
 import Slider from "./Slider";
 import PropertyTypeMenu from "./PropertyTypeMenu";
-
-import { formatCurrency } from "@/lib/utils";
-import { useFilterContext } from "@/context/FilterContext";
 import LocationInput from "./LocationInput";
+import { Button } from "./ui/button";
 
 function PropertiesFilter() {
   const {
@@ -27,7 +27,7 @@ function PropertiesFilter() {
   } = useFilterContext();
 
   return (
-    <div className="font-poppins w-full max-w-80 bg-bgDark p-6 rounded-lg max-h-[870px] h-screen lg:sticky top-4 overflow-y-auto filter-scroll shrink-0">
+    <div className="font-poppins w-full max-w-80 bg-bgDark p-6 rounded-lg max-h-[870px] h-screen md:sticky top-4 overflow-y-auto filter-scroll shrink-0">
       <div>
         <h2 className="uppercase font-medium text-blacker mb-10">filter</h2>
 
@@ -73,7 +73,15 @@ function PropertiesFilter() {
           </div>
 
           <div className="space-y-2 pb-4 border-b border-grayLight">
-            <h3 className="text-font capitalize ">space</h3>
+            <div className="flex justify-between items-center">
+              <h3 className="text-font capitalize ">space</h3>
+              <button
+                onClick={() => handleSpaceRange({ from: 50, to: 200 })}
+                className="  capitalize underline "
+              >
+                reset
+              </button>
+            </div>
 
             <Slider
               render={(value) => (
@@ -104,14 +112,27 @@ function PropertiesFilter() {
           </div>
 
           <div className="space-y-2 pb-4 border-b border-grayLight">
-            <h3 className="text-font capitalize ">Price</h3>
+            <div className="flex justify-between items-center">
+              <h3 className="text-font capitalize ">Price</h3>
+              <button
+                onClick={() => handlePriceRange({ from: 0, to: 1000000 })}
+                className="  capitalize underline "
+              >
+                reset
+              </button>
+            </div>
 
             <Slider
               render={(value) => (
-                <div className="flex gap-2 items-center">
-                  <p className="font-medium">{formatCurrency(value.from)}</p>
-                  <span>&mdash;</span>
-                  <p className="font-medium">{formatCurrency(value.to)}</p>
+                <div className="flex gap-2 flex-wrap items-center">
+                  <p className="font-medium max-w-full truncate">
+                    {formatCurrency(value.from)}
+                  </p>
+                  <span className="h-[6px] leading-[6px]">&mdash;</span>
+
+                  <p className="font-medium max-w-full truncate">
+                    {formatCurrency(value.to)}
+                  </p>
                 </div>
               )}
               min={10}

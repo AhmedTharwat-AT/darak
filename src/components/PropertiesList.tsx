@@ -1,20 +1,20 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-
-import { getProperties } from "@/lib/services";
+import { use } from "react";
+import type { getProperties } from "@/lib/services";
 
 import SortBy from "./SortBy";
 import Link from "next/link";
-import { use } from "react";
+import PropertyItem from "./PropertyItem";
 
 function PropertiesList({
   properties,
 }: {
   properties: ReturnType<typeof getProperties>;
 }) {
-  const searchParams = useSearchParams();
   const awaitedProperties = use(properties);
+  const searchParams = useSearchParams();
   const sortBy = searchParams.get("sortBy") || "";
 
   let filteredProperties;
@@ -40,14 +40,7 @@ function PropertiesList({
       <div className="">
         <ul className="grid grid-cols-1 lg:grid-cols-2  gap-4 2xl:grid-cols-3">
           {filteredProperties?.map((property) => (
-            <li key={property.id} className="border p-2 h-[400px] rounded-lg">
-              <p>{property.title}</p>
-              <p>{property.description}</p>
-              <p>{property.space}</p>
-              <p>{property.location}</p>
-              <p>{property.price}</p>
-              <Link href={`/properties/${property.id}`}>{property.title}</Link>
-            </li>
+            <PropertyItem key={property.id} property={property} />
           ))}
         </ul>
       </div>

@@ -54,8 +54,7 @@ function useFilter() {
 
   const createAllQueryString = useCallback(() => {
     const params = new URLSearchParams(searchParams.toString());
-    console.log(propertyType);
-    console.log("params : ", searchParams.get("type"));
+
     params.set("price", `${priceRange.from}-${priceRange.to}`);
     params.set("space", `${space.from}-${space.to}`);
     params.set("type", propertyType);

@@ -3,7 +3,7 @@
 import { createContext, useContext } from "react";
 import useFilter, { PropertyMode, PropertyType } from "@/hooks/useFilter";
 
-const initialState = {
+const initialState: ReturnType<typeof useFilter> = {
   propertyType: "all",
   propertyMode: "rent",
   rooms: 1,
@@ -22,9 +22,7 @@ const initialState = {
   handleSpaceRange: ({ from, to }: { from: number; to: number }) => {},
 };
 
-const FilterContext = createContext<ReturnType<typeof useFilter>>(
-  initialState as ReturnType<typeof useFilter>
-);
+const FilterContext = createContext<ReturnType<typeof useFilter>>(initialState);
 
 function FilterProvider({ children }: { children: React.ReactNode }) {
   const filter = useFilter();

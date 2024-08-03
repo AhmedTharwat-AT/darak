@@ -6,6 +6,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useFilterContext } from "@/context/FilterContext";
+import { PROPERTY_TYPES } from "@/lib/constants";
 
 function PropertyTypeMenu({
   className,
@@ -15,7 +16,6 @@ function PropertyTypeMenu({
   className: string;
 }) {
   const { propertyType, handlePropertyType } = useFilterContext();
-  const types = ["all", "apartment", "building", "store"];
 
   return (
     <Select onValueChange={handlePropertyType} value={propertyType}>
@@ -23,10 +23,10 @@ function PropertyTypeMenu({
         icon={icon}
         className={`bg-none border-none capitalize ${className}`}
       >
-        <SelectValue placeholder="All" />
+        <SelectValue className="capitalize" placeholder={propertyType} />
       </SelectTrigger>
       <SelectContent side="bottom">
-        {types.map((type) => (
+        {PROPERTY_TYPES.map((type) => (
           <SelectItem
             className="data-[highlighted]:bg-bgDarker capitalize "
             key={type}
