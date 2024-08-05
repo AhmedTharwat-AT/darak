@@ -9,8 +9,8 @@ async function properties() {
 
   return (
     <div className=" my-[3.5rem] relative">
-      <div className="container flex gap-8 md:flex-nowrap flex-wrap max-md:justify-center">
-        <PropertiesFilter />
+      <div className="container flex gap-4 md:flex-nowrap flex-wrap max-md:justify-center">
+        <PropertiesFilter className="md:block hidden md:max-w-80" />
 
         <Suspense
           key={crypto.randomUUID()}

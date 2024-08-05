@@ -14,7 +14,7 @@ function PropertyItem({ property }: Props) {
   return (
     <li
       key={property.id}
-      className="border font-poppins bg-white rounded-lg overflow-hidden"
+      className="border font-poppins  bg-white rounded-lg overflow-hidden"
     >
       <div className="relative">
         <Image
@@ -49,7 +49,7 @@ function PropertyItem({ property }: Props) {
         {/* seperator */}
         <hr className="bg-stroke my-4" />
 
-        <div className="flex  text-font items-center text-sm justify-between w-full ">
+        <div className="flex  text-font items-center text-sm justify-between w-full flex-wrap ">
           <p className="text-center flex  flex-nowrap line-clamp-1 items-center gap-2">
             <PiBedLight className="size-5" />
             {property.rooms} Rooms
@@ -58,7 +58,7 @@ function PropertyItem({ property }: Props) {
             <PiBathtub className="size-5" />
             {property.bathrooms} Bathrooms
           </p>
-          <p className="text-center flex flex-nowrap line-clamp-1 items-center gap-2">
+          <p className="text-center  flex flex-nowrap line-clamp-1 items-center gap-2">
             <BiArea className="size-5" />
             {property.space} Sqft
           </p>

@@ -32,7 +32,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <div
-          className={`relative bg-bgLight  ${playfair.variable} ${poppins.variable}`}
+          className={` bg-bgLight relative  ${playfair.variable} ${poppins.variable}`}
         >
           <NavBar />
           <main className="min-h-[calc(100vh-104px)] grid font-playfair">

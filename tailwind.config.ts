@@ -25,9 +25,13 @@ const config = {
         poppins: ["var(--font-poppins)", "sans-serif"],
         playfair: ["var(--font-playfair)", "serif"],
       },
+      screens: {
+        "4xl": "1750px",
+      },
       colors: {
         main: "var(--main) ",
         mainHover: "var(--main-hover) ",
+        mainLight: "var(--main-light) ",
         alt: "var(--alt)",
         font: "var(--font)",
         stroke: "var(--stroke)",
@@ -102,7 +106,7 @@ const config = {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        "popup-hero": "popup-hero 0.4s 0.3s ease-in-out both",
+        "popup-hero": "popup-hero 0.4s 0.3s ease-out both",
       },
     },
   },

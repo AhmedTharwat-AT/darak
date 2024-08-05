@@ -5,8 +5,8 @@ import { use } from "react";
 import type { getProperties } from "@/lib/services";
 
 import SortBy from "./SortBy";
-import Link from "next/link";
 import PropertyItem from "./PropertyItem";
+import MobileFilter from "./MobileFilter";
 
 function PropertiesList({
   properties,
@@ -34,11 +34,13 @@ function PropertiesList({
 
   return (
     <main>
-      <div className="mb-4">
+      <div className="mb-4 flex justify-end gap-4">
         <SortBy />
+        {/*filter for mobile view */}
+        <MobileFilter />
       </div>
       <div className="">
-        <ul className="grid md:grid-cols-1 sm:grid-cols-2 grid-cols-1 lg:grid-cols-2  gap-4 2xl:grid-cols-3">
+        <ul className="grid grid-cols-1 lg:grid-cols-2  gap-3 4xl:grid-cols-3">
           {filteredProperties?.map((property) => (
             <PropertyItem key={property.id} property={property} />
           ))}

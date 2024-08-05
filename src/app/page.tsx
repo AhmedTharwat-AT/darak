@@ -13,10 +13,10 @@ export default function Home() {
       <Image
         src={heroImage}
         alt="hero"
-        className="absolute bottom-0 -left-56 min-w-[600px] -z-10 animate-popup-hero "
+        className="absolute inset-0  h-full w-3/4 -left-52 z-[1] animate-popup-hero "
       />
 
-      <div className="container py-12 flex justify-center items-center h-full">
+      <div className="container py-12 flex relative z-10  justify-center items-center h-full">
         <div className="w-full ">
           <div className="text-center space-y-4 font-playfair">
             <h1 className="capitalize text-2xl sm:text-3xl lg:text-5xl font-semibold text-blacker">

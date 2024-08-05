@@ -19,16 +19,16 @@ function QuantityHandler({
       />
       <button
         onClick={() => handler(value - 1)}
-        className="size-9 text-3xl shrink-0 bg-font text-white hover:text-white hover:bg-main"
+        className="size-9 shrink-0 bg-font text-white hover:text-white hover:bg-main "
       >
-        -
+        <span className="text-3xl leading-7">-</span>
       </button>
 
       <button
         onClick={() => handler(value + 1)}
-        className="size-9 text-3xl shrink-0 bg-font text-white hover:text-white hover:bg-main"
+        className="size-9 shrink-0 bg-font text-white hover:text-white hover:bg-main"
       >
-        +
+        <span className="text-3xl leading-7">+</span>
       </button>
     </div>
   );

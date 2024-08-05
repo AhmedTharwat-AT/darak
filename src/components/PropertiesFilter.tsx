@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useFilterContext } from "@/context/FilterContext";
-import { formatCurrency } from "@/lib/utils";
+import { cn, formatCurrency } from "@/lib/utils";
 
 import QuantityHandler from "./QuantityHandler";
 import Slider from "./Slider";
@@ -10,7 +10,13 @@ import PropertyTypeMenu from "./PropertyTypeMenu";
 import LocationInput from "./LocationInput";
 import { Button } from "./ui/button";
 
-function PropertiesFilter() {
+function PropertiesFilter({
+  className,
+  showHeader = true,
+}: {
+  className?: string;
+  showHeader?: boolean;
+}) {
   const {
     propertyMode,
     handlePropertyMode,
@@ -27,9 +33,16 @@ function PropertiesFilter() {
   } = useFilterContext();
 
   return (
-    <div className="font-poppins w-full max-w-80 bg-bgDark p-6 rounded-lg max-h-[870px] h-screen md:sticky top-4 overflow-y-auto filter-scroll shrink-0">
+    <div
+      className={cn(
+        "font-poppins w-full  bg-bgDark p-6 rounded-lg max-h-[870px] h-screen md:sticky top-4 overflow-y-auto shrink-0",
+        className
+      )}
+    >
       <div>
-        <h2 className="uppercase font-medium text-blacker mb-10">filter</h2>
+        {showHeader && (
+          <h2 className="uppercase font-medium text-blacker mb-10">filter</h2>
+        )}
 
         <div className="text-main border-main border rounded-lg overflow-hidden mb-6">
           <Button
