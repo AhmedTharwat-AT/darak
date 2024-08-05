@@ -1,4 +1,4 @@
-import { getProperties } from "@/lib/services";
+import { getProperties, getPropertiesCount } from "@/lib/services";
 import { Suspense } from "react";
 
 import PropertiesFilter from "@/components/PropertiesFilter";
@@ -10,6 +10,7 @@ async function properties({
   searchParams: { page: string };
 }) {
   const properties = getProperties(page ? Number(page) : 1);
+  const propertiesCount = await getPropertiesCount();
 
   return (
     <div className=" my-[3.5rem] relative">
@@ -20,7 +21,10 @@ async function properties({
           key={crypto.randomUUID()}
           fallback={<div className="grow">Loading...</div>}
         >
-          <PropertiesList properties={properties} />
+          <PropertiesList
+            properties={properties}
+            propertiesCount={propertiesCount}
+          />
         </Suspense>
       </div>
     </div>

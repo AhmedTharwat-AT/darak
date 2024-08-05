@@ -21,7 +21,10 @@ function SortBy() {
   }
 
   return (
-    <Select onValueChange={handleSorting}>
+    <Select
+      onValueChange={handleSorting}
+      value={searchParams.get("sortBy") || "default"}
+    >
       <SelectTrigger className="w-fit px-3 py-0   font-semibold font-poppins  focus:ring-0 border-none bg-main text-white gap-2 rounded-lg ring-0 shadow-none appearance-none">
         <SelectValue placeholder="Sort By" />
       </SelectTrigger>
