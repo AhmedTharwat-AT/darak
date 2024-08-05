@@ -35,7 +35,7 @@ export default function RootLayout({
           className={` bg-bgLight relative  ${playfair.variable} ${poppins.variable}`}
         >
           <NavBar />
-          <main className="min-h-[calc(100vh-104px)] grid font-playfair">
+          <main className="md:min-h-[calc(100vh-104px)] min-h-[calc(100vh-80px)] grid font-playfair antialiased">
             {/* this suspense is for useSearchParams inside useFilter in the context provider */}
             <Suspense fallback={null}>
               <FilterProvider>{children}</FilterProvider>

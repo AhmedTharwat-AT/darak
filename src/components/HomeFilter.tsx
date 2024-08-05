@@ -1,13 +1,13 @@
 "use client";
 
-import { Button } from "./ui/button";
-import Image from "next/image";
-import PropertyTypeMenu from "./PropertyTypeMenu";
-
 import { useFilterContext } from "@/context/FilterContext";
+import { formatCurrency } from "@/lib/utils";
+
+import Image from "next/image";
+import { Button } from "./ui/button";
 import LocationInput from "./LocationInput";
 import Slider from "./Slider";
-import { formatCurrency } from "@/lib/utils";
+import PropertyTypeMenu from "./PropertyTypeMenu";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 
 function HomeFilter() {

@@ -86,4 +86,10 @@
     background: var(--stroke);
     border-radius: 10px;
   }
+
+  /* font stroke */
+
+  .font-stroke {
+    -webkit-text-stroke: 1px black;
+  }
 }

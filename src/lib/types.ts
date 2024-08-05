@@ -5,14 +5,20 @@ export type PropertyTypes =
   | "store"
   | "office";
 
-export interface Property {
+export interface PropertyImage {
   id: number;
+  url: string;
+  properityId: string;
+}
+
+export interface Property {
+  id: string;
   title: string;
   description: string;
   location: string;
   type: string;
   mode: string;
-  images: string;
+  images: PropertyImage[];
   price: number;
   space: number;
   rooms: number;

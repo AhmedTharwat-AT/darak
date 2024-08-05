@@ -31,7 +31,7 @@ function PropertiesList({
     filteredProperties = awaitedProperties.sort((a, b) => b.space - a.space);
   if (sortBy === "lthspace")
     filteredProperties = awaitedProperties.sort((a, b) => a.space - b.space);
-
+  console.log(filteredProperties);
   return (
     <main>
       <div className="mb-4 flex justify-end gap-4">
@@ -40,7 +40,7 @@ function PropertiesList({
         <MobileFilter />
       </div>
       <div className="">
-        <ul className="grid grid-cols-1 lg:grid-cols-2  gap-3 4xl:grid-cols-3">
+        <ul className="grid grid-cols-1 lg:grid-cols-2  gap-5 4xl:grid-cols-3">
           {filteredProperties?.map((property) => (
             <PropertyItem key={property.id} property={property} />
           ))}

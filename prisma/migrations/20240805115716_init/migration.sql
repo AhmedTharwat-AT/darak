@@ -7,13 +7,12 @@ CREATE TABLE "User" (
 
 -- CreateTable
 CREATE TABLE "Properties" (
-    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "id" TEXT NOT NULL PRIMARY KEY,
     "title" TEXT NOT NULL,
     "description" TEXT NOT NULL,
     "location" TEXT NOT NULL,
     "type" TEXT NOT NULL,
     "mode" TEXT NOT NULL,
-    "images" TEXT NOT NULL DEFAULT '',
     "price" INTEGER NOT NULL,
     "space" INTEGER NOT NULL,
     "rooms" INTEGER NOT NULL,
@@ -22,6 +21,14 @@ CREATE TABLE "Properties" (
     "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" DATETIME NOT NULL,
     CONSTRAINT "Properties_ownerId_fkey" FOREIGN KEY ("ownerId") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+-- CreateTable
+CREATE TABLE "PropertyImages" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "url" TEXT NOT NULL,
+    "properityId" TEXT NOT NULL,
+    CONSTRAINT "PropertyImages_properityId_fkey" FOREIGN KEY ("properityId") REFERENCES "Properties" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- CreateIndex

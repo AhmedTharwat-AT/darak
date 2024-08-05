@@ -13,7 +13,7 @@ export default function Home() {
       <Image
         src={heroImage}
         alt="hero"
-        className="absolute inset-0  h-full w-3/4 -left-52 z-[1] animate-popup-hero "
+        className="absolute inset-0  h-full w-3/4 -left-52 z-[1] animate-popup-hero object-cover"
       />
 
       <div className="container py-12 flex relative z-10  justify-center items-center h-full">

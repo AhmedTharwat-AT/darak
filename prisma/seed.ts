@@ -13,7 +13,11 @@ async function main() {
           description: "ممتاز جدا",
           location: "معادى",
           type: "office",
-          images: "defaly.jpg",
+          images: {
+            create: {
+              url: "https://loremflickr.com/300/200",
+            },
+          },
           mode: "rent",
           price: 1500,
           space: 100,
@@ -35,7 +39,11 @@ async function main() {
           description: "Luxurious villa with stunning views",
           location: "Downtown",
           type: "apartment",
-          images: "image4.jpg",
+          images: {
+            create: {
+              url: "https://loremflickr.com/300/200",
+            },
+          },
           mode: "sale",
           price: 500000,
           space: 500,
@@ -57,7 +65,11 @@ async function main() {
           description: "Modern apartment in the heart of NYC",
           location: "New York City",
           type: "store",
-          images: "image7.jpg",
+          images: {
+            create: {
+              url: "https://loremflickr.com/300/200",
+            },
+          },
           mode: "rent",
           price: 3000,
           space: 120,
@@ -67,19 +79,127 @@ async function main() {
       },
     },
   });
-  const david = await prisma.user.upsert({
-    where: { email: "david@example.com" },
+  const edward = await prisma.user.upsert({
+    where: { email: "edward@example.com" },
     update: {},
     create: {
-      email: "david@example.com",
-      name: "David",
+      email: "edward@example.com",
+      name: "edward",
       properties: {
         create: {
           title: "Commercial Building for Sale in Business District",
           description: "Spacious building suitable for offices",
           location: "Business District",
           type: "building",
-          images: "image10.jpg",
+          images: {
+            create: {
+              url: "https://loremflickr.com/300/200",
+            },
+          },
+          mode: "sale",
+          price: 1000000,
+          space: 1000,
+          rooms: 10,
+          bathrooms: 5,
+        },
+      },
+    },
+  });
+  const shaun = await prisma.user.upsert({
+    where: { email: "shaun@example.com" },
+    update: {},
+    create: {
+      email: "shaun@example.com",
+      name: "shaun",
+      properties: {
+        create: {
+          title: "Commercial Building for Sale in Business District",
+          description: "Spacious building suitable for offices",
+          location: "Business District",
+          type: "building",
+          images: {
+            create: {
+              url: "https://loremflickr.com/300/200",
+            },
+          },
+          mode: "sale",
+          price: 1000000,
+          space: 1000,
+          rooms: 10,
+          bathrooms: 5,
+        },
+      },
+    },
+  });
+  const hossam = await prisma.user.upsert({
+    where: { email: "hossam@example.com" },
+    update: {},
+    create: {
+      email: "hossam@example.com",
+      name: "hossam",
+      properties: {
+        create: {
+          title: "Commercial Building for Sale in Business District",
+          description: "Spacious building suitable for offices",
+          location: "Business District",
+          type: "building",
+          images: {
+            create: {
+              url: "https://loremflickr.com/300/200",
+            },
+          },
+          mode: "sale",
+          price: 1000000,
+          space: 1000,
+          rooms: 10,
+          bathrooms: 5,
+        },
+      },
+    },
+  });
+  const ezio = await prisma.user.upsert({
+    where: { email: "ezio@example.com" },
+    update: {},
+    create: {
+      email: "ezio@example.com",
+      name: "ezio",
+      properties: {
+        create: {
+          title: "Commercial Building for Sale in Business District",
+          description: "Spacious building suitable for offices",
+          location: "Business District",
+          type: "building",
+          images: {
+            create: {
+              url: "https://loremflickr.com/300/200",
+            },
+          },
+          mode: "sale",
+          price: 1000000,
+          space: 1000,
+          rooms: 10,
+          bathrooms: 5,
+        },
+      },
+    },
+  });
+  const shoeb = await prisma.user.upsert({
+    where: { email: "shoeb@example.com" },
+    update: {},
+    create: {
+      email: "shoeb@example.com",
+      name: "shoeb",
+      properties: {
+        create: {
+          title: "Commercial Building for Sale in Business District",
+          description: "Spacious building suitable for offices",
+          location: "Business District",
+          type: "building",
+          images: {
+            create: {
+              url: "https://loremflickr.com/300/200",
+            },
+          },
           mode: "sale",
           price: 1000000,
           space: 1000,

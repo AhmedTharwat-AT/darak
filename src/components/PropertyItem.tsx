@@ -1,7 +1,7 @@
-import { Property } from "@/lib/types";
 import { formatCurrency, relativeDateInDays } from "@/lib/utils";
+import { Property } from "@/lib/types";
+
 import Image from "next/image";
-import Link from "next/link";
 import { FaLocationDot } from "react-icons/fa6";
 import { PiBedLight, PiBathtub } from "react-icons/pi";
 import { BiArea } from "react-icons/bi";
@@ -14,11 +14,11 @@ function PropertyItem({ property }: Props) {
   return (
     <li
       key={property.id}
-      className="border font-poppins  bg-white rounded-lg overflow-hidden"
+      className="border font-poppins shadow-md bg-white rounded-lg overflow-hidden"
     >
       <div className="relative">
         <Image
-          src={"https://placehold.co/400x400"}
+          src={property.images[0].url || "https://placehold.co/400x400"}
           alt={property.title}
           width={400}
           height={200}
@@ -26,11 +26,13 @@ function PropertyItem({ property }: Props) {
           unoptimized
         />
 
-        <div className="flex text-white absolute bottom-2 w-full justify-between items-center px-4">
+        <div className="flex text-white absolute bottom-2 w-full justify-between items-center px-4 ">
           <p className="font-medium text-sm capitalize">
             {relativeDateInDays(property.createdAt)}
           </p>
-          <p className="font-bold">{formatCurrency(property.price)}</p>
+          <p className="font-bold font-stroke">
+            {formatCurrency(property.price)}
+          </p>
         </div>
       </div>
 
@@ -49,16 +51,23 @@ function PropertyItem({ property }: Props) {
         {/* seperator */}
         <hr className="bg-stroke my-4" />
 
-        <div className="flex  text-font items-center text-sm justify-between w-full flex-wrap ">
-          <p className="text-center flex  flex-nowrap line-clamp-1 items-center gap-2">
+        <div className="flex  text-font items-center text-sm justify-between w-full flex-wrap gap-2 ">
+          <p className="text-center flex flex-col  flex-nowrap line-clamp-1 items-center gap-1">
             <PiBedLight className="size-5" />
             {property.rooms} Rooms
           </p>
-          <p className="text-center flex flex-nowrap line-clamp-1 items-center gap-2">
+          <span className="min-h-full self-stretch w-[1px] block bg-stroke">
+            {" "}
+          </span>
+          {/* <p className="text-center flex flex-nowrap line-clamp-1 items-center gap-2"> */}
+          <p className="text-center flex flex-col  flex-nowrap line-clamp-1 items-center gap-1">
             <PiBathtub className="size-5" />
             {property.bathrooms} Bathrooms
           </p>
-          <p className="text-center  flex flex-nowrap line-clamp-1 items-center gap-2">
+          <span className="min-h-full self-stretch w-[1px] block bg-stroke">
+            {" "}
+          </span>
+          <p className="text-center flex flex-col  flex-nowrap line-clamp-1 items-center gap-1">
             <BiArea className="size-5" />
             {property.space} Sqft
           </p>
