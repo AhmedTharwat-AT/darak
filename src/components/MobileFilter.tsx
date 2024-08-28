@@ -24,8 +24,8 @@ function MobileFilter() {
           Filter
         </DialogTitle>
         <PropertiesFilter
-          className=" h-auto p-0 px-6 min-h-0"
           showHeader={false}
+          className=" h-auto p-0 px-6 min-h-0"
         />
       </DialogContent>
     </Dialog>

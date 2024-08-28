@@ -1,18 +1,18 @@
 "use client";
 
 import React from "react";
+import { cn } from "@/lib/utils";
 import { useRouter, useSearchParams } from "next/navigation";
 import { PAGE_SIZE } from "@/lib/constants";
 
 import { Button } from "./ui/button";
 import { BsChevronDoubleLeft, BsChevronDoubleRight } from "react-icons/bs";
-import { cn } from "@/lib/utils";
 
 function Paginate({
-  propertiesCount,
+  propertiesCount = 0,
   className,
 }: {
-  propertiesCount: number;
+  propertiesCount: number | undefined;
   className?: string;
 }) {
   const router = useRouter();
@@ -20,7 +20,7 @@ function Paginate({
 
   const currPage = Number(searchParams.get("page")) || 1;
   const pagesCount = Math.ceil(propertiesCount / PAGE_SIZE);
-  const hasNext = propertiesCount > currPage * PAGE_SIZE;
+  const hasNext = currPage < pagesCount;
 
   function goToPage(page: number) {
     const params = new URLSearchParams(searchParams);
@@ -40,16 +40,35 @@ function Paginate({
       </Button>
 
       <Button
+        disabled={currPage === 1}
         variant={currPage === 1 ? "paginationActive" : "pagination"}
         onClick={() => goToPage(1)}
       >
         1
       </Button>
 
-      {currPage >= 3 && <span>...</span>}
+      {currPage >= 4 && pagesCount > 4 && <span>...</span>}
+
+      {currPage == pagesCount && pagesCount >= 4 && (
+        <Button variant={"pagination"} onClick={() => goToPage(currPage - 2)}>
+          {currPage - 2}
+        </Button>
+      )}
+
+      {currPage >= 3 && currPage <= pagesCount && (
+        <Button variant={"pagination"} onClick={() => goToPage(currPage - 1)}>
+          {currPage - 1}
+        </Button>
+      )}
 
       {currPage > 1 && currPage < pagesCount && (
-        <Button variant={"paginationActive"}>{currPage}</Button>
+        <Button
+          disabled
+          variant={"paginationActive"}
+          onClick={() => goToPage(currPage)}
+        >
+          {currPage} 3
+        </Button>
       )}
 
       {currPage + 1 < pagesCount && (
@@ -58,16 +77,17 @@ function Paginate({
         </Button>
       )}
 
-      {currPage + 2 < pagesCount && (
+      {currPage + 2 < pagesCount && pagesCount <= 4 && (
         <Button variant={"pagination"} onClick={() => goToPage(currPage + 2)}>
           {currPage + 2}
         </Button>
       )}
 
-      {currPage <= pagesCount - 3 && <span>...</span>}
+      {currPage <= pagesCount - 3 && pagesCount > 4 && <span>...</span>}
 
       {pagesCount > 1 && (
         <Button
+          disabled={currPage === pagesCount}
           variant={currPage === pagesCount ? "paginationActive" : "pagination"}
           onClick={() => goToPage(pagesCount)}
         >

@@ -97,7 +97,7 @@ function PropertiesFilter({
             </div>
 
             <Slider
-              render={(value) => (
+              renderLabel={(value) => (
                 <div className="flex justify-between gap-2 items-center">
                   <p className="font-medium">
                     {value.from} m<sup>2</sup>
@@ -136,7 +136,7 @@ function PropertiesFilter({
             </div>
 
             <Slider
-              render={(value) => (
+              renderLabel={(value) => (
                 <div className="flex gap-2 flex-wrap items-center">
                   <p className="font-medium max-w-full truncate">
                     {formatCurrency(value.from)}
