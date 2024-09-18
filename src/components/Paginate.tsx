@@ -12,7 +12,7 @@ function Paginate({
   propertiesCount = 0,
   className,
 }: {
-  propertiesCount: number | undefined;
+  propertiesCount: number;
   className?: string;
 }) {
   const router = useRouter();
@@ -67,7 +67,7 @@ function Paginate({
           variant={"paginationActive"}
           onClick={() => goToPage(currPage)}
         >
-          {currPage} 3
+          {currPage}
         </Button>
       )}
 

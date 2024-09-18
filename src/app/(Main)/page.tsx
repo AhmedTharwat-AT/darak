@@ -2,13 +2,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
 
-import heroImage from "./../../public/assets/hero-image.jpg";
+import heroImage from "../../../public/assets/hero-image.jpg";
 import { Button } from "@/components/ui/button";
 import HomeFilter from "@/components/HomeFilter";
+import FilterProvider from "@/context/FilterContext";
+import { signIn, signOut } from "../../../auth";
 
 export default function Home() {
   return (
-    <div className=" ">
+    <div>
       {/* background image */}
       <Image
         src={heroImage}
@@ -16,7 +18,7 @@ export default function Home() {
         className="absolute inset-0  h-full w-3/4 -left-52 z-[1] animate-popup-hero object-cover"
       />
 
-      <div className="container py-12 flex relative z-10  justify-center items-center h-full">
+      <div className="container xl:py-12 py-8 flex relative z-10  justify-center items-center h-full">
         <div className="w-full ">
           <div className="text-center space-y-4 font-playfair">
             <h1 className="capitalize text-2xl sm:text-3xl lg:text-5xl font-semibold text-blacker">
@@ -27,6 +29,9 @@ export default function Home() {
               trusted marketplace.
             </p>
           </div>
+
+          <Link href="/api/auth/signin">signin</Link>
+          <Link href="/api/auth/signout">signout</Link>
 
           <div className="flex justify-center items-center gap-4 font-poppins mt-6">
             <Button className="text-sm sm:text-lg lg:text-xl capitalize font-medium border border-main">
@@ -40,8 +45,10 @@ export default function Home() {
             </Button>
           </div>
 
-          <Suspense fallback={null}>
-            <HomeFilter />
+          <Suspense fallback={<div>Loading home filter...</div>}>
+            <FilterProvider>
+              <HomeFilter />
+            </FilterProvider>
           </Suspense>
         </div>
       </div>

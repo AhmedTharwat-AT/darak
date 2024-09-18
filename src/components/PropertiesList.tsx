@@ -5,17 +5,15 @@ import PropertyItem from "./PropertyItem";
 async function PropertiesList({
   page,
   sortBy,
-  propertiesCount,
 }: {
   page: string;
   sortBy: string;
-  propertiesCount: number | undefined;
 }) {
   const properties = await getProperties(page ? Number(page) : 1);
 
   let filteredProperties;
 
-  if (!propertiesCount || !properties || properties.length === 0)
+  if (!properties || properties.length === 0)
     return <div>no properties to load</div>;
 
   if (sortBy === "default" || !sortBy) filteredProperties = properties;

@@ -17,6 +17,7 @@ function SortBy() {
   function handleSorting(value: string) {
     const params = new URLSearchParams(searchParams.toString());
     params.set("sortBy", value);
+    params.set("page", "1");
     router.push(`?${params.toString()}`);
   }
 

@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useFilterContext } from "@/context/FilterContext";
+// import { useFilterContext } from "@/context/FilterContext";
 import { cn, formatCurrency } from "@/lib/utils";
 
 import QuantityHandler from "./QuantityHandler";
@@ -9,6 +9,8 @@ import Slider from "./Slider";
 import PropertyTypeMenu from "./PropertyTypeMenu";
 import LocationInput from "./LocationInput";
 import { Button } from "./ui/button";
+import useFilter from "@/hooks/useFilter";
+import { useFilterContext } from "@/context/FilterContext";
 
 function PropertiesFilter({
   className,
@@ -54,6 +56,7 @@ function PropertiesFilter({
           >
             rent
           </Button>
+
           <Button
             className={`text-main py-2 w-1/2 rounded-bl-none disabled:opacity-100 font-medium rounded-l-none uppercase ${
               propertyMode === "sell" ? "bg-main text-white" : "bg-transparent"
@@ -61,7 +64,7 @@ function PropertiesFilter({
             disabled={propertyMode === "sell"}
             onClick={() => handlePropertyMode("sell")}
           >
-            sale
+            sell
           </Button>
         </div>
 

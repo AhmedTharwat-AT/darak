@@ -27,9 +27,10 @@ const config = {
       },
       screens: {
         "4xl": "1750px",
+        bp: "1280px",
       },
       colors: {
-        main: "var(--main) ",
+        main: "hsl(var(--main)) ",
         mainHover: "var(--main-hover) ",
         mainLight: "var(--main-light) ",
         alt: "var(--alt)",
@@ -98,9 +99,9 @@ const config = {
           to: { height: "0" },
         },
         "popup-hero": {
-          "0%": { transform: "translateY(100%)" },
-          "80%": { transform: "translateY(0%)" },
-          "100%": { transform: "translateY(2%)" },
+          "0%": { transform: "translateY(100%) scaleY(1.05)" },
+          "80%": { transform: "translateY(-2%) scaleY(1.05)" },
+          "100%": { transform: "translateY(0%) scaleY(1)" },
         },
       },
       animation: {

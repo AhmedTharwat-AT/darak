@@ -4,7 +4,7 @@
 
 @layer base {
   :root {
-    --main: #3e50d5;
+    --main: 233 64% 54%;
     --main-hover: #3e50d5ee;
     --main-light: #eceefb;
     --alt: #f57c4e;

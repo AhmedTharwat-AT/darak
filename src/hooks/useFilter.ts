@@ -62,6 +62,7 @@ function useFilter() {
     params.set("rooms", String(rooms));
     params.set("bathrooms", String(bathrooms));
     params.set("location", location);
+    params.set("page", "1");
 
     return params.toString();
   }, [
@@ -121,6 +122,7 @@ function useFilter() {
   function submitFilter() {
     // create query string for all fitlers
     const queryString = createAllQueryString();
+    console.log("submitting", queryString);
     router.push("/properties" + "?" + queryString, { scroll: false });
   }
 

@@ -1,15 +1,6 @@
-import type { Metadata } from "next";
-import "./globals.css";
 import { Playfair_Display, Poppins } from "next/font/google";
-
-import NavBar from "@/components/NavBar";
-import FilterProvider from "@/context/FilterContext";
-import { Suspense } from "react";
-
-export const metadata: Metadata = {
-  title: "Darak | Get Your Real State",
-  description: "",
-};
+import "./globals.css";
+import { Metadata } from "next";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -23,26 +14,20 @@ const poppins = Poppins({
   variable: "--font-poppins",
 });
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export const metadata: Metadata = {
+  title: {
+    template: "%s | Darak",
+    default: "Darak | Get Your Real State",
+  },
+  description: "",
+};
+
+function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <body>
-        <div
-          className={` bg-bgLight relative  ${playfair.variable} ${poppins.variable}`}
-        >
-          <NavBar />
-          <main className="md:min-h-[calc(100vh-104px)] min-h-[calc(100vh-80px)] grid font-playfair antialiased">
-            {/* this suspense is for useSearchParams inside useFilter in the context provider */}
-            <Suspense fallback={null}>
-              <FilterProvider>{children}</FilterProvider>
-            </Suspense>
-          </main>
-        </div>
-      </body>
+    <html lang="en" className={`${playfair.variable} ${poppins.variable}`}>
+      <body>{children}</body>
     </html>
   );
 }
+
+export default RootLayout;

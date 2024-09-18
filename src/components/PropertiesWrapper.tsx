@@ -1,4 +1,4 @@
-import { getProperties, getPropertiesCount } from "@/lib/services";
+import { getPropertiesCount } from "@/lib/services";
 
 import { Suspense } from "react";
 
@@ -16,35 +16,35 @@ async function PropertiesWrapper({
 }) {
   const propertiesCount = await getPropertiesCount();
 
+  if (!propertiesCount) return <div>no properties to load</div>;
+
   return (
-    <section className="flex flex-col w-full">
+    <section className="flex flex-col w-full max-w-[450px] lg:max-w-full">
       <div className="mb-4 flex lg:justify-between justify-end gap-4">
         <SortBy />
-        <Suspense fallback={null}>
-          <Paginate
-            propertiesCount={propertiesCount}
-            className="lg:flex hidden"
-          />
-        </Suspense>
+
+        <Paginate
+          propertiesCount={propertiesCount}
+          className="bp:flex hidden"
+        />
+
         {/* mobile filter */}
         <MobileFilter />
       </div>
 
-      <Suspense key={crypto.randomUUID()} fallback={<div>Loading list...</div>}>
-        <PropertiesList
-          page={page}
-          sortBy={sortBy}
-          propertiesCount={propertiesCount}
-        />
+      <Suspense
+        key={crypto.randomUUID()}
+        fallback={<div>Fetching properties list...</div>}
+      >
+        <PropertiesList page={page} sortBy={sortBy} />
       </Suspense>
 
       {/* mobile pagination */}
-      <Suspense fallback={null}>
-        <Paginate
-          propertiesCount={propertiesCount}
-          className="justify-center mt-auto pt-8 lg:hidden flex"
-        />
-      </Suspense>
+
+      <Paginate
+        propertiesCount={propertiesCount}
+        className="justify-center mt-auto pt-8 bp:hidden flex"
+      />
     </section>
   );
 }

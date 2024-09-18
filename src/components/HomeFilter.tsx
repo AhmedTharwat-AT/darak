@@ -1,13 +1,14 @@
 "use client";
 
-import { useFilterContext } from "@/context/FilterContext";
+// import { useFilterContext } from "@/context/FilterContext";
 import { formatCurrency } from "@/lib/utils";
 
+import { useFilterContext } from "@/context/FilterContext";
 import Image from "next/image";
-import { Button } from "./ui/button";
 import LocationInput from "./LocationInput";
-import Slider from "./Slider";
 import PropertyTypeMenu from "./PropertyTypeMenu";
+import Slider from "./Slider";
+import { Button } from "./ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 
 function HomeFilter() {
@@ -32,6 +33,7 @@ function HomeFilter() {
           >
             for rent
           </Button>
+
           <Button
             className={`text-black py-4 rounded-bl-none disabled:opacity-100 rounded-br-none uppercase ${
               propertyMode === "sell" ? "bg-white" : "bg-grayLight"
@@ -48,6 +50,7 @@ function HomeFilter() {
             <h3 className="text-font text-sm lg:text-base uppercase">
               location
             </h3>
+
             <div className="flex justify-between items-center gap-1 ">
               <LocationInput
                 icon={false}
@@ -67,11 +70,13 @@ function HomeFilter() {
             <h3 className="text-font text-sm lg:text-base uppercase">
               property type
             </h3>
+
             <div className="flex justify-between items-center ">
               <PropertyTypeMenu
                 icon={false}
                 className="capitalize text-base lg:text-xl p-0 bg-none appearance-none h-auto"
               />
+
               <Image
                 src={"/assets/icons/house.svg"}
                 alt="house"
@@ -84,6 +89,7 @@ function HomeFilter() {
 
           <div className="flex flex-col w-full max-w-96 sm:max-w-80 h-24 p-4 justify-between bg-bgLight rounded-md border border-grayLight">
             <h3 className="text-font text-sm lg:text-base uppercase">price</h3>
+
             <div className="flex justify-between  items-center gap-x-1 ">
               <Popover>
                 <PopoverTrigger>
@@ -91,12 +97,15 @@ function HomeFilter() {
                     <p className="capitalize text-sm p-0 bg-none appearance-none h-auto truncate">
                       {formatCurrency(priceRange.from)}
                     </p>
+
                     <span className="h-[6px] leading-[6px]">&mdash;</span>
+
                     <p className="capitalize  text-sm p-0 bg-none appearance-none h-auto max-w-[150px] truncate">
                       {formatCurrency(priceRange.to)}
                     </p>
                   </div>
                 </PopoverTrigger>
+
                 <PopoverContent>
                   <div className="flex flex-col">
                     <Slider
@@ -115,6 +124,7 @@ function HomeFilter() {
                   </div>
                 </PopoverContent>
               </Popover>
+
               <Image
                 src={"/assets/icons/money.svg"}
                 alt="money"
