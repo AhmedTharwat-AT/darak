@@ -1,13 +1,13 @@
-import PropertiesFilter from "./PropertiesFilter";
 import {
   Dialog,
   DialogContent,
-  DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
 import FilterProvider from "@/context/FilterContext";
 import { CiFilter } from "react-icons/ci";
+import PropertiesFilter from "./PropertiesFilter";
+import { Suspense } from "react";
 
 function MobileFilter() {
   return (
@@ -25,12 +25,14 @@ function MobileFilter() {
           Filter
         </DialogTitle>
 
-        <FilterProvider>
-          <PropertiesFilter
-            showHeader={false}
-            className=" h-auto p-0 px-6 min-h-0"
-          />
-        </FilterProvider>
+        <Suspense fallback={null}>
+          <FilterProvider>
+            <PropertiesFilter
+              showHeader={false}
+              className=" h-auto p-0 px-6 min-h-0"
+            />
+          </FilterProvider>
+        </Suspense>
       </DialogContent>
     </Dialog>
   );

@@ -2,45 +2,45 @@ import prisma from "./db";
 import { PAGE_SIZE } from "../lib/constants";
 import { unstable_cache as nextCache } from "next/cache";
 
-export const getProperties = async (page = 1) => {
-  await new Promise((resolve) => setTimeout(resolve, 3000));
-  console.log("run ");
-  try {
-    const properties = await prisma.properties.findMany({
-      include: {
-        images: true,
-      },
-      take: PAGE_SIZE,
-      skip: PAGE_SIZE * (page - 1),
-    });
-    return properties;
-  } catch (err) {
-    console.log(err);
-  }
-};
+// export const getProperties = async (page = 1) => {
+//   await new Promise((resolve) => setTimeout(resolve, 3000));
+//   console.log("run ");
+//   try {
+//     const properties = await prisma.properties.findMany({
+//       include: {
+//         images: true,
+//       },
+//       take: PAGE_SIZE,
+//       skip: PAGE_SIZE * (page - 1),
+//     });
+//     return properties;
+//   } catch (err) {
+//     console.log(err);
+//   }
+// };
 
-// export const getProperties = nextCache(
-//   async (page = 1) => {
-//     // await new Promise((resolve) => setTimeout(resolve, 1000));
-//     try {
-//       const properties = await prisma.properties.findMany({
-//         include: {
-//           images: true,
-//         },
-//         take: PAGE_SIZE,
-//         skip: PAGE_SIZE * (page - 1),
-//       });
+export const getProperties = nextCache(
+  async (page = 1) => {
+    await new Promise((resolve) => setTimeout(resolve, 3000));
+    try {
+      const properties = await prisma.properties.findMany({
+        include: {
+          images: true,
+        },
+        take: PAGE_SIZE,
+        skip: PAGE_SIZE * (page - 1),
+      });
 
-//       return properties;
-//     } catch (err) {
-//       console.log("err", err);
+      return properties;
+    } catch (err) {
+      console.log("err", err);
 
-//       return null;
-//     }
-//   },
-//   ["properties"],
-//   { revalidate: 15 }
-// );
+      return null;
+    }
+  },
+  ["properties"],
+  { revalidate: 15 }
+);
 
 // export const getPropertiesCount = async () => {
 //   console.log("run");

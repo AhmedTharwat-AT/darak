@@ -1,4 +1,4 @@
-import { getPropertiesCount } from "@/lib/services";
+import { getPropertiesCount, getProperties } from "@/lib/services";
 
 import { Suspense } from "react";
 
@@ -14,6 +14,7 @@ async function PropertiesWrapper({
   page: string;
   sortBy: string;
 }) {
+  getProperties(page ? Number(page) : 1);
   const propertiesCount = await getPropertiesCount();
 
   if (!propertiesCount) return <div>no properties to load</div>;
@@ -33,7 +34,7 @@ async function PropertiesWrapper({
       </div>
 
       <Suspense
-        // key={crypto.randomUUID()}
+        key={crypto.randomUUID()}
         fallback={<div>Fetching properties list...</div>}
       >
         <PropertiesList page={page} sortBy={sortBy} />
