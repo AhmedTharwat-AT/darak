@@ -17,7 +17,9 @@ export function formatCurrency(
   }).format(amount);
 }
 
-export function relativeDateInDays(date: Date) {
+export function relativeDateInDays(date: unknown) {
+  if (!(date instanceof Date)) return;
+
   const rtf = new Intl.RelativeTimeFormat("en", {
     style: "short",
     numeric: "auto",

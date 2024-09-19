@@ -1,11 +1,9 @@
+import { Property } from "@/lib/types";
+import { formatCurrency, relativeDateInDays } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
-import { formatCurrency, relativeDateInDays } from "@/lib/utils";
-import { Property } from "@/lib/types";
 
 import { FaLocationDot } from "react-icons/fa6";
-import { PiBedLight, PiBathtub } from "react-icons/pi";
-import { BiArea } from "react-icons/bi";
 import PropertyFeatures from "./PropertyFeatures";
 
 type Props = {

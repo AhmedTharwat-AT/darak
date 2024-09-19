@@ -3,7 +3,8 @@ import { PAGE_SIZE } from "../lib/constants";
 import { unstable_cache as nextCache } from "next/cache";
 
 export const getProperties = async (page = 1) => {
-  // await new Promise((resolve) => setTimeout(resolve, 1000));
+  await new Promise((resolve) => setTimeout(resolve, 3000));
+  console.log("run ");
   try {
     const properties = await prisma.properties.findMany({
       include: {
@@ -29,26 +30,42 @@ export const getProperties = async (page = 1) => {
 //         take: PAGE_SIZE,
 //         skip: PAGE_SIZE * (page - 1),
 //       });
+
 //       return properties;
 //     } catch (err) {
-//       console.log(err);
+//       console.log("err", err);
+
+//       return null;
 //     }
 //   },
 //   ["properties"],
-//   { revalidate: 3600 }
+//   { revalidate: 15 }
 // );
 
+// export const getPropertiesCount = async () => {
+//   console.log("run");
+//   await new Promise((resolve) => setTimeout(resolve, 5000));
+
+//   try {
+//     const count = await prisma.properties.count();
+//     return count;
+//   } catch (err) {
+//     console.log(err);
+//   }
+// };
 export const getPropertiesCount = nextCache(
   async () => {
+    await new Promise((resolve) => setTimeout(resolve, 5000));
     try {
       const count = await prisma.properties.count();
       return count;
     } catch (err) {
       console.log(err);
+      return null;
     }
   },
   ["propertiesCount"],
-  { revalidate: 3600 }
+  { revalidate: 15 }
 );
 
 export const getProperty = nextCache(

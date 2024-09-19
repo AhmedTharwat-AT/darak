@@ -6,6 +6,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import FilterProvider from "@/context/FilterContext";
 import { CiFilter } from "react-icons/ci";
 
 function MobileFilter() {
@@ -23,10 +24,13 @@ function MobileFilter() {
         <DialogTitle className="uppercase font-medium text-blacker ">
           Filter
         </DialogTitle>
-        <PropertiesFilter
-          showHeader={false}
-          className=" h-auto p-0 px-6 min-h-0"
-        />
+
+        <FilterProvider>
+          <PropertiesFilter
+            showHeader={false}
+            className=" h-auto p-0 px-6 min-h-0"
+          />
+        </FilterProvider>
       </DialogContent>
     </Dialog>
   );

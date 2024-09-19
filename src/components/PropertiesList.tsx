@@ -1,6 +1,7 @@
-import { getProperties } from "@/lib/services";
+import { unstable_cache as nextCache } from "next/cache";
 
 import PropertyItem from "./PropertyItem";
+import { getProperties } from "@/lib/services";
 
 async function PropertiesList({
   page,
@@ -9,7 +10,14 @@ async function PropertiesList({
   page: string;
   sortBy: string;
 }) {
-  const properties = await getProperties(page ? Number(page) : 1);
+  // const properties = await getProperties(page ? Number(page) : 1);
+  // const properties = await getProperties(page ? Number(page) : 1);
+
+  const properties = await nextCache(
+    async (page) => getProperties(page ? Number(page) : 1),
+    ["properties", page],
+    { revalidate: 15, tags: ["properties"] }
+  )(page);
 
   let filteredProperties;
 

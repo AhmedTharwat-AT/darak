@@ -2,10 +2,10 @@ import { getPropertiesCount } from "@/lib/services";
 
 import { Suspense } from "react";
 
-import Paginate from "./Paginate";
-import SortBy from "./SortBy";
 import MobileFilter from "./MobileFilter";
+import Paginate from "./Paginate";
 import PropertiesList from "./PropertiesList";
+import SortBy from "./SortBy";
 
 async function PropertiesWrapper({
   page,
@@ -33,7 +33,7 @@ async function PropertiesWrapper({
       </div>
 
       <Suspense
-        key={crypto.randomUUID()}
+        // key={crypto.randomUUID()}
         fallback={<div>Fetching properties list...</div>}
       >
         <PropertiesList page={page} sortBy={sortBy} />
