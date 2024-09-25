@@ -1,16 +1,14 @@
 "use client";
 
 import Image from "next/image";
-// import { useFilterContext } from "@/context/FilterContext";
 import { cn, formatCurrency } from "@/lib/utils";
+import { useFilterContext } from "@/context/FilterContext";
 
 import QuantityHandler from "./QuantityHandler";
 import Slider from "./Slider";
 import PropertyTypeMenu from "./PropertyTypeMenu";
 import LocationInput from "./LocationInput";
 import { Button } from "./ui/button";
-import useFilter from "@/hooks/useFilter";
-import { useFilterContext } from "@/context/FilterContext";
 
 function PropertiesFilter({
   className,

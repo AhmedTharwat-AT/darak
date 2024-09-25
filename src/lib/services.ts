@@ -34,11 +34,30 @@ export const getProperties = nextCache(
       return properties;
     } catch (err) {
       console.log("err", err);
-
-      return null;
     }
   },
   ["properties"],
+  { revalidate: 15 }
+);
+
+export const getFilteredProperties = nextCache(
+  async (page = 1) => {
+    await new Promise((resolve) => setTimeout(resolve, 3000));
+    try {
+      const properties = await prisma.properties.findMany({
+        include: {
+          images: true,
+        },
+        take: PAGE_SIZE,
+        skip: PAGE_SIZE * (page - 1),
+      });
+
+      return properties;
+    } catch (err) {
+      console.log("err", err);
+    }
+  },
+  ["propertiesFiltered"],
   { revalidate: 15 }
 );
 
@@ -70,6 +89,7 @@ export const getPropertiesCount = nextCache(
 
 export const getProperty = nextCache(
   async (id: string) => {
+    await delay();
     const property = await prisma.properties.findUnique({
       where: {
         id,
@@ -85,10 +105,7 @@ export const getProperty = nextCache(
 );
 
 export async function delay() {
-  console.log("delay start");
-  const data = await new Promise((resolve) =>
+  await new Promise((resolve) =>
     setTimeout(() => resolve("data loaded"), 5000)
   );
-  console.log("delay end");
-  return data;
 }

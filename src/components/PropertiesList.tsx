@@ -10,12 +10,6 @@ async function PropertiesList({
 }) {
   const properties = await getProperties(page ? Number(page) : 1);
 
-  // const properties = await nextCache(
-  //   async (page) => getProperties(page ? Number(page) : 1),
-  //   ["properties", page],
-  //   { revalidate: 15, tags: ["properties"] }
-  // )(page);
-
   let filteredProperties;
 
   if (!properties || properties.length === 0)

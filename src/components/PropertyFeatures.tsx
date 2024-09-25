@@ -1,4 +1,4 @@
-import { Property } from "@/lib/types";
+import { IProperty } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { ReactNode } from "react";
 import { BiArea } from "react-icons/bi";
@@ -8,7 +8,7 @@ function PropertyFeatures({
   property,
   featureStyle,
 }: {
-  property: Property;
+  property: IProperty;
   featureStyle?: string;
 }) {
   return (

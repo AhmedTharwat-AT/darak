@@ -1,3 +1,5 @@
+import type { User, Properties, PropertyImage } from "prisma/prisma-client";
+
 export type PropertyTypes =
   | "all"
   | "apartment"
@@ -5,27 +7,27 @@ export type PropertyTypes =
   | "store"
   | "office";
 
-export interface PropertyImage {
-  id: number;
-  url: string;
-  properityId: string;
-}
+export type IUser = User;
 
-export interface Property {
-  id: string;
-  title: string;
-  description: string;
-  location: string;
-  type: string;
-  mode: string;
-  images: PropertyImage[];
-  price: number;
-  space: number;
-  rooms: number;
-  bathrooms: number;
-  ownerId: string;
-  createdAt: Date;
-  updatedAt: Date;
-}
+export type IPropertyImage = PropertyImage;
 
-export type IProperties = Property[];
+export type IProperty = Properties & { images: PropertyImage[] };
+
+export type IProperties = IProperty[];
+
+// export interface Property  {
+//   id: string;
+//   title: string;
+//   description: string;
+//   location: string;
+//   type: string;
+//   mode: string;
+//   images: PropertyImage[];
+//   price: number;
+//   space: number;
+//   rooms: number;
+//   bathrooms: number;
+//   ownerId: string;
+//   createdAt: Date;
+//   updatedAt: Date;
+// }

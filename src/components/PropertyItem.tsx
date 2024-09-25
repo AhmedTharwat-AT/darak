@@ -1,4 +1,4 @@
-import { Property } from "@/lib/types";
+import { IProperty } from "@/lib/types";
 import { formatCurrency, relativeDateInDays } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
@@ -7,7 +7,7 @@ import { FaLocationDot } from "react-icons/fa6";
 import PropertyFeatures from "./PropertyFeatures";
 
 type Props = {
-  property: Property;
+  property: IProperty;
 };
 
 function PropertyItem({ property }: Props) {
