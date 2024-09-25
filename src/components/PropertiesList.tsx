@@ -1,14 +1,19 @@
-import { getProperties } from "@/lib/services";
+import { getFilteredProperties, getProperties } from "@/lib/services";
 import PropertyItem from "./PropertyItem";
 
 async function PropertiesList({
   page,
   sortBy,
+  restParams,
 }: {
   page: string;
   sortBy: string;
+  restParams: any;
 }) {
-  const properties = await getProperties(page ? Number(page) : 1);
+  const properties = await getFilteredProperties({
+    page: page ? Number(page) : 1,
+    ...restParams,
+  });
 
   let filteredProperties;
 

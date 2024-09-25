@@ -35,7 +35,7 @@ async function main() {
       name: "ahmed",
       properties: {
         create: {
-          title: "Villa for Sale in Downtown",
+          title: "Villa for sell in Downtown",
           description: "Luxurious villa with stunning views",
           location: "Downtown",
           type: "apartment",
@@ -44,7 +44,7 @@ async function main() {
               url: "https://loremflickr.com/300/200",
             },
           },
-          mode: "sale",
+          mode: "sell",
           price: 500000,
           space: 500,
           rooms: 5,
@@ -87,7 +87,7 @@ async function main() {
       name: "edward",
       properties: {
         create: {
-          title: "Commercial Building for Sale in Business District",
+          title: "Commercial Building for sell in Business District",
           description: "Spacious building suitable for offices",
           location: "Business District",
           type: "building",
@@ -96,7 +96,7 @@ async function main() {
               url: "https://loremflickr.com/300/200",
             },
           },
-          mode: "sale",
+          mode: "sell",
           price: 1000000,
           space: 1000,
           rooms: 10,
@@ -113,7 +113,7 @@ async function main() {
       name: "shaun",
       properties: {
         create: {
-          title: "Commercial Building for Sale in Business District",
+          title: "Commercial Building for sell in Business District",
           description: "Spacious building suitable for offices",
           location: "Business District",
           type: "building",
@@ -122,7 +122,7 @@ async function main() {
               url: "https://loremflickr.com/300/200",
             },
           },
-          mode: "sale",
+          mode: "sell",
           price: 1000000,
           space: 1000,
           rooms: 10,
@@ -139,7 +139,7 @@ async function main() {
       name: "hossam",
       properties: {
         create: {
-          title: "Commercial Building for Sale in Business District",
+          title: "Commercial Building for sell in Business District",
           description: "Spacious building suitable for offices",
           location: "Business District",
           type: "building",
@@ -148,7 +148,7 @@ async function main() {
               url: "https://loremflickr.com/300/200",
             },
           },
-          mode: "sale",
+          mode: "sell",
           price: 1000000,
           space: 1000,
           rooms: 10,
@@ -165,7 +165,7 @@ async function main() {
       name: "ezio",
       properties: {
         create: {
-          title: "Commercial Building for Sale in Business District",
+          title: "Commercial Building for sell in Business District",
           description: "Spacious building suitable for offices",
           location: "Business District",
           type: "building",
@@ -174,7 +174,7 @@ async function main() {
               url: "https://loremflickr.com/300/200",
             },
           },
-          mode: "sale",
+          mode: "sell",
           price: 1000000,
           space: 1000,
           rooms: 10,
@@ -191,7 +191,7 @@ async function main() {
       name: "shoeb",
       properties: {
         create: {
-          title: "Commercial Building for Sale in Business District",
+          title: "Commercial Building for sell in Business District",
           description: "Spacious building suitable for offices",
           location: "Business District",
           type: "building",
@@ -200,7 +200,7 @@ async function main() {
               url: "https://loremflickr.com/300/200",
             },
           },
-          mode: "sale",
+          mode: "sell",
           price: 1000000,
           space: 1000,
           rooms: 10,

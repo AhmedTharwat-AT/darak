@@ -5,12 +5,22 @@ import FilterProvider from "@/context/FilterContext";
 
 import { Suspense } from "react";
 
+export type RestParams = {
+  price?: string;
+  space?: string;
+  mode?: string;
+  type?: string;
+  rooms?: string;
+  bathrooms?: string;
+  location?: string;
+};
+
 function properties({
-  searchParams: { page = "1", sortBy },
+  searchParams: { page = "1", sortBy, ...rest },
 }: {
-  searchParams: { page: string; sortBy: string };
+  searchParams: { page: string; sortBy: string; rest: RestParams };
 }) {
-  console.log("properties", page, sortBy);
+  console.log("properties : ", rest);
   return (
     <div className=" my-[3.5rem] relative">
       <div className="container flex gap-4 md:flex-nowrap flex-wrap max-md:justify-center">
@@ -27,7 +37,11 @@ function properties({
           <PropertiesFilter className="md:block hidden md:max-w-80 shadow-md" />
         </FilterProvider>
 
-        <PropertiesWrapper page={page} sortBy={sortBy} />
+        <PropertiesWrapper
+          page={page}
+          sortBy={sortBy}
+          restParams={rest as RestParams}
+        />
 
         {/* <Suspense fallback={<div>Loading wrapper...</div>}>
           <PropertiesWrapper page={page} sortBy={sortBy} />

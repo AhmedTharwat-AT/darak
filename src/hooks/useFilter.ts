@@ -122,7 +122,6 @@ function useFilter() {
   function submitFilter() {
     // create query string for all fitlers
     const queryString = createAllQueryString();
-    console.log("submitting", queryString);
     router.push("/properties" + "?" + queryString, { scroll: false });
   }
 
