@@ -1,7 +1,7 @@
 import prisma from "./db";
 import { PAGE_SIZE } from "../lib/constants";
 import { unstable_cache as nextCache } from "next/cache";
-import { RestParams } from "@/app/(Main)/properties/page";
+import { IFilterValues } from "@/app/(Main)/properties/page";
 
 // export const getProperties = async (page = 1) => {
 //   await new Promise((resolve) => setTimeout(resolve, 3000));
@@ -51,7 +51,7 @@ export const getFilteredProperties = nextCache(
     rooms,
     bathrooms,
     location,
-  }: RestParams & { page?: number }) => {
+  }: IFilterValues & { page?: number }) => {
     const priceObj = {
       from: price?.split("-")[0],
       to: price?.split("-")[1],
@@ -104,7 +104,7 @@ export const getFilteredProperties = nextCache(
     }
   },
   ["propertiesFiltered"],
-  { revalidate: 15 }
+  { revalidate: 1 }
 );
 
 // export const getPropertiesCount = async () => {
@@ -127,7 +127,7 @@ export const getFilteredPropertiesCount = nextCache(
     rooms,
     bathrooms,
     location,
-  }: RestParams) => {
+  }: IFilterValues) => {
     const priceObj = {
       from: price?.split("-")[0],
       to: price?.split("-")[1],
@@ -174,8 +174,8 @@ export const getFilteredPropertiesCount = nextCache(
       return null;
     }
   },
-  ["propertiesCount"],
-  { revalidate: 15 }
+  ["propertiesCountFiltered"],
+  { revalidate: 1 }
 );
 
 export const getPropertiesCount = nextCache(

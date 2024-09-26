@@ -5,7 +5,7 @@ import FilterProvider from "@/context/FilterContext";
 
 import { Suspense } from "react";
 
-export type RestParams = {
+export type IFilterValues = {
   price?: string;
   space?: string;
   mode?: string;
@@ -15,16 +15,16 @@ export type RestParams = {
   location?: string;
 };
 
-function properties({
-  searchParams: { page = "1", sortBy, ...rest },
+async function properties({
+  searchParams: { page = "1", sortBy, ...filterValues },
 }: {
-  searchParams: { page: string; sortBy: string; rest: RestParams };
+  searchParams: { page: string; sortBy: string; filterValues: IFilterValues };
 }) {
-  console.log("properties : ", rest);
   return (
     <div className=" my-[3.5rem] relative">
       <div className="container flex gap-4 md:flex-nowrap flex-wrap max-md:justify-center">
-        {/* <Suspense
+        {/* desktop filter */}
+        <Suspense
           fallback={
             <Skeleton className="md:block hidden md:max-w-80 shadow-md w-full  bg-gray-300 p-6 rounded-lg max-h-[870px] h-screen md:sticky top-4 overflow-y-auto shrink-0" />
           }
@@ -32,20 +32,13 @@ function properties({
           <FilterProvider>
             <PropertiesFilter className="md:block hidden md:max-w-80 shadow-md" />
           </FilterProvider>
-        </Suspense> */}
-        <FilterProvider>
-          <PropertiesFilter className="md:block hidden md:max-w-80 shadow-md" />
-        </FilterProvider>
+        </Suspense>
 
         <PropertiesWrapper
           page={page}
           sortBy={sortBy}
-          restParams={rest as RestParams}
+          filterValues={filterValues as IFilterValues}
         />
-
-        {/* <Suspense fallback={<div>Loading wrapper...</div>}>
-          <PropertiesWrapper page={page} sortBy={sortBy} />
-        </Suspense> */}
       </div>
     </div>
   );

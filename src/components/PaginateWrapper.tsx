@@ -1,14 +1,15 @@
 import { getFilteredPropertiesCount, getPropertiesCount } from "@/lib/services";
 import Paginate from "./Paginate";
+import { IFilterValues } from "@/app/(Main)/properties/page";
 
 async function PaginateWrapper({
   className,
-  restParams,
+  filterValues,
 }: {
   className?: string;
-  restParams: any;
+  filterValues: IFilterValues;
 }) {
-  const propertiesCount = await getFilteredPropertiesCount(restParams);
+  const propertiesCount = await getFilteredPropertiesCount(filterValues);
 
   return (
     <Paginate propertiesCount={propertiesCount || 0} className={className} />

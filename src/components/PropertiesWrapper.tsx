@@ -1,54 +1,62 @@
-import { getFilteredPropertiesCount, getPropertiesCount } from "@/lib/services";
-
 import { Suspense } from "react";
 
 import MobileFilter from "./MobileFilter";
 import PaginateWrapper from "./PaginateWrapper";
 import PropertiesList from "./PropertiesList";
+// import SortBy from "./SortBy";
+import { IFilterValues } from "@/app/(Main)/properties/page";
 import SortBy from "./SortBy";
-import { RestParams } from "@/app/(Main)/properties/page";
+import Spinner from "./Spinner";
 
 function PropertiesWrapper({
   page,
   sortBy,
-  restParams,
+  filterValues,
 }: {
   page: string;
   sortBy: string;
-  restParams: RestParams;
+  filterValues: IFilterValues;
 }) {
   // preload properties count
-  getFilteredPropertiesCount(restParams);
+  // getFilteredPropertiesCount(restParams);
 
   return (
     <section className="flex flex-col w-full max-w-[450px] lg:max-w-full">
       <div className="mb-4 flex lg:justify-between justify-end gap-4">
-        <SortBy />
+        <Suspense fallback={null}>
+          <SortBy />
+          {/* desktop pagination */}
+          <PaginateWrapper
+            className="bp:flex hidden"
+            filterValues={filterValues}
+          />
 
-        <Suspense
-          fallback={
-            <div className="lg:flex hidden">Loading paginate top...</div>
-          }
-        >
-          <PaginateWrapper className="bp:flex hidden" restParams={restParams} />
+          {/* mobile filter */}
+          <MobileFilter />
         </Suspense>
-
-        {/* mobile filter */}
-        <MobileFilter />
       </div>
 
-      {/* <PropertiesList properties={properties} sortBy={sortBy} /> */}
-      <Suspense key={page} fallback={<div>Fetching properties list...</div>}>
-        <PropertiesList page={page} sortBy={sortBy} restParams={restParams} />
+      <Suspense
+        key={page}
+        fallback={
+          <div className="w-full h-full flex justify-center items-center flex-col text-center">
+            <Spinner />
+            <p>Fetching properties list...</p>
+          </div>
+        }
+      >
+        <PropertiesList
+          page={page}
+          sortBy={sortBy}
+          filterValues={filterValues}
+        />
       </Suspense>
 
       {/* mobile pagination */}
-      <Suspense
-        fallback={<div className=" bp:hidden ">Loading paginate bottom...</div>}
-      >
+      <Suspense fallback={null}>
         <PaginateWrapper
           className="justify-center mt-auto pt-8 bp:hidden flex"
-          restParams={restParams}
+          filterValues={filterValues}
         />
       </Suspense>
     </section>

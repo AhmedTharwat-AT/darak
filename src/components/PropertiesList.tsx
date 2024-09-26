@@ -4,15 +4,15 @@ import PropertyItem from "./PropertyItem";
 async function PropertiesList({
   page,
   sortBy,
-  restParams,
+  filterValues,
 }: {
   page: string;
   sortBy: string;
-  restParams: any;
+  filterValues: any;
 }) {
   const properties = await getFilteredProperties({
     page: page ? Number(page) : 1,
-    ...restParams,
+    ...filterValues,
   });
 
   let filteredProperties;
