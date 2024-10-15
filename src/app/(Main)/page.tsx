@@ -6,7 +6,6 @@ import heroImage from "../../../public/assets/hero-image.jpg";
 import { Button } from "@/components/ui/button";
 import HomeFilter from "@/components/HomeFilter";
 import FilterProvider from "@/context/FilterContext";
-import { signIn, signOut } from "../../../auth";
 
 export default function Home() {
   return (
@@ -29,9 +28,6 @@ export default function Home() {
               trusted marketplace.
             </p>
           </div>
-
-          <Link href="/api/auth/signin">signin</Link>
-          <Link href="/api/auth/signout">signout</Link>
 
           <div className="flex justify-center items-center gap-4 font-poppins mt-6">
             <Button className="text-sm sm:text-lg lg:text-xl capitalize font-medium border border-main">

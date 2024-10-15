@@ -29,7 +29,12 @@ function PropertyFeatures({
 
       <Feature featureStyle={featureStyle}>
         <BiArea className="size-5" />
-        {property.space} Sqft
+        <p className="flex gap-1">
+          <span>{property.space}</span>
+          <span>
+            m<sup>2</sup>
+          </span>
+        </p>
       </Feature>
     </div>
   );
@@ -43,14 +48,14 @@ function Feature({
   featureStyle?: string;
 }) {
   return (
-    <p
+    <div
       className={cn(
         "text-center  flex-col  flex-nowrap line-clamp-1 items-center gap-1 flex ",
         featureStyle
       )}
     >
       {children}
-    </p>
+    </div>
   );
 }
 

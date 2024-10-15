@@ -15,7 +15,7 @@ export type IFilterValues = {
   location?: string;
 };
 
-async function properties({
+function properties({
   searchParams: { page = "1", sortBy, ...filterValues },
 }: {
   searchParams: { page: string; sortBy: string; filterValues: IFilterValues };

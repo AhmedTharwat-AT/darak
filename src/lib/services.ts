@@ -52,6 +52,8 @@ export const getFilteredProperties = nextCache(
     bathrooms,
     location,
   }: IFilterValues & { page?: number }) => {
+    console.log("fetching properties");
+    await new Promise((resolve) => setTimeout(resolve, 5000));
     const priceObj = {
       from: price?.split("-")[0],
       to: price?.split("-")[1],
@@ -104,7 +106,7 @@ export const getFilteredProperties = nextCache(
     }
   },
   ["propertiesFiltered"],
-  { revalidate: 1 }
+  { revalidate: 20 }
 );
 
 // export const getPropertiesCount = async () => {

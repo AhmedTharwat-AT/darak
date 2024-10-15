@@ -7,6 +7,7 @@ import Link from "next/link";
 import { FaChevronLeft, FaLocationDot, FaPhone } from "react-icons/fa6";
 import { RiWhatsappFill } from "react-icons/ri";
 import ImagesCarousel from "./ImagesCarousel";
+import BackButton from "@/components/BackButton";
 
 async function page({ params }: { params: { propertyId: string } }) {
   const property = await getProperty(params.propertyId);
@@ -16,14 +17,7 @@ async function page({ params }: { params: { propertyId: string } }) {
   return (
     <main className="font-poppins">
       <div className="container  flex flex-col my-12">
-        <Link
-          className="text-xl w-fit text-main gap-2 flex items-center"
-          href="/properties"
-        >
-          <FaChevronLeft className="size-5 rounded-full text-main bg-main/40 p-1" />
-
-          <span className="uppercase hover:underline">Back</span>
-        </Link>
+        <BackButton text="Back" />
 
         <div className="grid grid-cols-1 bp:grid-cols-2  grow mt-12 gap-8">
           <div className="relative rounded-xl overflow-hidden xl:min-h-[567px] min-h-96">
