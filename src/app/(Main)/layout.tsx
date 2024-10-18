@@ -1,3 +1,4 @@
+import Transition from "@/components/Transition";
 import NavBar from "@/components/layout/NavBar";
 
 export default function MainLayout({
@@ -9,7 +10,7 @@ export default function MainLayout({
     <div className={` bg-bgLight relative `}>
       <NavBar />
       <main className="md:min-h-[calc(100vh-104px)] min-h-[calc(100vh-80px)] grid font-playfair antialiased">
-        {children}
+        <Transition>{children}</Transition>
       </main>
     </div>
   );

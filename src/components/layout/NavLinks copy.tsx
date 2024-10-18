@@ -1,7 +1,7 @@
 "use client";
 
+import Link from "next/link";
 import { usePathname } from "next/navigation";
-import AnimatedLink from "../AnimatedLink";
 
 function NavLinks() {
   const pathname = usePathname();
@@ -9,17 +9,17 @@ function NavLinks() {
   return (
     <>
       <li>
-        <AnimatedLink
+        <Link
           className={` ${
             pathname === "/" ? "text-alt  font-semibold" : "text-blacker"
           }`}
           href="/"
         >
           Home
-        </AnimatedLink>
+        </Link>
       </li>
       <li>
-        <AnimatedLink
+        <Link
           className={` ${
             pathname === "/properties"
               ? "text-alt font-semibold"
@@ -28,17 +28,17 @@ function NavLinks() {
           href="/properties"
         >
           Properties
-        </AnimatedLink>
+        </Link>
       </li>
       <li>
-        <AnimatedLink
+        <Link
           className={` ${
             pathname === "/contact" ? "text-alt font-semibold" : "text-blacker"
           }`}
           href="/contact"
         >
           Contact Us
-        </AnimatedLink>
+        </Link>
       </li>
     </>
   );

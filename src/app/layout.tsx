@@ -1,6 +1,7 @@
 import { Playfair_Display, Poppins } from "next/font/google";
 import "./globals.css";
 import { Metadata } from "next";
+import { AnimationProvider } from "@/components/AnimationProvider";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -25,7 +26,9 @@ export const metadata: Metadata = {
 function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${playfair.variable} ${poppins.variable}`}>
-      <body>{children}</body>
+      <body>
+        <AnimationProvider>{children}</AnimationProvider>
+      </body>
     </html>
   );
 }

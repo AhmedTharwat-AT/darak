@@ -1,13 +1,11 @@
+import BackButton from "@/components/BackButton";
 import PropertyFeatures from "@/components/PropertyFeatures";
 import { Button } from "@/components/ui/button";
 import { getProperty } from "@/lib/services";
 import { formatCurrency } from "@/lib/utils";
-import Image from "next/image";
-import Link from "next/link";
-import { FaChevronLeft, FaLocationDot, FaPhone } from "react-icons/fa6";
+import { FaLocationDot, FaPhone } from "react-icons/fa6";
 import { RiWhatsappFill } from "react-icons/ri";
 import ImagesCarousel from "./ImagesCarousel";
-import BackButton from "@/components/BackButton";
 
 async function page({ params }: { params: { propertyId: string } }) {
   const property = await getProperty(params.propertyId);
