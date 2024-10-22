@@ -43,6 +43,13 @@ export default function AnimatedLink({
     }
   }, [isPending, setIsAnimating]);
 
+  useEffect(() => {
+    return () => {
+      console.log("done transition unmounting");
+      setIsAnimating(false);
+    };
+  }, [setIsAnimating]);
+
   return (
     <Link className={className} href={href} onClick={handleClick}>
       {children}

@@ -5,6 +5,7 @@ import Link from "next/link";
 
 import { FaLocationDot } from "react-icons/fa6";
 import PropertyFeatures from "./PropertyFeatures";
+import AnimatedLink from "./AnimatedLink";
 
 type Props = {
   property: IProperty;
@@ -16,7 +17,7 @@ function PropertyItem({ property }: Props) {
       key={property.id}
       className="border font-poppins shadow-md bg-white rounded-lg overflow-hidden"
     >
-      <Link href={`/properties/${property.id}`}>
+      <AnimatedLink href={`/properties/${property.id}`}>
         <div className="relative">
           <Image
             src={property.images[0].url || "https://placehold.co/400x400"}
@@ -53,7 +54,7 @@ function PropertyItem({ property }: Props) {
 
           <PropertyFeatures property={property} />
         </div>
-      </Link>
+      </AnimatedLink>
     </li>
   );
 }

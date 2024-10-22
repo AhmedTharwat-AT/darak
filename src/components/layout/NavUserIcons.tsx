@@ -4,7 +4,7 @@ import Link from "next/link";
 function NavUserIcons({ scale = 35 }: { scale?: number }) {
   return (
     <>
-      <Link href={"/"}>
+      <Link href={"/profile"}>
         <Image
           src={"/assets/icons/profile.svg"}
           alt="user"
@@ -22,7 +22,7 @@ function NavUserIcons({ scale = 35 }: { scale?: number }) {
           height={scale}
         />
       </Link>
-      <Link href={"/"}>
+      <Link href={"/wishlist"}>
         <Image
           src={"/assets/icons/bookmark-1.svg"}
           className="bg-bgDark p-2 rounded-full"
