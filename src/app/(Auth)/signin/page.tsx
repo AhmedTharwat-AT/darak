@@ -9,12 +9,18 @@ export const metadata: Metadata = {
 };
 
 type Props = {
-  searchParams: {
+  searchParams: Promise<{
     callbackUrl: string | undefined;
-  };
+  }>;
 };
 
-async function page({ searchParams: { callbackUrl } }: Props) {
+async function page(props: Props) {
+  const searchParams = await props.searchParams;
+
+  const {
+    callbackUrl
+  } = searchParams;
+
   return (
     <div className="font-poppins bg-bgLight p-14 flex flex-col justify-center items-center">
       <div className="max-w-[600px] w-full">

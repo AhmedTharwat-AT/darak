@@ -15,11 +15,19 @@ export type IFilterValues = {
   location?: string;
 };
 
-function properties({
-  searchParams: { page = "1", sortBy, ...filterValues },
-}: {
-  searchParams: { page: string; sortBy: string; filterValues: IFilterValues };
-}) {
+async function properties(
+  props: {
+    searchParams: Promise<{ page: string; sortBy: string; filterValues: IFilterValues }>;
+  }
+) {
+  const searchParams = await props.searchParams;
+
+  const {
+    page = "1",
+    sortBy,
+    ...filterValues
+  } = searchParams;
+
   return (
     <div className=" my-[3.5rem] relative">
       <div className="container flex gap-4 md:flex-nowrap flex-wrap max-md:justify-center">

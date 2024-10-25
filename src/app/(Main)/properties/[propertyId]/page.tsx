@@ -7,7 +7,8 @@ import { FaLocationDot, FaPhone } from "react-icons/fa6";
 import { RiWhatsappFill } from "react-icons/ri";
 import ImagesCarousel from "./ImagesCarousel";
 
-async function page({ params }: { params: { propertyId: string } }) {
+async function page(props: { params: Promise<{ propertyId: string }> }) {
+  const params = await props.params;
   const property = await getProperty(params.propertyId);
 
   if (!property) return <div className="container">Property not found</div>;

@@ -1,10 +1,11 @@
+import { useActionState } from "react";
 "use client";
 
 import { addProperty } from "@/actions/actions";
-import { useFormState, useFormStatus } from "react-dom";
+import { useFormStatus } from "react-dom";
 
 function AddProperty() {
-  const [state, formAction] = useFormState(addProperty, {
+  const [state, formAction] = useActionState(addProperty, {
     status: "idle",
     message: "",
   });
