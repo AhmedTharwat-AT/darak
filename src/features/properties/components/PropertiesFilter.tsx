@@ -4,11 +4,11 @@ import Image from "next/image";
 import { cn, formatCurrency } from "@/lib/utils";
 import { useFilterContext } from "@/context/FilterContext";
 
-import QuantityHandler from "./QuantityHandler";
-import Slider from "./Slider";
-import PropertyTypeMenu from "./PropertyTypeMenu";
-import LocationInput from "./LocationInput";
-import { Button } from "./ui/button";
+import QuantityHandler from "../../../components/QuantityHandler";
+import Slider from "../../../components/Slider";
+import PropertyTypeMenu from "../../../components/PropertyTypeMenu";
+import LocationInput from "../../../components/LocationInput";
+import { Button } from "../../../components/ui/button";
 
 function PropertiesFilter({
   className,

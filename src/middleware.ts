@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { auth } from "../auth";
+import { auth } from "./auth";
 
 const authPages = ["/signin", "/signup"];
 const protectedPages = ["/profile", "/wishlist"];

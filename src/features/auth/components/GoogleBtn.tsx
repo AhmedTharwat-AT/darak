@@ -1,5 +1,5 @@
 import { FcGoogle } from "react-icons/fc";
-import { signIn } from "../../../../auth";
+import { signIn } from "@/auth";
 
 function GoogleBtn({ callbackUrl }: { callbackUrl?: string | undefined }) {
   return (

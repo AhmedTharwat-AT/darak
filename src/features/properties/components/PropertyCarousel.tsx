@@ -8,7 +8,7 @@ import {
 import { IPropertyImage } from "@/lib/types";
 import Image from "next/image";
 
-function ImagesCarousel({ images }: { images: IPropertyImage[] }) {
+function PropertyCarousel({ images }: { images: IPropertyImage[] }) {
   return (
     <Carousel className="h-full">
       <CarouselContent className="h-full">
@@ -42,4 +42,4 @@ function ImagesCarousel({ images }: { images: IPropertyImage[] }) {
   );
 }
 
-export default ImagesCarousel;
+export default PropertyCarousel;

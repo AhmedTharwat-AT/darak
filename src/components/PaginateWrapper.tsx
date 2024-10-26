@@ -1,4 +1,5 @@
-import { getFilteredPropertiesCount, getPropertiesCount } from "@/lib/services";
+import { getFilteredPropertiesCount } from "@/services/prismaApi";
+
 import Paginate from "./Paginate";
 import { IFilterValues } from "@/app/(Main)/properties/page";
 

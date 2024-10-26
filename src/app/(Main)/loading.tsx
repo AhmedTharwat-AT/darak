@@ -4,7 +4,7 @@ function loading() {
   return (
     <div className="h-full  flex justify-center items-center">
       <p>main</p>
-      <Spinner />{" "}
+      <Spinner />
     </div>
   );
 }

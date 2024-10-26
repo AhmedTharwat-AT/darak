@@ -1,6 +1,6 @@
 import { FaLock } from "react-icons/fa6";
 import { IoMdMail } from "react-icons/io";
-import { signIn } from "../../../../auth";
+import { signIn } from "@/auth";
 import { Button } from "@/components/ui/button";
 
 function CredentialForm({ callbackUrl }: { callbackUrl?: string | undefined }) {

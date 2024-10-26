@@ -6,7 +6,7 @@ import {
 } from "@/components/ui/dialog";
 import { CiFilter } from "react-icons/ci";
 import FilterProvider from "@/context/FilterContext";
-import PropertiesFilter from "./PropertiesFilter";
+import PropertiesFilter from "../features/properties/components/PropertiesFilter";
 
 function MobileFilter() {
   return (

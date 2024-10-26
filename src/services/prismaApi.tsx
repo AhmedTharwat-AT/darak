@@ -1,4 +1,4 @@
-import prisma from "./db";
+import prisma from "@/lib/prisma_db";
 import { PAGE_SIZE } from "../lib/constants";
 import { unstable_cache as nextCache } from "next/cache";
 import { IFilterValues } from "@/app/(Main)/properties/page";

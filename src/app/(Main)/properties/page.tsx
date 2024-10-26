@@ -1,5 +1,5 @@
-import PropertiesFilter from "@/components/PropertiesFilter";
-import PropertiesWrapper from "@/components/PropertiesWrapper";
+import PropertiesFilter from "@/features/properties/components/PropertiesFilter";
+import PropertiesWrapper from "@/features/properties/components/PropertiesWrapper";
 import { Skeleton } from "@/components/ui/skeleton";
 import FilterProvider from "@/context/FilterContext";
 
@@ -15,18 +15,16 @@ export type IFilterValues = {
   location?: string;
 };
 
-async function properties(
-  props: {
-    searchParams: Promise<{ page: string; sortBy: string; filterValues: IFilterValues }>;
-  }
-) {
+async function properties(props: {
+  searchParams: Promise<{
+    page: string;
+    sortBy: string;
+    filterValues: IFilterValues;
+  }>;
+}) {
   const searchParams = await props.searchParams;
 
-  const {
-    page = "1",
-    sortBy,
-    ...filterValues
-  } = searchParams;
+  const { page = "1", sortBy, ...filterValues } = searchParams;
 
   return (
     <div className=" my-[3.5rem] relative">

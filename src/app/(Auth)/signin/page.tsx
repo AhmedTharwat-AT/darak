@@ -1,7 +1,7 @@
 import Logo from "@/components/Logo";
 import { Metadata } from "next";
-import CredentialForm from "./CredentialForm";
-import GoogleBtn from "./GoogleBtn";
+import CredentialForm from "../../../features/auth/components/CredentialForm";
+import GoogleBtn from "../../../features/auth/components/GoogleBtn";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -17,9 +17,7 @@ type Props = {
 async function page(props: Props) {
   const searchParams = await props.searchParams;
 
-  const {
-    callbackUrl
-  } = searchParams;
+  const { callbackUrl } = searchParams;
 
   return (
     <div className="font-poppins bg-bgLight p-14 flex flex-col justify-center items-center">

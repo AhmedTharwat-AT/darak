@@ -1,4 +1,4 @@
-import { getFilteredProperties, getProperties } from "@/lib/services";
+import { getFilteredProperties } from "@/services/prismaApi";
 import PropertyItem from "./PropertyItem";
 
 async function PropertiesList({
@@ -32,13 +32,13 @@ async function PropertiesList({
 
   return (
     // <section className="grid justify-start grid-rows-[auto_1fr]">
-    (<div className="flex flex-col">
+    <div className="flex flex-col">
       <ul className="grid grid-cols-1 lg:grid-cols-2  gap-5 4xl:grid-cols-3">
         {filteredProperties?.map((property) => (
           <PropertyItem key={property.id} property={property} />
         ))}
       </ul>
-    </div>)
+    </div>
   );
 }
 

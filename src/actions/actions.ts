@@ -1,6 +1,6 @@
 "use server";
 
-import prisma from "@/lib/db";
+import prisma from "@/lib/prisma_db";
 import { revalidatePath } from "next/cache";
 
 export async function addProperty(

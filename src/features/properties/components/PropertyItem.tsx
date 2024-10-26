@@ -5,7 +5,7 @@ import Link from "next/link";
 
 import { FaLocationDot } from "react-icons/fa6";
 import PropertyFeatures from "./PropertyFeatures";
-import AnimatedLink from "./AnimatedLink";
+import AnimatedLink from "../../../components/AnimatedLink";
 
 type Props = {
   property: IProperty;

@@ -1,9 +1,8 @@
 "use client";
 
-// import { useFilterContext } from "@/context/FilterContext";
 import { formatCurrency } from "@/lib/utils";
-
 import { useFilterContext } from "@/context/FilterContext";
+
 import Image from "next/image";
 import LocationInput from "./LocationInput";
 import PropertyTypeMenu from "./PropertyTypeMenu";

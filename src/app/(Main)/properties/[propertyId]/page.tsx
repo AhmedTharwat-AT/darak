@@ -1,11 +1,12 @@
+import { getProperty } from "@/services/prismaApi";
+
 import BackButton from "@/components/BackButton";
-import PropertyFeatures from "@/components/PropertyFeatures";
+import PropertyFeatures from "@/features/properties/components/PropertyFeatures";
 import { Button } from "@/components/ui/button";
-import { getProperty } from "@/lib/services";
 import { formatCurrency } from "@/lib/utils";
 import { FaLocationDot, FaPhone } from "react-icons/fa6";
 import { RiWhatsappFill } from "react-icons/ri";
-import ImagesCarousel from "./ImagesCarousel";
+import PropertyCarousel from "@/features/properties/components/PropertyCarousel";
 
 async function page(props: { params: Promise<{ propertyId: string }> }) {
   const params = await props.params;
@@ -20,7 +21,7 @@ async function page(props: { params: Promise<{ propertyId: string }> }) {
 
         <div className="grid grid-cols-1 bp:grid-cols-2  grow mt-12 gap-8">
           <div className="relative rounded-xl overflow-hidden xl:min-h-[567px] min-h-96">
-            <ImagesCarousel images={property.images} />
+            <PropertyCarousel images={property.images} />
           </div>
 
           <div className="flex flex-col">

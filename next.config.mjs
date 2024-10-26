@@ -18,7 +18,13 @@ const nextConfig = {
   },
   logging: {
     fetches: {
-      hmrRefreshes: true,
+      fullUrl: true,
+    },
+  },
+  experimental: {
+    staleTimes: {
+      dynamic: 0,
+      static: 300,
     },
   },
 };
