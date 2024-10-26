@@ -1,8 +1,15 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, MotionProps } from "framer-motion";
 import { usePathname } from "next/navigation";
 import { useAnimation } from "./AnimationProvider";
+
+interface CustomMotionProps extends MotionProps {
+  className?: string;
+}
+
+// Create a new component that uses the custom props
+const CustomMotion = motion<CustomMotionProps>("div");
 
 export default function Transition({
   children,
@@ -17,7 +24,7 @@ export default function Transition({
     <AnimatePresence mode="wait">
       {!isAnimating && (
         <div className="max-w-[100vw] overflow-hidden">
-          <motion.div
+          <CustomMotion
             key={pathname}
             className="fixed inset-0 z-[2000] bg-blue-600 min-h-screen"
             initial={{ x: "100%", scaleX: 0.9 }}
@@ -25,7 +32,7 @@ export default function Transition({
             transition={{ ease: "easeIn", duration: 1 }}
           />
 
-          <motion.div
+          <CustomMotion
             key={pathname + "a"}
             className="h-full w-full"
             initial={{ opacity: 0, x: "100%" }}
@@ -38,7 +45,7 @@ export default function Transition({
             }}
           >
             {children}
-          </motion.div>
+          </CustomMotion>
         </div>
       )}
     </AnimatePresence>
