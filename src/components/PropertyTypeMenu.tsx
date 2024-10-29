@@ -20,6 +20,8 @@ function PropertyTypeMenu({
   return (
     <Select onValueChange={handlePropertyType} value={propertyType}>
       <SelectTrigger
+        id="property-type-select"
+        aria-label="property-type-select"
         icon={icon}
         className={`bg-none border-none capitalize ${className}`}
       >

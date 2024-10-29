@@ -6,7 +6,7 @@ import CredentialForm from "@/features/auth/components/CredentialForm";
 import GoogleBtn from "@/features/auth/components/GoogleBtn";
 
 export const metadata: Metadata = {
-  title: "Login",
+  title: "Signup",
 };
 
 type Props = {
@@ -26,7 +26,7 @@ async function page(props: Props) {
         <Logo />
 
         <h1 className={`text-3xl mt-5 capitalize font-semibold  `}>
-          Login to your account
+          Create new account
         </h1>
 
         <GoogleBtn callbackUrl={callbackUrl} />
@@ -41,9 +41,9 @@ async function page(props: Props) {
         <CredentialForm callbackUrl={callbackUrl} />
 
         <div className="flex w-full justify-center gap-2">
-          <p className="capitalize">don&apos;t have an account?</p>
-          <Link className="text-main hover:underline" href="/signup">
-            Create Account
+          <p className="capitalize">already have an account?</p>
+          <Link className="text-main hover:underline" href="/signin">
+            Login
           </Link>
         </div>
       </div>

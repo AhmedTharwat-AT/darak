@@ -1,47 +1,9 @@
 import prisma from "@/lib/prisma_db";
 import { PAGE_SIZE } from "../lib/constants";
-import { unstable_cache as nextCache } from "next/cache";
 import { IFilterValues } from "@/app/(Main)/properties/page";
+import { cache } from "@/lib/utils";
 
-// export const getProperties = async (page = 1) => {
-//   await new Promise((resolve) => setTimeout(resolve, 3000));
-//   console.log("run ");
-//   try {
-//     const properties = await prisma.properties.findMany({
-//       include: {
-//         images: true,
-//       },
-//       take: PAGE_SIZE,
-//       skip: PAGE_SIZE * (page - 1),
-//     });
-//     return properties;
-//   } catch (err) {
-//     console.log(err);
-//   }
-// };
-
-export const getProperties = nextCache(
-  async (page = 1) => {
-    await new Promise((resolve) => setTimeout(resolve, 3000));
-    try {
-      const properties = await prisma.properties.findMany({
-        include: {
-          images: true,
-        },
-        take: PAGE_SIZE,
-        skip: PAGE_SIZE * (page - 1),
-      });
-
-      return properties;
-    } catch (err) {
-      console.log("err", err);
-    }
-  },
-  ["properties"],
-  { revalidate: 15 }
-);
-
-export const getFilteredProperties = nextCache(
+export const getFilteredProperties = cache(
   async ({
     page = 1,
     price,
@@ -53,7 +15,6 @@ export const getFilteredProperties = nextCache(
     location,
   }: IFilterValues & { page?: number }) => {
     console.log("fetching properties");
-    await new Promise((resolve) => setTimeout(resolve, 5000));
     const priceObj = {
       from: price?.split("-")[0],
       to: price?.split("-")[1],
@@ -64,10 +25,8 @@ export const getFilteredProperties = nextCache(
       to: space?.split("-")[1],
     };
 
-    await new Promise((resolve) => setTimeout(resolve, 3000));
-
     try {
-      const properties = await prisma.properties.findMany({
+      const properties = await prisma.property.findMany({
         include: {
           images: true,
         },
@@ -103,24 +62,14 @@ export const getFilteredProperties = nextCache(
       return properties;
     } catch (err) {
       console.log("err", err);
+      throw new Error("Error fetching properties!");
     }
   },
   ["propertiesFiltered"],
-  { revalidate: 20 }
+  { revalidate: 3600 }
 );
 
-// export const getPropertiesCount = async () => {
-//   console.log("run");
-//   await new Promise((resolve) => setTimeout(resolve, 5000));
-
-//   try {
-//     const count = await prisma.properties.count();
-//     return count;
-//   } catch (err) {
-//     console.log(err);
-//   }
-// };
-export const getFilteredPropertiesCount = nextCache(
+export const getFilteredPropertiesCount = cache(
   async ({
     price,
     space,
@@ -140,10 +89,8 @@ export const getFilteredPropertiesCount = nextCache(
       to: space?.split("-")[1],
     };
 
-    await new Promise((resolve) => setTimeout(resolve, 5000));
-
     try {
-      const count = await prisma.properties.count({
+      const count = await prisma.property.count({
         where: {
           price: {
             gte: priceObj?.from ? Number(priceObj.from) : 0,
@@ -173,47 +120,53 @@ export const getFilteredPropertiesCount = nextCache(
       return count;
     } catch (err) {
       console.log(err);
-      return null;
+      throw new Error("Error fetching properties count!");
     }
   },
   ["propertiesCountFiltered"],
-  { revalidate: 1 }
+  { revalidate: 3600 }
 );
 
-export const getPropertiesCount = nextCache(
-  async () => {
-    await new Promise((resolve) => setTimeout(resolve, 5000));
+export const getProperty = cache(
+  async (id: string) => {
     try {
-      const count = await prisma.properties.count();
-      return count;
+      const property = await prisma.property.findUnique({
+        where: {
+          id,
+        },
+        include: {
+          images: true,
+        },
+      });
+
+      return property;
     } catch (err) {
       console.log(err);
-      return null;
+      throw new Error("Error fetching property!");
     }
-  },
-  ["propertiesCount"],
-  { revalidate: 15 }
-);
-
-export const getProperty = nextCache(
-  async (id: string) => {
-    await delay();
-    const property = await prisma.properties.findUnique({
-      where: {
-        id,
-      },
-      include: {
-        images: true,
-      },
-    });
-    return property;
   },
   ["property"],
   { revalidate: 3600 }
 );
 
-export async function delay() {
-  await new Promise((resolve) =>
-    setTimeout(() => resolve("data loaded"), 5000)
-  );
-}
+export const getBookmarks = cache(
+  async (userId: string) => {
+    try {
+      const bookmarks = await prisma.bookmarkedProperty.findMany({
+        where: {
+          userId,
+        },
+        include: {
+          property: true,
+        },
+      });
+
+      return bookmarks;
+    } catch (err) {
+      console.log(err);
+      throw new Error("Error fetching bookmarks!");
+    }
+  },
+  ["bookmarks"],
+  { revalidate: 3600 }
+);

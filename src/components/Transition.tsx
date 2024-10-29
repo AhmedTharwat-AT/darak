@@ -2,7 +2,7 @@
 
 import { AnimatePresence, motion, MotionProps } from "framer-motion";
 import { usePathname } from "next/navigation";
-import { useAnimation } from "./AnimationProvider";
+import { useAnimation } from "@/context/AnimationProvider";
 
 interface CustomMotionProps extends MotionProps {
   className?: string;
@@ -17,8 +17,8 @@ export default function Transition({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-  const { isAnimating } = useAnimation();
-  console.log(isAnimating, pathname);
+  const { isAnimating, isPending } = useAnimation();
+  console.log(isAnimating, isPending, pathname);
 
   return (
     <AnimatePresence mode="wait">

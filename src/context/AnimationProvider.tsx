@@ -7,11 +7,16 @@ import {
   ReactNode,
   Dispatch,
   SetStateAction,
+  useEffect,
+  useTransition,
+  TransitionStartFunction,
 } from "react";
 
 type AnimationContextType = {
   isAnimating: boolean;
   setIsAnimating: Dispatch<SetStateAction<boolean>>;
+  isPending: boolean;
+  startTransition: TransitionStartFunction;
 };
 
 const AnimationContext = createContext<AnimationContextType | undefined>(
@@ -20,9 +25,20 @@ const AnimationContext = createContext<AnimationContextType | undefined>(
 
 export function AnimationProvider({ children }: { children: ReactNode }) {
   const [isAnimating, setIsAnimating] = useState(false);
+  const [isPending, startTransition] = useTransition();
+
+  // once the transition ends , the new route is fetched and ready to be displayed
+  useEffect(() => {
+    if (!isPending) {
+      console.log("done transition");
+      setIsAnimating(false);
+    }
+  }, [isPending, setIsAnimating]);
 
   return (
-    <AnimationContext.Provider value={{ isAnimating, setIsAnimating }}>
+    <AnimationContext.Provider
+      value={{ isAnimating, setIsAnimating, isPending, startTransition }}
+    >
       {children}
     </AnimationContext.Provider>
   );

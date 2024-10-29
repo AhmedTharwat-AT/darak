@@ -1,7 +1,7 @@
 import { Playfair_Display, Poppins } from "next/font/google";
 import "./globals.css";
 import { Metadata } from "next";
-import { AnimationProvider } from "@/components/AnimationProvider";
+import { AnimationProvider } from "@/context/AnimationProvider";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],

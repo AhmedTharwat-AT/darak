@@ -11,33 +11,43 @@ datasource db {
 }
 
 model User {
-  id         String       @id @default(cuid())
-  email      String       @unique
-  name       String
-  properties Properties[]
+  id                    String               @id @default(cuid())
+  email                 String               @unique
+  name                  String
+  properties            Property[]
+  bookmarked_properties BookmarkedProperty[]
 }
 
-model Properties {
-  id          String          @id @default(cuid())
-  title       String
-  description String
-  location    String
-  type        String
-  mode        String
-  images      PropertyImage[]
-  price       Int
-  space       Int
-  rooms       Int
-  bathrooms   Int
-  owner       User            @relation(fields: [ownerId], references: [id], onDelete: Cascade)
-  ownerId     String
-  createdAt   DateTime        @default(now())
-  updatedAt   DateTime        @updatedAt
+model Property {
+  id                 String               @id @default(cuid())
+  title              String
+  description        String
+  location           String
+  type               String
+  mode               String
+  price              Int
+  space              Int
+  rooms              Int
+  bathrooms          Int
+  createdAt          DateTime             @default(now())
+  updatedAt          DateTime             @updatedAt
+  ownerId            String
+  images             PropertyImage[]
+  BookmarkedProperty BookmarkedProperty[]
+  owner              User                 @relation(fields: [ownerId], references: [id], onDelete: Cascade)
 }
 
 model PropertyImage {
-  id          Int        @id @default(autoincrement())
+  id          Int      @id @default(autoincrement())
   url         String
   properityId String
-  properity   Properties @relation(fields: [properityId], references: [id], onDelete: Cascade)
+  property    Property @relation(fields: [properityId], references: [id], onDelete: Cascade)
+}
+
+model BookmarkedProperty {
+  id         String   @id @default(cuid())
+  propertyId String
+  userId     String
+  property   Property @relation(fields: [id], references: [id], onDelete: Cascade)
+  user       User     @relation(fields: [propertyId], references: [id], onDelete: Cascade)
 }

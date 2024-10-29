@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { ReactNode, useEffect, useTransition } from "react";
-import { useAnimation } from "./AnimationProvider";
+import { ReactNode } from "react";
+import { useAnimation } from "@/context/AnimationProvider";
 
 export default function AnimatedLink({
   href,
@@ -16,14 +16,14 @@ export default function AnimatedLink({
 }) {
   const router = useRouter();
   const pathname = usePathname();
-  const { isAnimating, setIsAnimating } = useAnimation();
-  const [isPending, startTransition] = useTransition();
+  const { setIsAnimating, startTransition, isAnimating } = useAnimation();
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
-    if (pathname === href) return;
+    if (pathname === href || isAnimating) return;
 
     setIsAnimating(true);
+
     // prefetching the next page while displaying the exit animation
     router.prefetch(href);
 
@@ -32,23 +32,8 @@ export default function AnimatedLink({
         console.log("start transition");
         router.push(href);
       });
-    }, 200); // This should match your exit animation duration
+    }, 200);
   };
-
-  // once the transition ends , the new route is fetched and ready to be displayed
-  useEffect(() => {
-    if (!isPending) {
-      console.log("done transition");
-      setIsAnimating(false);
-    }
-  }, [isPending, setIsAnimating]);
-
-  useEffect(() => {
-    return () => {
-      console.log("done transition unmounting");
-      setIsAnimating(false);
-    };
-  }, [setIsAnimating]);
 
   return (
     <Link className={className} href={href} onClick={handleClick}>

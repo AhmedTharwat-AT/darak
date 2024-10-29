@@ -5,16 +5,17 @@ function QuantityHandler({
   value: number;
   handler: (value: number) => void;
 }) {
+  const quantityType = String(value);
   return (
     <div className="flex gap-1 rounded-lg overflow-hidden">
       <input
         type="number"
-        name="rooms"
-        id="rooms"
-        value={value}
+        name={quantityType}
+        id={quantityType}
+        value={quantityType}
         className="w-full px-3 appearance-none"
         onWheel={(e) => e.currentTarget.blur()}
-        placeholder="Rooms"
+        placeholder={quantityType}
         onChange={(e) => handler(Number(e.target.value))}
       />
       <button

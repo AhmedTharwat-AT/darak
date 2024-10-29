@@ -16,7 +16,7 @@ export async function addProperty(
   try {
     const property = Object.fromEntries(formData) as any;
 
-    const response = await prisma.properties.create({
+    const response = await prisma.property.create({
       data: {
         title: property.title,
         description: property.description,
@@ -33,7 +33,7 @@ export async function addProperty(
         },
       },
     });
-    console.log(response);
+
     revalidatePath("/");
 
     return { status: "success", message: "property added successfully" };

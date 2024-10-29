@@ -1,4 +1,6 @@
-import * as React from "react";
+import { useState, useTransition } from "react";
+import { useFilterContext } from "@/context/FilterContext";
+
 import { Check, ChevronsUpDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -14,10 +16,8 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-
 import { cn } from "@/lib/utils";
 import data from "../../data/countries.json";
-import { useFilterContext } from "@/context/FilterContext";
 
 function LocationInput({
   className,
@@ -26,7 +26,8 @@ function LocationInput({
   className?: string;
   icon?: boolean;
 }) {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [_, startTransition] = useTransition();
   const { location: currentLocation, handleLocation } = useFilterContext();
 
   const locations: {
@@ -36,10 +37,17 @@ function LocationInput({
     city_name_en: string;
   }[] = data;
 
+  function handleOpenComboBox() {
+    startTransition(() => {
+      setOpen((o) => !o);
+    });
+  }
+
   return (
-    <Popover open={open} onOpenChange={setOpen}>
+    <Popover open={open} onOpenChange={handleOpenComboBox}>
       <PopoverTrigger asChild>
         <Button
+          id="location"
           variant="outline"
           role="combobox"
           aria-expanded={open}

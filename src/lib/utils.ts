@@ -1,4 +1,6 @@
 import { type ClassValue, clsx } from "clsx";
+import { unstable_cache as nextCache } from "next/cache";
+import { cache as reactCache } from "react";
 import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
@@ -30,3 +32,17 @@ export function relativeDateInDays(date: unknown) {
 
   return rtf.format(-diffInDays, "day");
 }
+
+export async function delay(amount: number = 5000) {
+  await new Promise((resolve) => setTimeout(() => resolve(null), amount));
+}
+
+type cacheType = (
+  cb: (...args: any[]) => Promise<any>,
+  keyParts: string[],
+  options: { revalidate?: number | false; tage?: string[] }
+) => any;
+
+export const cache: cacheType = (cb, keyParts, options) => {
+  return nextCache(reactCache(cb), keyParts, options);
+};
