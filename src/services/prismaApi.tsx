@@ -66,7 +66,7 @@ export const getFilteredProperties = cache(
     }
   },
   ["propertiesFiltered"],
-  { revalidate: 3600 }
+  { revalidate: 3600 },
 );
 
 export const getFilteredPropertiesCount = cache(
@@ -124,7 +124,7 @@ export const getFilteredPropertiesCount = cache(
     }
   },
   ["propertiesCountFiltered"],
-  { revalidate: 3600 }
+  { revalidate: 3600 },
 );
 
 export const getProperty = cache(
@@ -146,7 +146,7 @@ export const getProperty = cache(
     }
   },
   ["property"],
-  { revalidate: 3600 }
+  { revalidate: 3600 },
 );
 
 export const getBookmarks = cache(
@@ -168,5 +168,5 @@ export const getBookmarks = cache(
     }
   },
   ["bookmarks"],
-  { revalidate: 3600 }
+  { revalidate: 3600 },
 );

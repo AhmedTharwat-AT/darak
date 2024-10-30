@@ -12,27 +12,29 @@ function MobileFilter() {
   return (
     <Dialog>
       <DialogTrigger className="block md:hidden" asChild>
-        <button className="bg-mainLight size-10 rounded-lg text-center">
-          <CiFilter className="fill-main size-7 w-full" />
+        <button className="size-10 rounded-lg bg-mainLight text-center">
+          <CiFilter className="size-7 w-full fill-main" />
         </button>
       </DialogTrigger>
       <DialogContent
         aria-describedby={"filter"}
-        className="bg-bgDark max-w-[90vw] max-h-[95vh]  rounded-[var(--radius)] overflow-y-auto"
+        className="max-h-[95vh] max-w-[90vw] overflow-hidden rounded-[var(--radius)] bg-bgDark max-sm:p-4"
       >
-        <DialogTitle className="uppercase font-medium text-blacker ">
+        <DialogTitle className="font-medium uppercase text-blacker">
           Filter
         </DialogTitle>
 
         <FilterProvider>
           <PropertiesFilter
             showHeader={false}
-            className=" h-auto p-0 px-6 min-h-0"
+            className="max-h-[70vh] grow overflow-y-auto p-0 px-6 max-sm:px-2"
           />
         </FilterProvider>
       </DialogContent>
     </Dialog>
   );
 }
+
+// className=" w-full "
 
 export default MobileFilter;

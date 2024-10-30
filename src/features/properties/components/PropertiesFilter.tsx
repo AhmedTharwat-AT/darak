@@ -31,11 +31,11 @@ function PropertiesFilter({
     submitFilter,
     reset,
   } = useFilterContext();
-
+  // max-h-[870px]
   return (
     <div
       className={cn(
-        "font-poppins w-full  bg-bgDark p-6 rounded-lg max-h-[870px] h-screen md:sticky top-4 overflow-y-auto shrink-0",
+        "font-poppins w-full  bg-bgDark p-6 rounded-lg max-h-screen h-full md:sticky top-4 md:overflow-y-auto shrink-0",
         className
       )}
     >

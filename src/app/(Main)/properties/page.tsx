@@ -27,17 +27,19 @@ async function properties(props: {
   const { page = "1", sortBy, ...filterValues } = searchParams;
 
   return (
-    <div className=" my-[3.5rem] relative">
-      <div className="container flex gap-4 md:flex-nowrap flex-wrap max-md:justify-center">
+    <div className="relative my-[3.5rem]">
+      <div className="container flex h-full flex-wrap gap-4 max-md:justify-center md:flex-nowrap">
         {/* desktop filter */}
         <Suspense
           fallback={
-            <Skeleton className="md:block hidden md:max-w-80 shadow-md w-full  bg-gray-300 p-6 rounded-lg max-h-[870px] h-screen md:sticky top-4 overflow-y-auto shrink-0" />
+            <Skeleton className="top-4 hidden h-screen max-h-[870px] w-full shrink-0 overflow-y-auto rounded-lg bg-gray-300 p-6 shadow-md md:sticky md:block md:max-w-80" />
           }
         >
-          <FilterProvider>
-            <PropertiesFilter className="md:block hidden md:max-w-80 shadow-md" />
-          </FilterProvider>
+          <div className="min-h-full">
+            <FilterProvider>
+              <PropertiesFilter className="top-0 hidden shadow-md md:block md:max-w-80" />
+            </FilterProvider>
+          </div>
         </Suspense>
 
         <PropertiesWrapper

@@ -23,14 +23,16 @@ export default function Transition({
   return (
     <AnimatePresence mode="wait">
       {!isAnimating && (
-        <div className="max-w-[100vw] overflow-hidden">
-          <CustomMotion
-            key={pathname}
-            className="fixed inset-0 z-[2000] bg-blue-600 min-h-screen"
-            initial={{ x: "100%", scaleX: 0.9 }}
-            animate={{ x: ["100%", "-100%"], scaleX: [1, 2, 1] }}
-            transition={{ ease: "easeIn", duration: 1 }}
-          />
+        <div>
+          <div className="max-w-screen overflow-x-hidden">
+            <CustomMotion
+              key={pathname}
+              className="fixed inset-0 z-[2000] bg-blue-600 min-h-screen"
+              initial={{ x: "100%", scaleX: 0.9 }}
+              animate={{ x: ["100%", "-100%"], scaleX: [1, 2, 1] }}
+              transition={{ ease: "easeIn", duration: 1 }}
+            />
+          </div>
 
           <CustomMotion
             key={pathname + "a"}
