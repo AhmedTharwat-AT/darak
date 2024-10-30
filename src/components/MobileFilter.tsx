@@ -7,6 +7,7 @@ import {
 import { CiFilter } from "react-icons/ci";
 import FilterProvider from "@/context/FilterContext";
 import PropertiesFilter from "../features/properties/components/PropertiesFilter";
+import { DialogDescription } from "@radix-ui/react-dialog";
 
 function MobileFilter() {
   return (
@@ -20,6 +21,7 @@ function MobileFilter() {
         aria-describedby={"filter"}
         className="max-h-[95vh] max-w-[90vw] overflow-hidden rounded-[var(--radius)] bg-bgDark max-sm:p-4"
       >
+        <DialogDescription></DialogDescription>
         <DialogTitle className="font-medium uppercase text-blacker">
           Filter
         </DialogTitle>

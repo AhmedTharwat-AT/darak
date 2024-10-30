@@ -1,48 +1,36 @@
-import Image from "next/image";
 import NavLinks from "./NavLinks";
 import NavUserIcons from "./NavUserIcons";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import { CgMenuRight } from "react-icons/cg";
 import Logo from "../Logo";
+import MobileSheet from "./MobileSheet";
 
 function NavBar() {
   return (
-    <header className="md:pt-[3.5rem] pt-[2rem]  relative z-10">
+    <header className="relative z-10 pt-8 md:pt-14">
       <div className="container">
-        <div className="flex w-full justify-between items-center border-b pb-2 border-stroke h-12 font-poppins">
+        <nav className="flex h-12 justify-between border-b border-stroke pb-2 font-poppins">
           <Logo />
 
-          <nav className="md:block hidden">
-            <ul className="flex  gap-8 items-center text-lg font-medium">
-              <NavLinks />
-            </ul>
-          </nav>
+          {/* desktop */}
+          <ul className="hidden items-center gap-8 text-lg font-medium md:flex">
+            <NavLinks />
+          </ul>
 
-          <div className="md:flex hidden items-center gap-4">
+          {/* desktop */}
+          <div className="hidden items-center gap-4 md:flex">
             <NavUserIcons />
           </div>
 
           {/* mobile side menu */}
-
-          <Sheet>
-            <SheetTrigger className=" md:hidden">
-              <CgMenuRight className="size-8 text-font" />
-            </SheetTrigger>
-            <SheetContent className="py-8">
-              <div className="flex items-center justify-center gap-5">
-                <NavUserIcons scale={40} />
-              </div>
-
-              <hr className="my-8 bg-stroke" />
-
-              <nav className="">
-                <ul className="flex flex-col gap-8 items-start text-lg font-medium font-poppins">
-                  <NavLinks />
-                </ul>
-              </nav>
-            </SheetContent>
-          </Sheet>
-        </div>
+          <MobileSheet />
+        </nav>
       </div>
     </header>
   );
