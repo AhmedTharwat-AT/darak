@@ -15,9 +15,9 @@ export default function Error({
   }, [error]);
 
   return (
-    <div className="container flex items-center justify-center text-lg lg:text-2xl flex-col font-poppins">
+    <div className="container flex min-h-screen flex-col items-center justify-center font-poppins text-lg lg:text-2xl">
       <h2>Something went wrong!</h2>
-      <Button className="capitalize mt-4" onClick={() => reset()}>
+      <Button className="mt-4 capitalize" onClick={() => reset()}>
         Try again
       </Button>
     </div>

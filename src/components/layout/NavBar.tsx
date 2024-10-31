@@ -10,13 +10,16 @@ import {
 import { CgMenuRight } from "react-icons/cg";
 import Logo from "../Logo";
 import MobileSheet from "./MobileSheet";
+import AnimatedLink from "../AnimatedLink";
 
 function NavBar() {
   return (
     <header className="relative z-10 pt-8 md:pt-14">
       <div className="container">
         <nav className="flex h-12 justify-between border-b border-stroke pb-2 font-poppins">
-          <Logo />
+          <AnimatedLink href="/">
+            <Logo />
+          </AnimatedLink>
 
           {/* desktop */}
           <ul className="hidden items-center gap-8 text-lg font-medium md:flex">

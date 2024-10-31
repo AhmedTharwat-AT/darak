@@ -1,5 +1,7 @@
 import { getFilteredProperties } from "@/services/prismaApi";
+
 import PropertyItem from "./PropertyItem";
+import { PropertyWithImages } from "@/lib/types";
 
 async function PropertiesList({
   page,
@@ -22,19 +24,27 @@ async function PropertiesList({
 
   if (sortBy === "default" || !sortBy) filteredProperties = properties;
   if (sortBy === "htlprice")
-    filteredProperties = properties.sort((a, b) => b.price - a.price);
+    filteredProperties = properties.sort(
+      (a: { price: number }, b: { price: number }) => b.price - a.price,
+    );
   if (sortBy === "lthprice")
-    filteredProperties = properties.sort((a, b) => a.price - b.price);
+    filteredProperties = properties.sort(
+      (a: { price: number }, b: { price: number }) => a.price - b.price,
+    );
   if (sortBy === "htlspace")
-    filteredProperties = properties.sort((a, b) => b.space - a.space);
+    filteredProperties = properties.sort(
+      (a: { space: number }, b: { space: number }) => b.space - a.space,
+    );
   if (sortBy === "lthspace")
-    filteredProperties = properties.sort((a, b) => a.space - b.space);
+    filteredProperties = properties.sort(
+      (a: { space: number }, b: { space: number }) => a.space - b.space,
+    );
 
   return (
     // <section className="grid justify-start grid-rows-[auto_1fr]">
     <div className="flex flex-col">
-      <ul className="grid grid-cols-1 lg:grid-cols-2  gap-5 4xl:grid-cols-3">
-        {filteredProperties?.map((property) => (
+      <ul className="grid grid-cols-1 gap-5 lg:grid-cols-2 4xl:grid-cols-3">
+        {filteredProperties?.map((property: PropertyWithImages) => (
           <PropertyItem key={property.id} property={property} />
         ))}
       </ul>

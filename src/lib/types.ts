@@ -1,4 +1,4 @@
-import type { User, Properties, PropertyImage } from "prisma/prisma-client";
+import { Property, PropertyImage } from "@prisma/client";
 
 export type PropertyTypes =
   | "all"
@@ -7,13 +7,14 @@ export type PropertyTypes =
   | "store"
   | "office";
 
-export type IUser = User;
+export type PropertyWithImages = Property & { images: PropertyImage[] };
+// export type IUser = User;
 
-export type IPropertyImage = PropertyImage;
+// export type IPropertyImage = PropertyImage;
 
-export type IProperty = Properties & { images: PropertyImage[] };
+// export type IProperty = Properties & { images: PropertyImage[] };
 
-export type IProperties = IProperty[];
+// export type IProperties = IProperty[];
 
 // export interface Property  {
 //   id: string;

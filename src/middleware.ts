@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { auth } from "./auth";
 
 const authPages = ["/signin", "/signup"];
-const protectedPages = ["/profile", "/wishlist"];
+const protectedPages = ["/profile", "/bookmark"];
 
 export const middleware = auth(async (req) => {
   const pathname = req.nextUrl.pathname;
@@ -11,8 +11,11 @@ export const middleware = auth(async (req) => {
   if (authPages.includes(pathname) && isAuth) {
     return NextResponse.redirect(new URL("/", req.url));
   }
+
   if (protectedPages.includes(pathname) && !isAuth) {
-    return NextResponse.redirect(new URL("/signin", req.url));
+    return NextResponse.redirect(
+      new URL(`/signin?callbackUrl=${pathname}`, req.url),
+    );
   }
 
   return NextResponse.next();
@@ -20,6 +23,6 @@ export const middleware = auth(async (req) => {
 
 export const config = {
   matcher: [
-    "/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)",
+    "/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|assets|icon).*)",
   ],
 };

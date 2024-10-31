@@ -18,7 +18,7 @@ export default function Transition({
 }) {
   const pathname = usePathname();
   const { isAnimating, isPending } = useAnimation();
-  console.log(isAnimating, isPending, pathname);
+  // console.log(isAnimating, isPending, pathname);
 
   return (
     <AnimatePresence mode="wait">
@@ -26,8 +26,8 @@ export default function Transition({
         <div>
           <div className="max-w-screen overflow-x-hidden">
             <CustomMotion
-              key={pathname}
-              className="fixed inset-0 z-[2000] bg-blue-600 min-h-screen"
+              // key={pathname}
+              className="fixed inset-0 z-[2000] min-h-screen bg-blue-600"
               initial={{ x: "100%", scaleX: 0.9 }}
               animate={{ x: ["100%", "-100%"], scaleX: [1, 2, 1] }}
               transition={{ ease: "easeIn", duration: 1 }}
@@ -35,7 +35,7 @@ export default function Transition({
           </div>
 
           <CustomMotion
-            key={pathname + "a"}
+            // key={pathname + "a"}
             className="h-full w-full"
             initial={{ opacity: 0, x: "100%" }}
             animate={{ opacity: 1, x: " 0% " }}

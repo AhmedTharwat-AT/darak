@@ -3,6 +3,23 @@ import { PAGE_SIZE } from "../lib/constants";
 import { IFilterValues } from "@/app/(Main)/properties/page";
 import { cache } from "@/lib/utils";
 
+export async function getUser(userId: string) {
+  try {
+    const user = await prisma.user.findFirst({
+      where: {
+        id: {
+          equals: userId,
+        },
+      },
+    });
+
+    return user;
+  } catch (err) {
+    console.log("err", err);
+    throw new Error("Error fetching user!");
+  }
+}
+
 export const getFilteredProperties = cache(
   async ({
     page = 1,

@@ -1,7 +1,7 @@
 "use client";
 
 import { useActionState } from "react";
-import { addProperty } from "@/actions/actions";
+import { addProperty } from "@/actions/properties";
 import { useFormStatus } from "react-dom";
 
 function AddProperty() {
@@ -12,7 +12,7 @@ function AddProperty() {
 
   return (
     <form
-      className="border-2 flex-wrap bg-green-200 flex gap-2 p-2"
+      className="flex flex-wrap gap-2 border-2 bg-green-200 p-2"
       action={formAction}
     >
       <div className="w-full">
@@ -41,7 +41,7 @@ function AddProperty() {
 function Input({ name }: { name: string }) {
   return (
     <input
-      className="border w-[38%] p-1 my-2 "
+      className="my-2 w-[38%] border p-1"
       type="text"
       name={name}
       placeholder={name}
@@ -52,7 +52,7 @@ function Input({ name }: { name: string }) {
 function FormButton() {
   const { pending } = useFormStatus();
   return (
-    <button className="border p-1 w-full bg-black text-white" type="submit">
+    <button className="w-full border bg-black p-1 text-white" type="submit">
       {pending ? "Submitting..." : "Submit"}
     </button>
   );

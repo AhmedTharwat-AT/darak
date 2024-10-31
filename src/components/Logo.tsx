@@ -1,7 +1,15 @@
 import Image from "next/image";
 
 function Logo() {
-  return <Image src={"/assets/logo.svg"} alt="logo" width={135} height={50} />;
+  return (
+    <Image
+      src={"/assets/logo.svg"}
+      alt="logo"
+      width={135}
+      height={50}
+      priority
+    />
+  );
 }
 
 export default Logo;

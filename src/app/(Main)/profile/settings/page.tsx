@@ -1,5 +1,5 @@
 function page() {
-  return <div>profile page</div>;
+  return <div>settings</div>;
 }
 
 export default page;

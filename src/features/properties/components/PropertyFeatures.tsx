@@ -1,4 +1,4 @@
-import { IProperty } from "@/lib/types";
+import { Property } from "@prisma/client";
 import { cn } from "@/lib/utils";
 import { ReactNode } from "react";
 import { BiArea } from "react-icons/bi";
@@ -8,24 +8,24 @@ function PropertyFeatures({
   property,
   featureStyle,
 }: {
-  property: IProperty;
+  property: Property;
   featureStyle?: string;
 }) {
   return (
-    <div className="flex  text-font items-center text-xs sm:text-sm justify-between w-full flex-wrap gap-2 ">
+    <div className="flex w-full flex-wrap items-center justify-between gap-2 text-xs text-font sm:text-sm">
       <Feature featureStyle={featureStyle}>
         <PiBedLight className="size-5" />
         {property.rooms} Rooms
       </Feature>
 
-      <span className="min-h-full self-stretch w-[1px] block bg-stroke"></span>
+      <span className="block min-h-full w-[1px] self-stretch bg-stroke"></span>
 
       <Feature featureStyle={featureStyle}>
         <PiBathtub className="size-5" />
         {property.bathrooms} Bathrooms
       </Feature>
 
-      <span className="min-h-full self-stretch w-[1px] block bg-stroke"></span>
+      <span className="block min-h-full w-[1px] self-stretch bg-stroke"></span>
 
       <Feature featureStyle={featureStyle}>
         <BiArea className="size-5" />
@@ -50,8 +50,8 @@ function Feature({
   return (
     <div
       className={cn(
-        "text-center  flex-col  flex-nowrap line-clamp-1 items-center gap-1 flex ",
-        featureStyle
+        "line-clamp-1 flex flex-col flex-nowrap items-center gap-1 text-center",
+        featureStyle,
       )}
     >
       {children}

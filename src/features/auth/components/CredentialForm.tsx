@@ -11,20 +11,20 @@ function CredentialForm({ callbackUrl }: { callbackUrl?: string | undefined }) {
 
         const email = data.get("email");
         const password = data.get("password");
+        console.log("cbb", callbackUrl);
         await signIn("credentials", {
           email,
           password,
-          redirect: true,
-          callbackUrl: callbackUrl || "/",
+          redirectTo: callbackUrl || "/",
         });
       }}
     >
       <div className="mb-6">
-        <label className="block mb-2">Email</label>
+        <label className="mb-2 block">Email</label>
         <div className="relative">
-          <IoMdMail className="absolute top-1/2 -translate-y-1/2 left-3 size-5 fill-stroke" />
+          <IoMdMail className="absolute left-3 top-1/2 size-5 -translate-y-1/2 fill-stroke" />
           <input
-            className="w-full focus:border-main  ps-10 pe-4 py-4 border border-stroke rounded-lg"
+            className="w-full rounded-lg border border-stroke py-4 pe-4 ps-10 focus:border-main"
             name="email"
             type="email"
             placeholder="Enter your email"
@@ -33,11 +33,11 @@ function CredentialForm({ callbackUrl }: { callbackUrl?: string | undefined }) {
       </div>
 
       <div>
-        <label className="block mb-2">Password</label>
+        <label className="mb-2 block">Password</label>
         <div className="relative">
-          <FaLock className="absolute top-1/2 -translate-y-1/2 left-3 size-5 fill-stroke" />
+          <FaLock className="absolute left-3 top-1/2 size-5 -translate-y-1/2 fill-stroke" />
           <input
-            className="w-full ps-10 focus:border-main pe-4 py-4 border border-stroke rounded-lg"
+            className="w-full rounded-lg border border-stroke py-4 pe-4 ps-10 focus:border-main"
             name="password"
             type="password"
             placeholder="Enter your password"
@@ -45,7 +45,7 @@ function CredentialForm({ callbackUrl }: { callbackUrl?: string | undefined }) {
         </div>
       </div>
       {/* <input name="csrfToken" type="hidden" defaultValue={csrf} /> */}
-      <Button className="w-full text-xl my-6 py-4 h-auto" size="lg">
+      <Button className="my-6 h-auto w-full py-4 text-xl" size="lg">
         Login
       </Button>
     </form>

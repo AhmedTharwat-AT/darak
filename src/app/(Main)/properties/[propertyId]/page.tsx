@@ -1,66 +1,72 @@
 import { getProperty } from "@/services/prismaApi";
 
 import BackButton from "@/components/BackButton";
-import PropertyFeatures from "@/features/properties/components/PropertyFeatures";
+import Error from "@/components/Error";
 import { Button } from "@/components/ui/button";
+import BookmarkProperty from "@/features/properties/components/BookmarkProperty";
+import PropertyCarousel from "@/features/properties/components/PropertyCarousel";
+import PropertyFeatures from "@/features/properties/components/PropertyFeatures";
 import { formatCurrency } from "@/lib/utils";
 import { FaLocationDot, FaPhone } from "react-icons/fa6";
 import { RiWhatsappFill } from "react-icons/ri";
-import PropertyCarousel from "@/features/properties/components/PropertyCarousel";
 
 async function page(props: { params: Promise<{ propertyId: string }> }) {
   const params = await props.params;
   const property = await getProperty(params.propertyId);
 
-  if (!property) return <div className="container">Property not found</div>;
+  if (!property) return <Error message="Property not found" />;
 
   return (
     <main className="font-poppins">
-      <div className="container  flex flex-col my-12">
+      <div className="container my-12 flex flex-col">
         <BackButton text="Back" />
 
-        <div className="grid grid-cols-1 bp:grid-cols-2  grow mt-12 gap-8">
-          <div className="relative rounded-xl overflow-hidden xl:min-h-[567px] min-h-96">
-            <PropertyCarousel images={property.images} />
-          </div>
+        <div className="mt-12 grid grow grid-cols-1 gap-8 bp:grid-cols-2">
+          <PropertyCarousel images={property.images} />
 
           <div className="flex flex-col">
-            <div className="flex gap-2 items-center">
-              <FaLocationDot className="fill-main size-5" />
-              <p className="text-xl">{property.location}</p>
+            <div className="flex justify-between">
+              <div>
+                <div className="flex items-center gap-2">
+                  <FaLocationDot className="size-5 fill-main" />
+                  <p className="text-xl">{property.location}</p>
+                </div>
+
+                <h2 className="mb-4 mt-2 line-clamp-1 text-2xl">
+                  {property.title}
+                </h2>
+              </div>
+
+              <BookmarkProperty propertyId={params.propertyId} />
             </div>
 
-            <h2 className="text-2xl mt-2 mb-4 line-clamp-1">
-              {property.title}
-            </h2>
-
-            <hr className="bg-stroke my-3" />
+            <hr className="my-3 bg-stroke" />
 
             <div>
-              <h3 className="text-xl text-font mb-4">Features</h3>
+              <h3 className="mb-4 text-xl text-font">Features</h3>
               <PropertyFeatures
                 property={property}
                 featureStyle="flex-row flex gap-3 text-xl text-main [&_svg]:size-6 [&_svg]:fill-font"
               />
             </div>
 
-            <hr className="bg-stroke mb-4 mt-2" />
+            <hr className="mb-4 mt-2 bg-stroke" />
 
             <div>
-              <h3 className="text-xl text-font  mb-4">Description</h3>
+              <h3 className="mb-4 text-xl text-font">Description</h3>
               <p className="text-black">{property.description}</p>
             </div>
 
-            <div className="flex flex-wrap justify-between items-end mt-auto pt-8 gap-8">
-              <p className="font-bold text-3xl line-clamp-1">
+            <div className="mt-auto flex flex-wrap items-end justify-between gap-8 pt-8">
+              <p className="line-clamp-1 text-3xl font-bold">
                 {formatCurrency(property.price)}
               </p>
-              <div className="flex ms-auto flex-wrap items-stretch gap-4">
+              <div className="ms-auto flex flex-wrap items-stretch gap-4">
                 <Button className="space-x-2">
-                  <FaPhone className="size-4 " />
+                  <FaPhone className="size-4" />
                   <span className="text-xl">Call</span>
                 </Button>
-                <Button className="bg-[#67C15E] space-x-2">
+                <Button className="space-x-2 bg-[#67C15E]">
                   <RiWhatsappFill className="size-6" />
                   <span className="text-xl">WhatsApp</span>
                 </Button>
