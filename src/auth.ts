@@ -1,35 +1,50 @@
+import bcrypt from "bcryptjs";
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google";
+import prisma from "./lib/prisma_db";
+import { formSchema } from "./lib/zodSchemas";
+import { getUser } from "./services/prismaApi";
 
 export const { auth, handlers, signIn, signOut } = NextAuth({
   providers: [
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    }),
     Credentials({
-      // You can specify which fields should be submitted, by adding keys to the `credentials` object.
-      // e.g. domain, username, password, 2FA token, etc.
       credentials: {
         email: {},
         password: {},
       },
       authorize: async (credentials) => {
-        let user = { email: credentials.email as string };
-        // console.log("cred : ", credentials);
+        const parsedCredentials = formSchema.safeParse(credentials);
 
-        // check if user exists with those credentials
-        if (Math.random() < 0.5) {
-          user = {
-            email: credentials.email as string,
-          };
+        if (parsedCredentials.success) {
+          const { email, password } = parsedCredentials.data;
+          const user = await getUser(email);
+
+          // create new user here
+          if (!user) {
+            const hashedPassword = await bcrypt.hash(password, 10);
+            const newUser = await prisma.user.create({
+              data: {
+                email,
+                password: hashedPassword,
+              },
+            });
+            return newUser;
+          }
+
+          const passwordsMatch = await bcrypt.compare(
+            password,
+            user.password! || "",
+          );
+
+          if (passwordsMatch) return user;
         }
 
-        // throw new Error("User not found.");
-        if (!user) {
-          // No user found, so this is their first attempt to login
-          // meaning this is also the place you could do registration
-          return null;
-        }
-
-        // return user object with their profile data
-        return user;
+        throw new Error("Invalid credentials");
       },
     }),
   ],
@@ -37,13 +52,22 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
     jwt: async ({ token }) => {
       return token;
     },
-    async redirect({ url, baseUrl }) {
-      // Allows relative callback URLs
-      console.log(url, baseUrl);
-      if (url.startsWith("/")) return `${baseUrl}${url}`;
-      // Allows callback URLs on the same origin
-      else if (new URL(url).origin === baseUrl) return url;
-      return baseUrl;
+    signIn: async ({ account, user, profile }) => {
+      if (account?.provider === "google") {
+        const existingUser = await getUser(user?.email || "");
+
+        if (!existingUser) {
+          await prisma.user.create({
+            data: {
+              email: profile?.email!,
+              name: profile?.name!,
+              image: profile?.picture,
+              auth_method: "google",
+            },
+          });
+        }
+      }
+      return true;
     },
   },
   pages: {

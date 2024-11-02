@@ -7,6 +7,7 @@ async function main() {
     create: {
       email: "alice@prisma.io",
       name: "Alice",
+      password: "$2a$10$8qjlTS27LN0zorZES38PCezL4BhHUuyDHalVTlhokWgjduGMoIScm",
       properties: {
         create: {
           title: "شقه للايجار فى المعادى",
@@ -33,6 +34,7 @@ async function main() {
     create: {
       email: "ahmed@example.com",
       name: "ahmed",
+      password: "$2a$10$8qjlTS27LN0zorZES38PCezL4BhHUuyDHalVTlhokWgjduGMoIScm",
       properties: {
         create: {
           title: "Villa for sell in Downtown",
@@ -59,6 +61,7 @@ async function main() {
     create: {
       email: "charlie@example.com",
       name: "Charlie",
+      password: "$2a$10$8qjlTS27LN0zorZES38PCezL4BhHUuyDHalVTlhokWgjduGMoIScm",
       properties: {
         create: {
           title: "Apartment for Rent in New York City",
@@ -85,6 +88,7 @@ async function main() {
     create: {
       email: "edward@example.com",
       name: "edward",
+      password: "$2a$10$8qjlTS27LN0zorZES38PCezL4BhHUuyDHalVTlhokWgjduGMoIScm",
       properties: {
         create: {
           title: "Commercial Building for sell in Business District",
@@ -111,6 +115,7 @@ async function main() {
     create: {
       email: "shaun@example.com",
       name: "shaun",
+      password: "$2a$10$8qjlTS27LN0zorZES38PCezL4BhHUuyDHalVTlhokWgjduGMoIScm",
       properties: {
         create: {
           title: "Commercial Building for sell in Business District",
@@ -137,6 +142,7 @@ async function main() {
     create: {
       email: "hossam@example.com",
       name: "hossam",
+      password: "$2a$10$8qjlTS27LN0zorZES38PCezL4BhHUuyDHalVTlhokWgjduGMoIScm",
       properties: {
         create: {
           title: "Commercial Building for sell in Business District",
@@ -163,6 +169,7 @@ async function main() {
     create: {
       email: "ezio@example.com",
       name: "ezio",
+      password: "$2a$10$8qjlTS27LN0zorZES38PCezL4BhHUuyDHalVTlhokWgjduGMoIScm",
       properties: {
         create: {
           title: "Commercial Building for sell in Business District",
@@ -189,6 +196,7 @@ async function main() {
     create: {
       email: "shoeb@example.com",
       name: "shoeb",
+      password: "$2a$10$8qjlTS27LN0zorZES38PCezL4BhHUuyDHalVTlhokWgjduGMoIScm",
       properties: {
         create: {
           title: "Commercial Building for sell in Business District",

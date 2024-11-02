@@ -10,7 +10,7 @@ export function cn(...inputs: ClassValue[]) {
 export function formatCurrency(
   amount: number,
   currency = "EGP",
-  locale = "en-US"
+  locale = "en-US",
 ) {
   return new Intl.NumberFormat(locale, {
     style: "currency",
@@ -40,9 +40,12 @@ export async function delay(amount: number = 5000) {
 type cacheType = (
   cb: (...args: any[]) => Promise<any>,
   keyParts: string[],
-  options: { revalidate?: number | false; tage?: string[] }
+  options: { revalidate?: number | false; tage?: string[] },
 ) => any;
 
 export const cache: cacheType = (cb, keyParts, options) => {
   return nextCache(reactCache(cb), keyParts, options);
 };
+
+export const validateEmail = (email: string) =>
+  email.match(/^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/);

@@ -14,6 +14,9 @@ function layout({ children }: { children: ReactNode }) {
         <li>
           <Link href="/profile/settings">settings</Link>
         </li>
+        <li>
+          <Link href="/api/auth/signout?callbackUrl=/">signout</Link>
+        </li>
       </ul>
 
       {children}
