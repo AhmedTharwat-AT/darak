@@ -3,7 +3,7 @@ import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import prisma from "./lib/prisma_db";
-import { formSchema } from "./lib/zodSchemas";
+import { loginSchema } from "./lib/zodSchemas";
 import { getUser } from "./services/prismaApi";
 
 export const { auth, handlers, signIn, signOut } = NextAuth({
@@ -18,7 +18,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
         password: {},
       },
       authorize: async (credentials) => {
-        const parsedCredentials = formSchema.safeParse(credentials);
+        const parsedCredentials = loginSchema.safeParse(credentials);
 
         if (parsedCredentials.success) {
           const { email, password } = parsedCredentials.data;
@@ -26,14 +26,15 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
 
           // create new user here
           if (!user) {
-            const hashedPassword = await bcrypt.hash(password, 10);
-            const newUser = await prisma.user.create({
-              data: {
-                email,
-                password: hashedPassword,
-              },
-            });
-            return newUser;
+            // const hashedPassword = await bcrypt.hash(password, 10);
+            // const newUser = await prisma.user.create({
+            //   data: {
+            //     email,
+            //     password: hashedPassword,
+            //   },
+            // });
+            // return newUser;
+            return null;
           }
 
           const passwordsMatch = await bcrypt.compare(
@@ -49,8 +50,11 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
     }),
   ],
   callbacks: {
-    jwt: async ({ token }) => {
-      return token;
+    jwt: async ({ token, user, profile, session }) => {
+      return { ...token, picture: user.image };
+    },
+    session: async ({ token, session }) => {
+      return { ...session, image: token.picture };
     },
     signIn: async ({ account, user, profile }) => {
       if (account?.provider === "google") {

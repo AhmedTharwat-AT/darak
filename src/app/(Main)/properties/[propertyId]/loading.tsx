@@ -4,9 +4,9 @@ import Spinner from "@/components/Spinner";
 
 function loading() {
   return (
-    <div className="h-full  flex justify-center items-center">
-      <p>loading property</p>
+    <div className="flex h-full flex-col items-center justify-center gap-2">
       <Spinner />
+      <p>loading property</p>
     </div>
   );
 }

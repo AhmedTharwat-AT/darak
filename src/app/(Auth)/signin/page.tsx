@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 
 import Logo from "@/components/Logo";
-import CredentialForm from "@/features/auth/components/CredentialForm";
+import LoginForm from "@/features/auth/components/LoginForm";
 import GoogleBtn from "@/features/auth/components/GoogleBtn";
 
 export const metadata: Metadata = {
@@ -21,26 +21,26 @@ async function page(props: Props) {
   const { callbackUrl } = searchParams;
 
   return (
-    <div className="font-poppins bg-bgLight p-14 flex flex-col justify-center items-center">
-      <div className="max-w-[600px] w-full">
+    <div className="flex flex-col items-center justify-center bg-bgLight p-14 font-poppins">
+      <div className="w-full max-w-[600px]">
         <Logo />
 
-        <h1 className={`text-3xl mt-5 capitalize font-semibold  `}>
+        <h1 className={`mt-5 text-3xl font-semibold capitalize`}>
           Login to your account
         </h1>
 
         <GoogleBtn callbackUrl={callbackUrl} />
 
-        <div className="my-5 relative flex">
-          <p className="w-fit text-font capitalize z-10 relative mx-auto bg-bgLight px-2">
+        <div className="relative my-5 flex">
+          <p className="relative z-10 mx-auto w-fit bg-bgLight px-2 capitalize text-font">
             or continue with email
           </p>
-          <span className="absolute  top-1/2 -translate-y-1/2 h-[2px] left-0 w-full bg-stroke"></span>
+          <span className="absolute left-0 top-1/2 h-[2px] w-full -translate-y-1/2 bg-stroke"></span>
         </div>
 
-        <CredentialForm callbackUrl={callbackUrl} />
+        <LoginForm callbackUrl={callbackUrl} />
 
-        <div className="flex w-full justify-center gap-2">
+        <div className="mt-6 flex w-full justify-center gap-2">
           <p className="capitalize">don&apos;t have an account?</p>
           <Link className="text-main hover:underline" href="/signup">
             Create Account

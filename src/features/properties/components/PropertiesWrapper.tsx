@@ -17,14 +17,14 @@ function PropertiesWrapper({
   filterValues: IFilterValues;
 }) {
   return (
-    <section className="flex flex-col w-full max-w-[450px] lg:max-w-full">
-      <div className="mb-4 flex lg:justify-between justify-end gap-4">
+    <section className="flex w-full max-w-[450px] flex-col lg:max-w-full">
+      <div className="mb-4 flex justify-end gap-4 lg:justify-between">
         <SortBy />
 
         {/* desktop pagination */}
         <Suspense fallback={null}>
           <PaginateWrapper
-            className="bp:flex hidden"
+            className="hidden bp:flex"
             filterValues={filterValues}
           />
         </Suspense>
@@ -35,7 +35,7 @@ function PropertiesWrapper({
       <Suspense
         key={page}
         fallback={
-          <div className="w-full h-full flex justify-center items-center flex-col text-center">
+          <div className="flex h-full w-full flex-col items-center justify-center text-center">
             <Spinner />
             <p>Fetching properties list...</p>
           </div>
@@ -51,7 +51,7 @@ function PropertiesWrapper({
       {/* mobile pagination */}
       <Suspense fallback={null}>
         <PaginateWrapper
-          className="justify-center mt-auto pt-8 bp:hidden flex"
+          className="mt-auto flex justify-center pt-8 bp:hidden"
           filterValues={filterValues}
         />
       </Suspense>

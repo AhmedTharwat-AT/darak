@@ -5,7 +5,7 @@ import AnimatedLink from "@/components/AnimatedLink";
 import HomeFilter from "@/components/HomeFilter";
 import { Button } from "@/components/ui/button";
 import FilterProvider from "@/context/FilterContext";
-import heroImage from "../../../public/assets/hero-image.jpg";
+import heroImage from "@/assets/hero-image.jpg";
 
 export default function Home() {
   return (

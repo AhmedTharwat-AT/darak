@@ -1,5 +1,7 @@
 import { useState, useTransition } from "react";
 import { useFilterContext } from "@/context/FilterContext";
+import data from "../../data/countries.json";
+import { cn } from "@/lib/utils";
 
 import { Check, ChevronsUpDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -16,8 +18,6 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { cn } from "@/lib/utils";
-import data from "../../data/countries.json";
 
 function LocationInput({
   className,
@@ -52,8 +52,8 @@ function LocationInput({
           role="combobox"
           aria-expanded={open}
           className={cn(
-            "w-[200px] justify-between focus:ring-0 focus:outline-none focus-visible:ring-0",
-            className
+            "w-[200px] justify-between focus:outline-none focus:ring-0 focus-visible:ring-0",
+            className,
           )}
         >
           {currentLocation || "Select location..."}
@@ -79,7 +79,7 @@ function LocationInput({
                   }"`}
                   onSelect={(currentValue) => {
                     handleLocation(
-                      currentValue === currentLocation ? "" : currentValue
+                      currentValue === currentLocation ? "" : currentValue,
                     );
                     setOpen(false);
                   }}
@@ -89,7 +89,7 @@ function LocationInput({
                       "mr-2 h-4 w-4",
                       currentLocation === location.city_name_en
                         ? "opacity-100"
-                        : "opacity-0"
+                        : "opacity-0",
                     )}
                   />
                   {location.city_name_en}

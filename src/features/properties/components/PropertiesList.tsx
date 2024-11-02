@@ -2,6 +2,7 @@ import { getFilteredProperties } from "@/services/prismaApi";
 
 import PropertyItem from "./PropertyItem";
 import { PropertyWithImages } from "@/lib/types";
+import Error from "@/components/Error";
 
 async function PropertiesList({
   page,
@@ -12,7 +13,7 @@ async function PropertiesList({
   sortBy: string;
   filterValues: any;
 }) {
-  const properties = await getFilteredProperties({
+  const properties: PropertyWithImages[] | null = await getFilteredProperties({
     page: page ? Number(page) : 1,
     ...filterValues,
   });
@@ -20,7 +21,7 @@ async function PropertiesList({
   let filteredProperties;
 
   if (!properties || properties.length === 0)
-    return <div>no properties to load</div>;
+    return <Error message="no properties to load" />;
 
   if (sortBy === "default" || !sortBy) filteredProperties = properties;
   if (sortBy === "htlprice")

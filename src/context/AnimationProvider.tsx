@@ -20,7 +20,7 @@ type AnimationContextType = {
 };
 
 const AnimationContext = createContext<AnimationContextType | undefined>(
-  undefined
+  undefined,
 );
 
 export function AnimationProvider({ children }: { children: ReactNode }) {
@@ -30,7 +30,6 @@ export function AnimationProvider({ children }: { children: ReactNode }) {
   // once the transition ends , the new route is fetched and ready to be displayed
   useEffect(() => {
     if (!isPending) {
-      console.log("done transition");
       setIsAnimating(false);
     }
   }, [isPending, setIsAnimating]);

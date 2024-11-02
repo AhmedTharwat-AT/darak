@@ -1,5 +1,5 @@
 import Image from "next/image";
-import loginImage from "../../../public/assets/login.jpg";
+import loginImage from "@/assets/login.jpg";
 
 export default function AuthLayout({
   children,
@@ -7,13 +7,13 @@ export default function AuthLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className={` bg-bgLight relative`}>
-      <main className="min-h-screen grid antialiased grid-cols-1 lg:grid-cols-2">
+    <div className={`relative bg-bgLight`}>
+      <main className="grid min-h-screen grid-cols-1 antialiased lg:grid-cols-2">
         {children}
 
         <Image
           src={loginImage}
-          className="max-h-screen size-full min-h-[720px]  object-cover hidden lg:block"
+          className="hidden size-full max-h-screen min-h-[720px] object-cover lg:block"
           alt="hero"
         />
       </main>

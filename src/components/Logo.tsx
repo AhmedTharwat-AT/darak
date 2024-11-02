@@ -1,14 +1,12 @@
 import Image from "next/image";
+import logo from "@/assets/logo.svg";
+import AnimatedLink from "./AnimatedLink";
 
 function Logo() {
   return (
-    <Image
-      src={"/assets/logo.svg"}
-      alt="logo"
-      width={135}
-      height={50}
-      priority
-    />
+    <AnimatedLink href="/">
+      <Image src={logo} alt="logo" width={135} height={50} priority />
+    </AnimatedLink>
   );
 }
 

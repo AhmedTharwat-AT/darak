@@ -10,6 +10,8 @@ import PropertyTypeMenu from "../../../components/PropertyTypeMenu";
 import LocationInput from "../../../components/LocationInput";
 import { Button } from "../../../components/ui/button";
 
+import gpsIcon from "@/assets/icons/gps.svg";
+
 function PropertiesFilter({
   className,
   showHeader = true,
@@ -35,18 +37,18 @@ function PropertiesFilter({
   return (
     <div
       className={cn(
-        "font-poppins w-full  bg-bgDark p-6 rounded-lg max-h-screen h-full md:sticky top-4 md:overflow-y-auto shrink-0",
-        className
+        "top-4 h-full max-h-screen w-full shrink-0 rounded-lg bg-bgDark p-6 font-poppins md:sticky md:overflow-y-auto",
+        className,
       )}
     >
       <div>
         {showHeader && (
-          <h2 className="uppercase font-medium text-blacker mb-10">filter</h2>
+          <h2 className="mb-10 font-medium uppercase text-blacker">filter</h2>
         )}
 
-        <div className="text-main border-main border rounded-lg overflow-hidden mb-6">
+        <div className="mb-6 overflow-hidden rounded-lg border border-main text-main">
           <Button
-            className={`text-main py-2 w-1/2 rounded-bl-none disabled:opacity-100 font-medium rounded-r-none uppercase ${
+            className={`w-1/2 rounded-r-none rounded-bl-none py-2 font-medium uppercase text-main disabled:opacity-100 ${
               propertyMode === "rent" ? "bg-main text-white" : "bg-transparent"
             }`}
             disabled={propertyMode === "rent"}
@@ -56,7 +58,7 @@ function PropertiesFilter({
           </Button>
 
           <Button
-            className={`text-main py-2 w-1/2 rounded-bl-none disabled:opacity-100 font-medium rounded-l-none uppercase ${
+            className={`w-1/2 rounded-l-none rounded-bl-none py-2 font-medium uppercase text-main disabled:opacity-100 ${
               propertyMode === "sell" ? "bg-main text-white" : "bg-transparent"
             }`}
             disabled={propertyMode === "sell"}
@@ -67,31 +69,31 @@ function PropertiesFilter({
         </div>
 
         <div className="space-y-4">
-          <div className="space-y-2 pb-4 border-b border-grayLight">
-            <h3 className="text-font capitalize">Location</h3>
-            <div className="flex  items-center w-full bg-white p-1 ps-2 rounded-lg">
-              <LocationInput icon={false} className="border-none p-0 w-full" />
+          <div className="space-y-2 border-b border-grayLight pb-4">
+            <h3 className="capitalize text-font">Location</h3>
+            <div className="flex w-full items-center rounded-lg bg-white p-1 ps-2">
+              <LocationInput icon={false} className="w-full border-none p-0" />
               <Image
-                src="/assets/icons/gps.svg"
+                src={gpsIcon}
                 alt="search"
-                className="bg-alt p-1 size-8 rounded-lg"
+                className="size-8 rounded-lg bg-alt p-1"
                 width={20}
                 height={20}
               />
             </div>
           </div>
 
-          <div className="space-y-2 pb-4 border-b border-grayLight">
-            <h3 className="text-font capitalize ">type</h3>
-            <PropertyTypeMenu className="w-full p-1 ps-2  focus:ring-0 border-none bg-white rounded-lg ring-0 shadow-none appearance-none" />
+          <div className="space-y-2 border-b border-grayLight pb-4">
+            <h3 className="capitalize text-font">type</h3>
+            <PropertyTypeMenu className="w-full appearance-none rounded-lg border-none bg-white p-1 ps-2 shadow-none ring-0 focus:ring-0" />
           </div>
 
-          <div className="space-y-2 pb-4 border-b border-grayLight">
-            <div className="flex justify-between items-center">
-              <h3 className="text-font capitalize ">space</h3>
+          <div className="space-y-2 border-b border-grayLight pb-4">
+            <div className="flex items-center justify-between">
+              <h3 className="capitalize text-font">space</h3>
               <button
                 onClick={() => handleSpaceRange({ from: 50, to: 200 })}
-                className="  capitalize underline "
+                className="capitalize underline"
               >
                 reset
               </button>
@@ -99,7 +101,7 @@ function PropertiesFilter({
 
             <Slider
               renderLabel={(value) => (
-                <div className="flex justify-between gap-2 items-center">
+                <div className="flex items-center justify-between gap-2">
                   <p className="font-medium">
                     {value.from} m<sup>2</sup>
                   </p>
@@ -115,22 +117,22 @@ function PropertiesFilter({
             />
           </div>
 
-          <div className="space-y-2 pb-4 border-b border-grayLight">
-            <h3 className="text-font capitalize ">Rooms</h3>
+          <div className="space-y-2 border-b border-grayLight pb-4">
+            <h3 className="capitalize text-font">Rooms</h3>
             <QuantityHandler value={rooms} handler={handleRooms} />
           </div>
 
-          <div className="space-y-2 pb-4 border-b border-grayLight">
-            <h3 className="text-font capitalize ">Bathrooms</h3>
+          <div className="space-y-2 border-b border-grayLight pb-4">
+            <h3 className="capitalize text-font">Bathrooms</h3>
             <QuantityHandler value={bathrooms} handler={handleBathrooms} />
           </div>
 
-          <div className="space-y-2 pb-4 border-b border-grayLight">
-            <div className="flex justify-between items-center">
-              <h3 className="text-font capitalize ">Price</h3>
+          <div className="space-y-2 border-b border-grayLight pb-4">
+            <div className="flex items-center justify-between">
+              <h3 className="capitalize text-font">Price</h3>
               <button
                 onClick={() => handlePriceRange({ from: 0, to: 1000000 })}
-                className="  capitalize underline "
+                className="capitalize underline"
               >
                 reset
               </button>
@@ -138,13 +140,13 @@ function PropertiesFilter({
 
             <Slider
               renderLabel={(value) => (
-                <div className="flex gap-2 flex-wrap items-center">
-                  <p className="font-medium max-w-full truncate">
+                <div className="flex flex-wrap items-center gap-2">
+                  <p className="max-w-full truncate font-medium">
                     {formatCurrency(value.from)}
                   </p>
                   <span className="h-[6px] leading-[6px]">&mdash;</span>
 
-                  <p className="font-medium max-w-full truncate">
+                  <p className="max-w-full truncate font-medium">
                     {formatCurrency(value.to)}
                   </p>
                 </div>
@@ -160,13 +162,13 @@ function PropertiesFilter({
           <div className="flex justify-between gap-4">
             <Button
               onClick={reset}
-              className="bg-transparent border-main border text-main w-32 font-medium capitalize rounded-lg"
+              className="w-32 rounded-lg border border-main bg-transparent font-medium capitalize text-main"
             >
               cancel
             </Button>
             <Button
               onClick={submitFilter}
-              className=" border-main hover:opacity-90 transition-all  w-32 font-medium capitalize rounded-lg bg-opacity-0"
+              className="w-32 rounded-lg border-main bg-opacity-0 font-medium capitalize transition-all hover:opacity-90"
             >
               apply
             </Button>

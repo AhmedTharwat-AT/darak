@@ -10,6 +10,11 @@ import Slider from "./Slider";
 import { Button } from "./ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 
+import locationIcon from "@/assets/icons/location.svg";
+import houseIcon from "@/assets/icons/house.svg";
+import moneyIcon from "@/assets/icons/money.svg";
+import searchIcon from "@/assets/icons/search.svg";
+
 function HomeFilter() {
   const {
     propertyMode,
@@ -20,11 +25,11 @@ function HomeFilter() {
   } = useFilterContext();
 
   return (
-    <div className="font-poppins mt-14 flex w-full  ">
-      <div className="max-md:max-w-96 w-full max-md:mx-auto">
-        <div className="text-black shadow-2xl w-fit">
+    <div className="mt-14 flex w-full font-poppins">
+      <div className="w-full max-md:mx-auto max-md:max-w-96">
+        <div className="w-fit text-black shadow-2xl">
           <Button
-            className={`text-black py-4 rounded-bl-none disabled:opacity-100 rounded-br-none uppercase ${
+            className={`rounded-bl-none rounded-br-none py-4 uppercase text-black disabled:opacity-100 ${
               propertyMode === "rent" ? "bg-white" : "bg-grayLight"
             }`}
             disabled={propertyMode === "rent"}
@@ -34,7 +39,7 @@ function HomeFilter() {
           </Button>
 
           <Button
-            className={`text-black py-4 rounded-bl-none disabled:opacity-100 rounded-br-none uppercase ${
+            className={`rounded-bl-none rounded-br-none py-4 uppercase text-black disabled:opacity-100 ${
               propertyMode === "sell" ? "bg-white" : "bg-grayLight"
             }`}
             disabled={propertyMode === "sell"}
@@ -44,62 +49,57 @@ function HomeFilter() {
           </Button>
         </div>
 
-        <div className="bg-white shadow-md w-full rounded-lg rounded-tl-none flex max-md:flex-col p-4 md:p-6 gap-4 lg:gap-6 max-sm:max-w-96 items-center justify-between max-md:justify-center ">
-          <div className="flex flex-col w-full  max-w-96 sm:max-w-80 h-24 p-4 justify-between bg-bgLight rounded-md border border-grayLight">
-            <h3 className="text-font text-sm lg:text-base uppercase">
+        <div className="flex w-full items-center justify-between gap-4 rounded-lg rounded-tl-none bg-white p-4 shadow-md max-md:flex-col max-md:justify-center max-sm:max-w-96 md:p-6 lg:gap-6">
+          <div className="flex h-24 w-full max-w-96 flex-col justify-between rounded-md border border-grayLight bg-bgLight p-4 sm:max-w-80">
+            <h3 className="text-sm uppercase text-font lg:text-base">
               location
             </h3>
 
-            <div className="flex justify-between items-center gap-1 ">
+            <div className="flex items-center justify-between gap-1">
               <LocationInput
                 icon={false}
-                className="capitalize text-base lg:text-xl p-0 bg-none appearance-none h-auto border-none truncate"
+                className="h-auto appearance-none truncate border-none bg-none p-0 text-base capitalize lg:text-xl"
               />
 
-              <Image
-                src={"/assets/icons/location.svg"}
-                alt="search"
-                width={24}
-                height={24}
-              />
+              <Image src={locationIcon} alt="search" width={24} height={24} />
             </div>
           </div>
 
-          <div className="flex flex-col w-full max-w-96 sm:max-w-80 h-24 p-4 justify-between bg-bgLight rounded-md border border-grayLight">
-            <h3 className="text-font text-sm lg:text-base uppercase">
+          <div className="flex h-24 w-full max-w-96 flex-col justify-between rounded-md border border-grayLight bg-bgLight p-4 sm:max-w-80">
+            <h3 className="text-sm uppercase text-font lg:text-base">
               property type
             </h3>
 
-            <div className="flex justify-between items-center ">
+            <div className="flex items-center justify-between">
               <PropertyTypeMenu
                 icon={false}
-                className="capitalize text-base lg:text-xl p-0 bg-none appearance-none h-auto"
+                className="h-auto appearance-none bg-none p-0 text-base capitalize lg:text-xl"
               />
 
               <Image
-                src={"/assets/icons/house.svg"}
+                src={houseIcon}
                 alt="house"
-                className="shrink-0 min-w-6"
+                className="min-w-6 shrink-0"
                 width={24}
                 height={24}
               />
             </div>
           </div>
 
-          <div className="flex flex-col w-full max-w-96 sm:max-w-80 h-24 p-4 justify-between bg-bgLight rounded-md border border-grayLight">
-            <h3 className="text-font text-sm lg:text-base uppercase">price</h3>
+          <div className="flex h-24 w-full max-w-96 flex-col justify-between rounded-md border border-grayLight bg-bgLight p-4 sm:max-w-80">
+            <h3 className="text-sm uppercase text-font lg:text-base">price</h3>
 
-            <div className="flex justify-between  items-center gap-x-1 ">
+            <div className="flex items-center justify-between gap-x-1">
               <Popover>
                 <PopoverTrigger>
-                  <div className="flex gap-x-2  flex-wrap items-center">
-                    <p className="capitalize text-sm p-0 bg-none appearance-none h-auto truncate">
+                  <div className="flex flex-wrap items-center gap-x-2">
+                    <p className="h-auto appearance-none truncate bg-none p-0 text-sm capitalize">
                       {formatCurrency(priceRange.from)}
                     </p>
 
                     <span className="h-[6px] leading-[6px]">&mdash;</span>
 
-                    <p className="capitalize  text-sm p-0 bg-none appearance-none h-auto max-w-[150px] truncate">
+                    <p className="h-auto max-w-[150px] appearance-none truncate bg-none p-0 text-sm capitalize">
                       {formatCurrency(priceRange.to)}
                     </p>
                   </div>
@@ -116,7 +116,7 @@ function HomeFilter() {
                     />
                     <button
                       onClick={() => handlePriceRange({ from: 0, to: 1000000 })}
-                      className="bg-main text-white rounded-md px-2 py-1 self-center capitalize hover:bg-mainHover transition-all"
+                      className="self-center rounded-md bg-main px-2 py-1 capitalize text-white transition-all hover:bg-mainHover"
                     >
                       reset
                     </button>
@@ -125,9 +125,9 @@ function HomeFilter() {
               </Popover>
 
               <Image
-                src={"/assets/icons/money.svg"}
+                src={moneyIcon}
                 alt="money"
-                className="shrink-0 min-w-6"
+                className="min-w-6 shrink-0"
                 width={24}
                 height={24}
               />
@@ -137,12 +137,12 @@ function HomeFilter() {
           <Button
             onClick={submitFilter}
             variant={"link"}
-            className="bg-alt shrink-0 w-full rounded-full h-12 md:w-12 aspect-square p-3 border-none"
+            className="aspect-square h-12 w-full shrink-0 rounded-full border-none bg-alt p-3 md:w-12"
           >
             <Image
-              src={"/assets/icons/search.svg"}
+              src={searchIcon}
               alt="search"
-              className="shrink-0 min-w-6"
+              className="min-w-6 shrink-0"
               width={24}
               height={24}
             />

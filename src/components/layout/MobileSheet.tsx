@@ -16,7 +16,7 @@ function MobileSheet() {
   const [open, setOpen] = useState(false);
   return (
     <Sheet open={open} onOpenChange={setOpen}>
-      <SheetTrigger className="md:hidden">
+      <SheetTrigger className="lg:hidden">
         <CgMenuRight className="size-8 text-font" />
       </SheetTrigger>
 

@@ -2,8 +2,7 @@ import Spinner from "@/components/Spinner";
 
 function loading() {
   return (
-    <div className="min-h-screen  flex justify-center items-center">
-      <p>global</p>
+    <div className="flex min-h-screen items-center justify-center">
       <Spinner />
     </div>
   );

@@ -5,6 +5,7 @@ import { cache } from "@/lib/utils";
 
 export async function getUser(email: string) {
   if (!email) return null;
+
   const user = await prisma.user.findUnique({
     where: {
       email,
