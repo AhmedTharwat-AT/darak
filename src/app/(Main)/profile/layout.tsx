@@ -1,21 +1,22 @@
+import ProfileLisnk from "@/features/profile/components/ProfileLink";
 import Link from "next/link";
 import { ReactNode } from "react";
 
 function layout({ children }: { children: ReactNode }) {
   return (
-    <div className="container grid grid-cols-[auto_1fr] pt-8 font-poppins">
-      <ul className="w-40 border-r border-gray-500 capitalize">
-        <li>
-          <Link href="/profile">profile</Link>
-        </li>
-        <li>
-          <Link href="/profile/listings">listings</Link>
-        </li>
-        <li>
-          <Link href="/profile/settings">settings</Link>
-        </li>
-        <li>
-          <Link href="/api/auth/signout?callbackUrl=/">signout</Link>
+    <div className="container grid h-full grid-cols-1 gap-4 py-8 font-poppins max-sm:grid-rows-[auto_1fr] sm:grid-cols-[auto_1fr]">
+      <ul className="flex h-fit flex-col gap-2 border-gray-400 pe-2 capitalize sm:h-full sm:w-40 sm:border-r">
+        <ProfileLisnk text="profile" href="/profile" />
+        <ProfileLisnk text="listings" href="/profile/listings" />
+        <ProfileLisnk text="settings" href="/profile/settings" />
+
+        <li className="text-center shadow-md">
+          <Link
+            className="block size-full rounded-md bg-red-500 px-3 py-2 font-medium text-white transition-all hover:bg-red-700"
+            href="/api/auth/signout?callbackUrl=/"
+          >
+            sign out
+          </Link>
         </li>
       </ul>
 

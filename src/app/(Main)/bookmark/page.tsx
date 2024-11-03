@@ -1,14 +1,15 @@
-import { auth, signOut } from "@/auth";
+import { auth } from "@/auth";
+import { getUser } from "@/services/prismaApi";
+import { redirect } from "next/navigation";
+import { PropertyWithImages, UserWithProperties } from "@/lib/types";
 import EmptyBookmarks from "@/features/properties/components/EmptyBookmarks";
 import PropertyItem from "@/features/properties/components/PropertyItem";
-import { PropertyWithImages, UserWithProperties } from "@/lib/types";
-import { getProperties, getUser } from "@/services/prismaApi";
-import { Property } from "@prisma/client";
-import { redirect } from "next/navigation";
 
 async function page() {
   const session = await auth();
-  if (!session?.user) redirect("/signin");
+  if (!session?.user) {
+    redirect("/signin?callbackUrl=/bookmark");
+  }
 
   const user: UserWithProperties = await getUser(session.user.email || "");
   if (!user) {
@@ -19,7 +20,7 @@ async function page() {
     (bookmarked) => bookmarked.property,
   );
 
-  if (bookmarkedProperties.length == 0) return <EmptyBookmarks />;
+  if (!bookmarkedProperties.length) return <EmptyBookmarks />;
 
   return (
     <div>
