@@ -12,7 +12,11 @@ export const getUser = cache(
         email,
       },
       include: {
-        properties: true,
+        properties: {
+          include: {
+            images: true,
+          },
+        },
         bookmarked_properties: true,
       },
     });
@@ -34,7 +38,6 @@ export const getFilteredProperties = cache(
     bathrooms,
     location,
   }: IFilterValues & { page?: number }) => {
-    console.log("fetching properties");
     const priceObj = {
       from: price?.split("-")[0],
       to: price?.split("-")[1],
@@ -156,6 +159,11 @@ export const getProperty = cache(
         },
         include: {
           images: true,
+          owner: {
+            select: {
+              phone: true,
+            },
+          },
         },
       });
 
@@ -166,6 +174,25 @@ export const getProperty = cache(
     }
   },
   ["property"],
+  { revalidate: 3600 },
+);
+
+export const getProperties = cache(
+  async () => {
+    try {
+      const properties = await prisma.property.findMany({
+        include: {
+          images: true,
+        },
+      });
+
+      return properties;
+    } catch (err) {
+      console.log(err);
+      throw new Error("Error fetching properties!");
+    }
+  },
+  ["properties"],
   { revalidate: 3600 },
 );
 

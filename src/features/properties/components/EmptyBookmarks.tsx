@@ -8,7 +8,7 @@ function EmptyBookmarks() {
       <div className="container flex flex-col items-center justify-center">
         <Image
           src={emptyBookmarks}
-          alt="hero"
+          alt="bookmarks"
           className="object-cover"
           width={400}
           height={200}

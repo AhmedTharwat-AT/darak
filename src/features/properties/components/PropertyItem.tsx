@@ -1,11 +1,11 @@
 import { formatCurrency, relativeDateInDays } from "@/lib/utils";
 import Image from "next/image";
 
-import { FaLocationDot } from "react-icons/fa6";
-import PropertyFeatures from "./PropertyFeatures";
-import AnimatedLink from "../../../components/AnimatedLink";
 import { PropertyWithImages } from "@/lib/types";
+import { FaLocationDot } from "react-icons/fa6";
+import AnimatedLink from "../../../components/AnimatedLink";
 import BookmarkProperty from "./BookmarkProperty";
+import PropertyFeatures from "./PropertyFeatures";
 
 type Props = {
   property: PropertyWithImages;

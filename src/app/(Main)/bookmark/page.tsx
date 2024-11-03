@@ -1,24 +1,38 @@
 import { auth, signOut } from "@/auth";
 import EmptyBookmarks from "@/features/properties/components/EmptyBookmarks";
-import { getUser } from "@/services/prismaApi";
+import PropertyItem from "@/features/properties/components/PropertyItem";
+import { PropertyWithImages, UserWithProperties } from "@/lib/types";
+import { getProperties, getUser } from "@/services/prismaApi";
+import { Property } from "@prisma/client";
 import { redirect } from "next/navigation";
 
 async function page() {
   const session = await auth();
   if (!session?.user) redirect("/signin");
 
-  const user = await getUser(session.user.email || "");
-
+  const user: UserWithProperties = await getUser(session.user.email || "");
   if (!user) {
     redirect("/");
   }
-  const bookmarkedProperties = user.bookmarked_properties;
+
+  const bookmarkedProperties = user.bookmarked_properties.map(
+    (bookmarked) => bookmarked.property,
+  );
 
   if (bookmarkedProperties.length == 0) return <EmptyBookmarks />;
 
   return (
     <div>
-      <div className="container">bookmarked</div>
+      <div className="container py-6 font-poppins">
+        <h1 className="my-4 text-center text-xl font-medium capitalize sm:text-2xl md:my-6">
+          my saved properties
+        </h1>
+        <ul className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {bookmarkedProperties.map((bookmarked: PropertyWithImages) => (
+            <PropertyItem key={bookmarked.id} property={bookmarked} />
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }

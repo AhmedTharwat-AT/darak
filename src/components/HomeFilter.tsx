@@ -58,7 +58,7 @@ function HomeFilter() {
             <div className="flex items-center justify-between gap-1">
               <LocationInput
                 icon={false}
-                className="h-auto appearance-none truncate border-none bg-none p-0 text-base capitalize lg:text-xl"
+                className="h-auto appearance-none truncate border-none bg-bgLight bg-none p-0 text-base capitalize lg:text-xl"
               />
 
               <Image src={locationIcon} alt="search" width={24} height={24} />
@@ -73,7 +73,7 @@ function HomeFilter() {
             <div className="flex items-center justify-between">
               <PropertyTypeMenu
                 icon={false}
-                className="h-auto appearance-none bg-none p-0 text-base capitalize lg:text-xl"
+                className="h-auto appearance-none bg-bgLight bg-none p-0 text-base capitalize lg:text-xl"
               />
 
               <Image

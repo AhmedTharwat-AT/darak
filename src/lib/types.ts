@@ -1,4 +1,9 @@
-import { Property, PropertyImage } from "@prisma/client";
+import {
+  BookmarkedProperty,
+  Property,
+  PropertyImage,
+  User,
+} from "@prisma/client";
 
 export type PropertyTypes =
   | "all"
@@ -7,28 +12,16 @@ export type PropertyTypes =
   | "store"
   | "office";
 
-export type PropertyWithImages = Property & { images: PropertyImage[] };
-// export type IUser = User;
+export type PropertyWithImages = Property & {
+  images: PropertyImage[];
+  owner?: { phone: string };
+};
 
-// export type IPropertyImage = PropertyImage;
+export type BookmarkedWithProperty = BookmarkedProperty & {
+  property: PropertyWithImages;
+};
 
-// export type IProperty = Properties & { images: PropertyImage[] };
-
-// export type IProperties = IProperty[];
-
-// export interface Property  {
-//   id: string;
-//   title: string;
-//   description: string;
-//   location: string;
-//   type: string;
-//   mode: string;
-//   images: PropertyImage[];
-//   price: number;
-//   space: number;
-//   rooms: number;
-//   bathrooms: number;
-//   ownerId: string;
-//   createdAt: Date;
-//   updatedAt: Date;
-// }
+export type UserWithProperties = User & {
+  bookmarked_properties: BookmarkedWithProperty[];
+  properties: PropertyWithImages[];
+};
