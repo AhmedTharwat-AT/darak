@@ -1,12 +1,12 @@
 "use client";
 
+import { useForm } from "react-hook-form";
+import { useState } from "react";
 import { createUser } from "@/actions/auth";
-import Spinner from "@/components/Spinner";
-import { Button } from "@/components/ui/button";
 import { RegisterSchema, registerSchema } from "@/lib/zodSchemas";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { Button } from "@/components/ui/button";
+import Spinner from "@/components/Spinner";
 import { FaLock } from "react-icons/fa6";
 import { IoMdMail } from "react-icons/io";
 
@@ -22,6 +22,7 @@ function SignupForm({ callbackUrl }: { callbackUrl?: string | undefined }) {
     defaultValues: {
       email: "",
       name: "",
+      phone: "",
       password: "",
       confirm_password: "",
     },
@@ -71,6 +72,23 @@ function SignupForm({ callbackUrl }: { callbackUrl?: string | undefined }) {
         </div>
         {errors.name && (
           <p className="lowercase text-red-500">{errors.name.message}</p>
+        )}
+      </div>
+
+      <div>
+        <label className="mb-2 block">phone</label>
+        <div className="relative">
+          <FaLock className="absolute left-3 top-1/2 size-5 -translate-y-1/2 fill-stroke" />
+          <input
+            disabled={isSubmitting}
+            className="w-full rounded-lg border border-stroke py-4 pe-4 ps-10 focus:border-main"
+            {...register("phone")}
+            type="text"
+            placeholder="Enter your phone"
+          />
+        </div>
+        {errors.phone && (
+          <p className="lowercase text-red-500">{errors.phone.message}</p>
         )}
       </div>
 

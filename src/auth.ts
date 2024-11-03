@@ -1,16 +1,26 @@
-import bcrypt from "bcryptjs";
+import { compare } from "bcryptjs";
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import prisma from "./lib/prisma_db";
 import { loginSchema } from "./lib/zodSchemas";
 import { getUser } from "./services/prismaApi";
+import { JWT } from "next-auth/jwt";
 
 export const { auth, handlers, signIn, signOut } = NextAuth({
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      profile: (profile) => {
+        return {
+          id: profile.id,
+          email: profile.email,
+          name: profile.name,
+          image: profile.picture,
+          phone: profile.phone || profile.phone_number,
+        };
+      },
     }),
     Credentials({
       credentials: {
@@ -25,22 +35,9 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
           const user = await getUser(email);
 
           // create new user here
-          if (!user) {
-            // const hashedPassword = await bcrypt.hash(password, 10);
-            // const newUser = await prisma.user.create({
-            //   data: {
-            //     email,
-            //     password: hashedPassword,
-            //   },
-            // });
-            // return newUser;
-            return null;
-          }
+          if (!user) return null;
 
-          const passwordsMatch = await bcrypt.compare(
-            password,
-            user.password! || "",
-          );
+          const passwordsMatch = await compare(password, user.password! || "");
 
           if (passwordsMatch) return user;
         }
@@ -50,11 +47,15 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
     }),
   ],
   callbacks: {
-    jwt: async ({ token, user, profile, session }) => {
-      return { ...token, picture: user.image };
+    jwt: async ({ token, user }) => {
+      if (user) {
+        return { ...token, phone: user.phone } as JWT;
+      }
+
+      return token;
     },
     session: async ({ token, session }) => {
-      return { ...session, image: token.picture };
+      return { ...session, user: { ...session.user, phone: token.phone } };
     },
     signIn: async ({ account, user, profile }) => {
       if (account?.provider === "google") {
@@ -66,6 +67,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
               email: profile?.email!,
               name: profile?.name!,
               image: profile?.picture,
+              phone: profile?.phone_number,
               auth_method: "google",
             },
           });

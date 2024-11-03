@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { validatePhone, zPhoneNumber } from "./utils";
 
 export const loginSchema = z.object({
   email: z.string().email("invalid email address"),
@@ -11,6 +12,7 @@ export const registerSchema = z
   .object({
     email: z.string().email("invalid email address"),
     name: z.string().min(4, "name is less than 4 chars!"),
+    phone: zPhoneNumber,
     password: z.string().min(8, "password is less thnn 8 chars"),
     confirm_password: z.string(),
   })

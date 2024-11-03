@@ -16,6 +16,7 @@ model User {
   name                  String?
   password              String?
   image                 String?
+  phone                 String?
   auth_method           String               @default("credentials")
   properties            Property[]
   bookmarked_properties BookmarkedProperty[]

@@ -7,6 +7,8 @@ async function main() {
     create: {
       email: "alice@prisma.io",
       name: "Alice",
+      phone: "123123123",
+
       password: "$2a$10$8qjlTS27LN0zorZES38PCezL4BhHUuyDHalVTlhokWgjduGMoIScm",
       properties: {
         create: {
@@ -34,6 +36,8 @@ async function main() {
     create: {
       email: "ahmed@example.com",
       name: "ahmed",
+      phone: "123123123",
+
       password: "$2a$10$8qjlTS27LN0zorZES38PCezL4BhHUuyDHalVTlhokWgjduGMoIScm",
       properties: {
         create: {
@@ -61,6 +65,8 @@ async function main() {
     create: {
       email: "charlie@example.com",
       name: "Charlie",
+      phone: "123123123",
+
       password: "$2a$10$8qjlTS27LN0zorZES38PCezL4BhHUuyDHalVTlhokWgjduGMoIScm",
       properties: {
         create: {
@@ -88,6 +94,8 @@ async function main() {
     create: {
       email: "edward@example.com",
       name: "edward",
+      phone: "123123123",
+
       password: "$2a$10$8qjlTS27LN0zorZES38PCezL4BhHUuyDHalVTlhokWgjduGMoIScm",
       properties: {
         create: {
@@ -115,6 +123,8 @@ async function main() {
     create: {
       email: "shaun@example.com",
       name: "shaun",
+      phone: "123123123",
+
       password: "$2a$10$8qjlTS27LN0zorZES38PCezL4BhHUuyDHalVTlhokWgjduGMoIScm",
       properties: {
         create: {
@@ -196,6 +206,7 @@ async function main() {
     create: {
       email: "shoeb@example.com",
       name: "shoeb",
+      phone: "123123123",
       password: "$2a$10$8qjlTS27LN0zorZES38PCezL4BhHUuyDHalVTlhokWgjduGMoIScm",
       properties: {
         create: {

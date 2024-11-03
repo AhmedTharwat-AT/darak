@@ -3,17 +3,25 @@ import { PAGE_SIZE } from "../lib/constants";
 import { IFilterValues } from "@/app/(Main)/properties/page";
 import { cache } from "@/lib/utils";
 
-export async function getUser(email: string) {
-  if (!email) return null;
+export const getUser = cache(
+  async (email: string) => {
+    if (!email) return null;
 
-  const user = await prisma.user.findUnique({
-    where: {
-      email,
-    },
-  });
+    const user = await prisma.user.findUnique({
+      where: {
+        email,
+      },
+      include: {
+        properties: true,
+        bookmarked_properties: true,
+      },
+    });
 
-  return user;
-}
+    return user;
+  },
+  ["user"],
+  { revalidate: 3600 },
+);
 
 export const getFilteredProperties = cache(
   async ({

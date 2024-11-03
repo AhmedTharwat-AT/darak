@@ -5,21 +5,32 @@ import { signIn } from "@/auth";
 import { AuthError } from "next-auth";
 import { isRedirectError } from "next/dist/client/components/redirect";
 import { LoginSchema, RegisterSchema } from "@/lib/zodSchemas";
+import { hash } from "bcryptjs";
+import { redirect } from "next/navigation";
 
 export async function createUser(
   data: RegisterSchema & { callbackUrl?: string },
 ) {
-  const { email, password, name } = data;
+  const { email, password, name, phone } = data;
   try {
+    const hashedPassword = await hash(password, 10);
     await prisma.user.create({
       data: {
         email,
         name,
-        password,
+        phone,
+        password: hashedPassword,
       },
     });
-  } catch (err) {
-    console.log("error creating new user", err);
+
+    redirect("/signin");
+  } catch (err: unknown) {
+    if (isRedirectError(err)) {
+      throw err;
+    }
+    if (err instanceof Error) {
+      console.log("error creating new user", err.message);
+    }
     throw new Error("Error creating new user");
   }
 }
@@ -42,22 +53,3 @@ export async function signinAction(
     throw new Error("Problem with the server!");
   }
 }
-// export async function signinAction(
-//   _prevState: { error: string } | undefined,
-//   data: FormData,
-// ) {
-//   try {
-//     await signIn("credentials", {
-//       email: data.get("email"),
-//       password: data.get("password"),
-//       redirectTo: (data.get("callbackUrl") as string) || "/",
-//     });
-//   } catch (err: unknown) {
-//     if (isRedirectError(err)) {
-//       throw err;
-//     }
-//     if (err instanceof AuthError)
-//       return { error: String(err.cause?.err).replace("Error:", "") };
-//     return { error: "Problem connecting with the server!" };
-//   }
-// }

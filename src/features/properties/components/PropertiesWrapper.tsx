@@ -1,11 +1,11 @@
 import { Suspense } from "react";
 
-import MobileFilter from "../../../components/MobileFilter";
-import PaginateWrapper from "../../../components/PaginateWrapper";
+import MobileFilter from "@/components/MobileFilter";
+import PaginateWrapper from "@/components/PaginateWrapper";
 import PropertiesList from "./PropertiesList";
 import { IFilterValues } from "@/app/(Main)/properties/page";
-import SortBy from "../../../components/SortBy";
-import Spinner from "../../../components/Spinner";
+import SortBy from "@/components/SortBy";
+import Spinner from "@/components/Spinner";
 
 function PropertiesWrapper({
   page,

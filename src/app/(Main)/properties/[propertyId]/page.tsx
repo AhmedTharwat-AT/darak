@@ -13,7 +13,6 @@ import { RiWhatsappFill } from "react-icons/ri";
 async function page(props: { params: Promise<{ propertyId: string }> }) {
   const params = await props.params;
   const property = await getProperty(params.propertyId);
-  console.log(property);
 
   if (!property) return <Error message="Property not found" />;
 
