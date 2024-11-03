@@ -31,7 +31,6 @@ function LoginForm({ callbackUrl }: { callbackUrl?: string | undefined }) {
   async function onSubmit(data: LoginSchema) {
     try {
       await signinAction(data);
-      console.log("done");
     } catch (err) {
       if (err instanceof Error && !isRedirectError(err)) {
         setServerError(err.message);

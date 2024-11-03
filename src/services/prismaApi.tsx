@@ -17,7 +17,15 @@ export const getUser = cache(
             images: true,
           },
         },
-        bookmarked_properties: true,
+        bookmarked_properties: {
+          include: {
+            property: {
+              include: {
+                images: true,
+              },
+            },
+          },
+        },
       },
     });
 
@@ -162,6 +170,7 @@ export const getProperty = cache(
           owner: {
             select: {
               phone: true,
+              whatsapp: true,
             },
           },
         },

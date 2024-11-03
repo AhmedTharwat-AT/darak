@@ -1,4 +1,6 @@
 import { getProperty } from "@/services/prismaApi";
+import { PropertyWithImages } from "@/lib/types";
+import { formatCurrency } from "@/lib/utils";
 
 import BackButton from "@/components/BackButton";
 import Error from "@/components/Error";
@@ -6,10 +8,8 @@ import { Button } from "@/components/ui/button";
 import BookmarkProperty from "@/features/properties/components/BookmarkProperty";
 import PropertyCarousel from "@/features/properties/components/PropertyCarousel";
 import PropertyFeatures from "@/features/properties/components/PropertyFeatures";
-import { formatCurrency } from "@/lib/utils";
 import { FaLocationDot, FaPhone } from "react-icons/fa6";
 import { RiWhatsappFill } from "react-icons/ri";
-import { PropertyWithImages } from "@/lib/types";
 
 async function page(props: { params: Promise<{ propertyId: string }> }) {
   const params = await props.params;
@@ -63,15 +63,18 @@ async function page(props: { params: Promise<{ propertyId: string }> }) {
                 {formatCurrency(property.price)}
               </p>
               <div className="ms-auto flex flex-wrap items-stretch gap-4">
-                {property.owner?.phone}
-                <Button className="space-x-2">
-                  <FaPhone className="size-4" />
-                  <span className="text-xl">Call</span>
-                </Button>
-                <Button className="space-x-2 bg-[#67C15E]">
-                  <RiWhatsappFill className="size-6" />
-                  <span className="text-xl">WhatsApp</span>
-                </Button>
+                {property.phone && (
+                  <Button className="space-x-2">
+                    <FaPhone className="size-4" />
+                    <span className="text-xl">Call</span>
+                  </Button>
+                )}
+                {property.whatsapp && (
+                  <Button className="space-x-2 bg-[#67C15E]">
+                    <RiWhatsappFill className="size-6" />
+                    <span className="text-xl">WhatsApp</span>
+                  </Button>
+                )}
               </div>
             </div>
           </div>

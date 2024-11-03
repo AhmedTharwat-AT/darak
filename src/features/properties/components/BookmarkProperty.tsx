@@ -14,7 +14,7 @@ function BookmarkProperty({
     <form action={bookmarkPropertyWithId}>
       <button
         className={cn(
-          "flex size-12 items-center justify-center rounded-lg bg-bgDark",
+          "flex size-12 items-center justify-center rounded-lg border border-gray-300 bg-bgDark shadow-md transition-all hover:border-alt hover:bg-alt hover:text-white",
           className,
         )}
       >

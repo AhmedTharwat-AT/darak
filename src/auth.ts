@@ -18,7 +18,6 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
           email: profile.email,
           name: profile.name,
           image: profile.picture,
-          phone: profile.phone || profile.phone_number,
         };
       },
     }),
@@ -47,15 +46,8 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
     }),
   ],
   callbacks: {
-    jwt: async ({ token, user }) => {
-      if (user) {
-        return { ...token, phone: user.phone } as JWT;
-      }
-
+    jwt: async ({ token }) => {
       return token;
-    },
-    session: async ({ token, session }) => {
-      return { ...session, user: { ...session.user, phone: token.phone } };
     },
     signIn: async ({ account, user, profile }) => {
       if (account?.provider === "google") {

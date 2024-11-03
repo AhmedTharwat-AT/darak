@@ -7,7 +7,6 @@ async function main() {
     create: {
       email: "alice@prisma.io",
       name: "Alice",
-      phone: "123123123",
 
       password: "$2a$10$8qjlTS27LN0zorZES38PCezL4BhHUuyDHalVTlhokWgjduGMoIScm",
       properties: {
@@ -26,6 +25,7 @@ async function main() {
           space: 100,
           rooms: 3,
           bathrooms: 1,
+          phone: "123123123",
         },
       },
     },
@@ -36,7 +36,6 @@ async function main() {
     create: {
       email: "ahmed@example.com",
       name: "ahmed",
-      phone: "123123123",
 
       password: "$2a$10$8qjlTS27LN0zorZES38PCezL4BhHUuyDHalVTlhokWgjduGMoIScm",
       properties: {
@@ -55,6 +54,7 @@ async function main() {
           space: 500,
           rooms: 5,
           bathrooms: 3,
+          phone: "123123123",
         },
       },
     },
@@ -65,7 +65,6 @@ async function main() {
     create: {
       email: "charlie@example.com",
       name: "Charlie",
-      phone: "123123123",
 
       password: "$2a$10$8qjlTS27LN0zorZES38PCezL4BhHUuyDHalVTlhokWgjduGMoIScm",
       properties: {
@@ -84,6 +83,7 @@ async function main() {
           space: 120,
           rooms: 2,
           bathrooms: 2,
+          phone: "123123123",
         },
       },
     },
@@ -94,7 +94,6 @@ async function main() {
     create: {
       email: "edward@example.com",
       name: "edward",
-      phone: "123123123",
 
       password: "$2a$10$8qjlTS27LN0zorZES38PCezL4BhHUuyDHalVTlhokWgjduGMoIScm",
       properties: {
@@ -113,6 +112,7 @@ async function main() {
           space: 1000,
           rooms: 10,
           bathrooms: 5,
+          phone: "123123123",
         },
       },
     },
@@ -123,7 +123,6 @@ async function main() {
     create: {
       email: "shaun@example.com",
       name: "shaun",
-      phone: "123123123",
 
       password: "$2a$10$8qjlTS27LN0zorZES38PCezL4BhHUuyDHalVTlhokWgjduGMoIScm",
       properties: {
@@ -142,6 +141,7 @@ async function main() {
           space: 1000,
           rooms: 10,
           bathrooms: 5,
+          phone: "123123123",
         },
       },
     },
@@ -169,6 +169,7 @@ async function main() {
           space: 1000,
           rooms: 10,
           bathrooms: 5,
+          phone: "123123123",
         },
       },
     },
@@ -196,6 +197,8 @@ async function main() {
           space: 1000,
           rooms: 10,
           bathrooms: 5,
+          phone: "123123123",
+          whatsapp: "3232313213",
         },
       },
     },
@@ -206,7 +209,7 @@ async function main() {
     create: {
       email: "shoeb@example.com",
       name: "shoeb",
-      phone: "123123123",
+
       password: "$2a$10$8qjlTS27LN0zorZES38PCezL4BhHUuyDHalVTlhokWgjduGMoIScm",
       properties: {
         create: {
@@ -224,11 +227,14 @@ async function main() {
           space: 1000,
           rooms: 10,
           bathrooms: 5,
+          phone: "123123123",
+          whatsapp: "3232313213",
         },
       },
     },
   });
 }
+
 main()
   .then(async () => {
     await prisma.$disconnect();

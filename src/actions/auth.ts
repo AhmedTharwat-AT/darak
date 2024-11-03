@@ -1,7 +1,7 @@
 "use server";
 
 import prisma from "@/lib/prisma_db";
-import { signIn } from "@/auth";
+import { signIn, signOut } from "@/auth";
 import { AuthError } from "next-auth";
 import { isRedirectError } from "next/dist/client/components/redirect";
 import { LoginSchema, RegisterSchema } from "@/lib/zodSchemas";
@@ -52,4 +52,8 @@ export async function signinAction(
       throw new Error(String(err.cause?.err).replace("Error:", ""));
     throw new Error("Problem with the server!");
   }
+}
+
+export async function signoutAction() {
+  await signOut({ redirectTo: "/" });
 }

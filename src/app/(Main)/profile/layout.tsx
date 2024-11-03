@@ -1,5 +1,5 @@
+import SignoutBtn from "@/components/SignoutBtn";
 import ProfileLisnk from "@/features/profile/components/ProfileLink";
-import Link from "next/link";
 import { ReactNode } from "react";
 
 function layout({ children }: { children: ReactNode }) {
@@ -9,14 +9,8 @@ function layout({ children }: { children: ReactNode }) {
         <ProfileLisnk text="profile" href="/profile" />
         <ProfileLisnk text="listings" href="/profile/listings" />
         <ProfileLisnk text="settings" href="/profile/settings" />
-
         <li className="text-center shadow-md">
-          <Link
-            className="block size-full rounded-md bg-red-500 px-3 py-2 font-medium text-white transition-all hover:bg-red-700"
-            href="/api/auth/signout?callbackUrl=/"
-          >
-            sign out
-          </Link>
+          <SignoutBtn className="block size-full rounded-md bg-red-500 px-3 py-2 font-medium text-white transition-all hover:bg-red-700" />
         </li>
       </ul>
 

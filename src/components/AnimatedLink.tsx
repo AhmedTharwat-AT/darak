@@ -29,7 +29,6 @@ export default function AnimatedLink({
 
     setTimeout(() => {
       startTransition(() => {
-        console.log("start transition");
         router.push(href);
       });
     }, 200);
