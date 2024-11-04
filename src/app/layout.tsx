@@ -2,6 +2,7 @@ import { Playfair_Display, Poppins } from "next/font/google";
 import "./globals.css";
 import { Metadata } from "next";
 import { AnimationProvider } from "@/context/AnimationProvider";
+import { Toaster } from "@/components/ui/toaster";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -28,6 +29,7 @@ function RootLayout({ children }: { children: React.ReactNode }) {
     <html lang="en" className={`${playfair.variable} ${poppins.variable}`}>
       <body>
         <AnimationProvider>{children}</AnimationProvider>
+        <Toaster />
       </body>
     </html>
   );

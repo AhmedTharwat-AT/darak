@@ -1,25 +1,33 @@
-import { formatCurrency, relativeDateInDays } from "@/lib/utils";
-import Image from "next/image";
 import AnimatedLink from "@/components/AnimatedLink";
 import { PropertyWithImages } from "@/lib/types";
+import { formatCurrency, relativeDateInDays } from "@/lib/utils";
+import Image from "next/image";
 
-import { FaLocationDot } from "react-icons/fa6";
-import BookmarkProperty from "./BookmarkProperty";
+import { FaLocationDot, FaRegClock } from "react-icons/fa6";
+import BookmarkActionBtn from "./BookmarkActionBtn";
 import PropertyFeatures from "./PropertyFeatures";
-import { FaRegClock } from "react-icons/fa6";
 
 type Props = {
   property: PropertyWithImages;
+  bookmarked?: boolean;
 };
 
-function PropertyItem({ property }: Props) {
+function PropertyItem({ property, bookmarked = false }: Props) {
   return (
     <li
       key={property.id}
       className="relative overflow-hidden rounded-lg border bg-white font-poppins shadow-md"
     >
-      <div className="absolute right-1 top-1 z-10">
-        <BookmarkProperty propertyId={property.id} className="scale-75" />
+      <div className="absolute right-2 top-2 z-10">
+        {bookmarked ? (
+          <BookmarkActionBtn
+            type="remove"
+            propertyId={property.id}
+            className="scale-75"
+          />
+        ) : (
+          <BookmarkActionBtn type="add" propertyId={property.id} />
+        )}
       </div>
       <AnimatedLink href={`/properties/${property.id}`}>
         <div className="relative">

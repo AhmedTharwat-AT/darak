@@ -20,12 +20,12 @@ export default function Transition({
   return (
     <AnimatePresence mode="wait">
       {!isAnimating && (
-        <div>
+        <>
           <div className="max-w-screen overflow-x-hidden">
             <CustomMotion
               // key={pathname}
               className="fixed inset-0 z-[2000] min-h-screen bg-blue-600"
-              initial={{ x: "100%", scaleX: 0.9 }}
+              initial={{ x: "100%" }}
               animate={{ x: ["100%", "-100%"], scaleX: [1, 2, 1] }}
               transition={{ ease: "easeIn", duration: 1 }}
             />
@@ -45,7 +45,7 @@ export default function Transition({
           >
             {children}
           </CustomMotion>
-        </div>
+        </>
       )}
     </AnimatePresence>
   );

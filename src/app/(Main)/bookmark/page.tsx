@@ -30,7 +30,11 @@ async function page() {
         </h1>
         <ul className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
           {bookmarkedProperties.map((bookmarked: PropertyWithImages) => (
-            <PropertyItem key={bookmarked.id} property={bookmarked} />
+            <PropertyItem
+              key={bookmarked.id}
+              property={bookmarked}
+              bookmarked={true}
+            />
           ))}
         </ul>
       </div>

@@ -5,7 +5,7 @@ import { formatCurrency } from "@/lib/utils";
 import BackButton from "@/components/BackButton";
 import Error from "@/components/Error";
 import { Button } from "@/components/ui/button";
-import BookmarkProperty from "@/features/properties/components/BookmarkProperty";
+import BookmarkActionBtn from "@/features/properties/components/BookmarkActionBtn";
 import PropertyCarousel from "@/features/properties/components/PropertyCarousel";
 import PropertyFeatures from "@/features/properties/components/PropertyFeatures";
 import { FaLocationDot, FaPhone } from "react-icons/fa6";
@@ -38,7 +38,7 @@ async function page(props: { params: Promise<{ propertyId: string }> }) {
                 </h2>
               </div>
 
-              <BookmarkProperty propertyId={params.propertyId} />
+              <BookmarkActionBtn type="add" propertyId={params.propertyId} />
             </div>
 
             <hr className="my-3 bg-stroke" />

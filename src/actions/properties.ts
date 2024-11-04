@@ -55,32 +55,68 @@ export async function addProperty(
   }
 }
 
-export async function bookmarkProperty(propertyId: string) {
+export async function bookmarkProperty(state: {
+  message: string;
+  propertyId: string;
+}) {
   const session = await auth();
   if (!session?.user) redirect("/signin");
 
   try {
     const user: User = await getUser(session.user.email);
-
     const newBookmarked = await prisma.bookmarkedProperty.create({
       data: {
         userId: user.id,
-        propertyId,
+        propertyId: state.propertyId,
       },
     });
 
-    console.log(newBookmarked);
     revalidatePath("/bookmark");
+
+    return { ...state, message: "Property bookmarked!" };
   } catch (err) {
     if (err instanceof PrismaClientKnownRequestError) {
       if (err.code === "P2002") {
         // this property is already bookmarked to the user
-        console.log(
-          "There is a unique constraint violation, a new user cannot be created with this email",
-        );
-        return;
+        console.log("This property is already bookmarked!");
+        return { ...state, message: "This property is already bookmarked!" };
       }
     }
     console.log("unexpected error bookmarking property!");
+    return { ...state, message: "Unexpected error bookmarking property!" };
+  }
+}
+
+export async function remvoeBookmarked(state: {
+  message: string;
+  propertyId: string;
+}) {
+  const session = await auth();
+  if (!session?.user) redirect("/signin");
+
+  try {
+    const user: User = await getUser(session.user.email);
+    await prisma.bookmarkedProperty.delete({
+      where: {
+        propertyId_userId: {
+          propertyId: state.propertyId,
+          userId: user.id,
+        },
+      },
+    });
+
+    revalidatePath("/bookmark");
+
+    return { ...state, message: "Property removed!" };
+  } catch (err) {
+    if (err instanceof PrismaClientKnownRequestError) {
+      if (err.code === "P2025") {
+        // this property is already bookmarked to the user
+        console.log("This property is already removed!");
+        return { ...state, message: "This property is already removed!" };
+      }
+    }
+    console.log("unexpected error removing property!");
+    return { ...state, message: "Unexpected error removing property!" };
   }
 }

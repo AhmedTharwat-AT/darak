@@ -4,7 +4,7 @@ import Image from "next/image";
 
 function EmptyBookmarks() {
   return (
-    <div className="container my-8 flex h-full flex-col items-center justify-center font-playfair antialiased">
+    <div className="container flex h-full flex-col items-center justify-center py-8 font-playfair antialiased">
       <Image
         src={emptyBookmarks}
         alt="bookmarks"
