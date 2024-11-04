@@ -1,21 +1,16 @@
-import Image from "next/image";
 import { Suspense } from "react";
 
 import AnimatedLink from "@/components/AnimatedLink";
+import HeroImage from "@/components/HeroImage";
 import HomeFilter from "@/components/HomeFilter";
 import { Button } from "@/components/ui/button";
 import FilterProvider from "@/context/FilterContext";
-import heroImage from "@/assets/hero-image.jpg";
 
 export default function Home() {
   return (
     <div>
       {/* background image */}
-      <Image
-        src={heroImage}
-        alt="hero"
-        className="absolute inset-0 -left-52 z-[1] h-full w-3/4 animate-popup-hero object-cover"
-      />
+      <HeroImage className="object-left-bottom" />
 
       <div className="container relative z-10 flex h-full items-center justify-center py-8 xl:py-12">
         <div className="w-full">

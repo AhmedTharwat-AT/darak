@@ -2,15 +2,13 @@
 
 import { auth } from "@/auth";
 import prisma from "@/lib/prisma_db";
-import { PropertyWithImages } from "@/lib/types";
-import { getProperty, getUser } from "@/services/prismaApi";
+import { getUser } from "@/services/prismaApi";
 import { User } from "@prisma/client";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
-import { equal } from "assert";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
-export async function addProperty(
+export async function createProperty(
   _currState: { status: string; message: string },
   formData: FormData,
 ) {
@@ -111,7 +109,7 @@ export async function remvoeBookmarked(state: {
   } catch (err) {
     if (err instanceof PrismaClientKnownRequestError) {
       if (err.code === "P2025") {
-        // this property is already bookmarked to the user
+        // this property is already removed from bookmarks
         console.log("This property is already removed!");
         return { ...state, message: "This property is already removed!" };
       }

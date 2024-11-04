@@ -1,11 +1,11 @@
 "use client";
 
 import { useActionState } from "react";
-import { addProperty } from "@/actions/properties";
+import { createProperty } from "@/actions/properties";
 import { useFormStatus } from "react-dom";
 
-function AddProperty() {
-  const [state, formAction] = useActionState(addProperty, {
+function CreatePropertyForm() {
+  const [state, formAction] = useActionState(createProperty, {
     status: "idle",
     message: "",
   });
@@ -58,4 +58,4 @@ function FormButton() {
   );
 }
 
-export default AddProperty;
+export default CreatePropertyForm;

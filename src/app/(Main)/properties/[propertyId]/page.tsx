@@ -10,6 +10,7 @@ import PropertyCarousel from "@/features/properties/components/PropertyCarousel"
 import PropertyFeatures from "@/features/properties/components/PropertyFeatures";
 import { FaLocationDot, FaPhone } from "react-icons/fa6";
 import { RiWhatsappFill } from "react-icons/ri";
+import PropertyContacts from "@/features/properties/components/PropertyContacts";
 
 async function page(props: { params: Promise<{ propertyId: string }> }) {
   const params = await props.params;
@@ -62,20 +63,7 @@ async function page(props: { params: Promise<{ propertyId: string }> }) {
               <p className="line-clamp-1 text-3xl font-bold">
                 {formatCurrency(property.price)}
               </p>
-              <div className="ms-auto flex flex-wrap items-stretch gap-4">
-                {property.phone && (
-                  <Button className="space-x-2">
-                    <FaPhone className="size-4" />
-                    <span className="text-xl">Call</span>
-                  </Button>
-                )}
-                {property.whatsapp && (
-                  <Button className="space-x-2 bg-[#67C15E]">
-                    <RiWhatsappFill className="size-6" />
-                    <span className="text-xl">WhatsApp</span>
-                  </Button>
-                )}
-              </div>
+              <PropertyContacts property={property} />
             </div>
           </div>
         </div>
