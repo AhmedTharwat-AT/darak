@@ -16,7 +16,6 @@ function SignupForm({ callbackUrl }: { callbackUrl?: string | undefined }) {
     register,
     formState: { errors, isSubmitting },
     handleSubmit,
-    getValues,
   } = useForm<RegisterSchema>({
     resolver: zodResolver(registerSchema),
     defaultValues: {

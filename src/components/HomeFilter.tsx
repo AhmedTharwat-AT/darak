@@ -22,6 +22,10 @@ function HomeFilter() {
     submitFilter,
     priceRange,
     handlePriceRange,
+    propertyType,
+    handlePropertyType,
+    location,
+    handleLocation,
   } = useFilterContext();
 
   return (
@@ -57,7 +61,8 @@ function HomeFilter() {
 
             <div className="flex items-center justify-between gap-1">
               <LocationInput
-                icon={false}
+                currentLocation={location}
+                handleLocation={handleLocation}
                 className="h-auto appearance-none truncate border-none bg-bgLight bg-none p-0 text-base capitalize lg:text-xl"
               />
 
@@ -72,8 +77,10 @@ function HomeFilter() {
 
             <div className="flex items-center justify-between">
               <PropertyTypeMenu
+                propertyType={propertyType}
+                handlePropertyType={handlePropertyType}
                 icon={false}
-                className="h-auto appearance-none bg-bgLight bg-none p-0 text-base capitalize lg:text-xl"
+                className="h-auto appearance-none border-none bg-bgLight bg-none p-0 text-base capitalize lg:text-xl"
               />
 
               <Image

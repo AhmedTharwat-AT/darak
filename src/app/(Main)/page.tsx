@@ -8,7 +8,7 @@ import FilterProvider from "@/context/FilterContext";
 
 export default function Home() {
   return (
-    <div>
+    <div className="h-full">
       {/* background image */}
       <HeroImage className="object-left-bottom" />
 

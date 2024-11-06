@@ -2,8 +2,6 @@ import { type ClassValue, clsx } from "clsx";
 import { unstable_cache as nextCache } from "next/cache";
 import { cache as reactCache } from "react";
 import { twMerge } from "tailwind-merge";
-import parsePhoneNumber from "libphonenumber-js";
-import * as z from "zod";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -54,19 +52,3 @@ export const validateEmail = (email: string) =>
 
 export const validatePhone = (phone: string) =>
   /^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/.test(phone);
-
-export const zPhoneNumber = z.string().transform((value, ctx) => {
-  const phoneNumber = parsePhoneNumber(value, {
-    defaultCountry: "EG",
-  });
-
-  if (!phoneNumber?.isValid()) {
-    ctx.addIssue({
-      code: z.ZodIssueCode.custom,
-      message: "Invalid phone number",
-    });
-    return z.NEVER;
-  }
-
-  return phoneNumber.formatInternational();
-});

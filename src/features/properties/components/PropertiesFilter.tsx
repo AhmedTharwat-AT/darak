@@ -1,16 +1,17 @@
 "use client";
 
-import Image from "next/image";
-import { cn, formatCurrency } from "@/lib/utils";
 import { useFilterContext } from "@/context/FilterContext";
+import { cn, formatCurrency } from "@/lib/utils";
+import Image from "next/image";
 
-import QuantityHandler from "../../../components/QuantityHandler";
-import Slider from "../../../components/Slider";
-import PropertyTypeMenu from "../../../components/PropertyTypeMenu";
-import LocationInput from "../../../components/LocationInput";
-import { Button } from "../../../components/ui/button";
+import LocationInput from "@/components/LocationInput";
+import PropertyTypeMenu from "@/components/PropertyTypeMenu";
+import QuantityHandler from "@/components/QuantityHandler";
+import Slider from "@/components/Slider";
+import { Button } from "@/components/ui/button";
 
 import gpsIcon from "@/assets/icons/gps.svg";
+import LocationIcon from "@/components/LocationIcon";
 
 function PropertiesFilter({
   className,
@@ -32,8 +33,12 @@ function PropertiesFilter({
     handlePriceRange,
     submitFilter,
     reset,
+    location,
+    handleLocation,
+    propertyType,
+    handlePropertyType,
   } = useFilterContext();
-  // max-h-[870px]
+
   return (
     <div
       className={cn(
@@ -72,20 +77,21 @@ function PropertiesFilter({
           <div className="space-y-2 border-b border-grayLight pb-4">
             <h3 className="capitalize text-font">Location</h3>
             <div className="flex w-full items-center rounded-lg bg-white p-1 ps-2">
-              <LocationInput icon={false} className="w-full border-none p-0" />
-              <Image
-                src={gpsIcon}
-                alt="search"
-                className="size-8 rounded-lg bg-alt p-1"
-                width={20}
-                height={20}
+              <LocationInput
+                currentLocation={location}
+                handleLocation={handleLocation}
+                className="w-full border-none p-0"
               />
+              <LocationIcon />
             </div>
           </div>
 
           <div className="space-y-2 border-b border-grayLight pb-4">
             <h3 className="capitalize text-font">type</h3>
-            <PropertyTypeMenu className="w-full appearance-none rounded-lg border-none bg-white p-1 ps-2 shadow-none ring-0 focus:ring-0" />
+            <PropertyTypeMenu
+              propertyType={propertyType}
+              handlePropertyType={handlePropertyType}
+            />
           </div>
 
           <div className="space-y-2 border-b border-grayLight pb-4">
@@ -119,12 +125,16 @@ function PropertiesFilter({
 
           <div className="space-y-2 border-b border-grayLight pb-4">
             <h3 className="capitalize text-font">Rooms</h3>
-            <QuantityHandler value={rooms} handler={handleRooms} />
+            <QuantityHandler name="rooms" value={rooms} handler={handleRooms} />
           </div>
 
           <div className="space-y-2 border-b border-grayLight pb-4">
             <h3 className="capitalize text-font">Bathrooms</h3>
-            <QuantityHandler value={bathrooms} handler={handleBathrooms} />
+            <QuantityHandler
+              name="bathrooms"
+              value={bathrooms}
+              handler={handleBathrooms}
+            />
           </div>
 
           <div className="space-y-2 border-b border-grayLight pb-4">

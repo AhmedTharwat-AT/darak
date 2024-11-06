@@ -1,9 +1,9 @@
-import { useState, useTransition } from "react";
-import { useFilterContext } from "@/context/FilterContext";
-import data from "../../data/countries.json";
-import { cn } from "@/lib/utils";
+"use client";
 
-import { Check, ChevronsUpDown } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { useState } from "react";
+import data from "../../data/countries.json";
+
 import { Button } from "@/components/ui/button";
 import {
   Command,
@@ -18,17 +18,18 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { Check } from "lucide-react";
 
 function LocationInput({
   className,
-  icon = true,
+  currentLocation,
+  handleLocation,
 }: {
   className?: string;
-  icon?: boolean;
+  currentLocation: string;
+  handleLocation: (value: string) => void;
 }) {
   const [open, setOpen] = useState(false);
-  const [_, startTransition] = useTransition();
-  const { location: currentLocation, handleLocation } = useFilterContext();
 
   const locations: {
     id: string;
@@ -37,14 +38,8 @@ function LocationInput({
     city_name_en: string;
   }[] = data;
 
-  function handleOpenComboBox() {
-    startTransition(() => {
-      setOpen((o) => !o);
-    });
-  }
-
   return (
-    <Popover open={open} onOpenChange={handleOpenComboBox}>
+    <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button
           id="location"
@@ -57,9 +52,6 @@ function LocationInput({
           )}
         >
           {currentLocation || "Select location..."}
-          {icon && (
-            <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-          )}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[200px] p-0">

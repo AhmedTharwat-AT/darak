@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Select,
   SelectContent,
@@ -5,32 +7,40 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useFilterContext } from "@/context/FilterContext";
+import { PropertyType } from "@/hooks/useFilter";
 import { PROPERTY_TYPES } from "@/lib/constants";
+import { cn } from "@/lib/utils";
 
 function PropertyTypeMenu({
   className,
   icon = true,
+  propertyType,
+  handlePropertyType,
+  types = PROPERTY_TYPES,
 }: {
   icon?: boolean;
-  className: string;
+  className?: string;
+  propertyType: PropertyType;
+  handlePropertyType: (type: PropertyType) => void;
+  types?: string[];
 }) {
-  const { propertyType, handlePropertyType } = useFilterContext();
-
   return (
     <Select onValueChange={handlePropertyType} value={propertyType}>
       <SelectTrigger
         id="property-type-select"
         aria-label="property-type-select"
         icon={icon}
-        className={`bg-none border-none capitalize ${className}`}
+        className={cn(
+          "w-full appearance-none rounded-lg bg-white bg-none p-1 ps-2 capitalize shadow-none ring-0 focus:ring-0",
+          className,
+        )}
       >
         <SelectValue className="capitalize" placeholder={propertyType} />
       </SelectTrigger>
       <SelectContent side="bottom">
-        {PROPERTY_TYPES.map((type) => (
+        {types.map((type) => (
           <SelectItem
-            className="data-[highlighted]:bg-bgDarker capitalize "
+            className="capitalize data-[highlighted]:bg-bgDarker"
             key={type}
             value={type}
           >

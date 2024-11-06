@@ -1,37 +1,83 @@
+"use client";
+
+import { cn } from "@/lib/utils";
+
 function QuantityHandler({
+  name,
   value,
   handler,
+  className,
+  btnClassName,
+  register,
+  setValue,
 }: {
-  value: number;
-  handler: (value: number) => void;
+  name: string;
+  value: number | string;
+  handler: (value: any) => void;
+  className?: string;
+  btnClassName?: string;
+  register?: any;
+  setValue?: any;
 }) {
-  const quantityType = String(value);
+  // const quantityType = String(value);
   return (
-    <div className="flex gap-1 rounded-lg overflow-hidden">
+    <div className={cn("flex gap-1 overflow-hidden rounded-lg", className)}>
       <input
         type="number"
-        name={quantityType}
-        id={quantityType}
-        value={quantityType}
-        className="w-full px-3 appearance-none"
+        name={name}
+        id={name}
+        className="w-full appearance-none px-3"
         onWheel={(e) => e.currentTarget.blur()}
-        placeholder={quantityType}
-        onChange={(e) => handler(Number(e.target.value))}
+        placeholder={String(value)}
+        {...register?.(name)}
+        value={value}
+        onChange={(e) => {
+          console.log(name, e.target.value);
+          handler(e.target.value);
+        }}
       />
-      <button
-        onClick={() => handler(value - 1)}
-        className="size-9 shrink-0 bg-font text-white hover:text-white hover:bg-main "
-      >
-        <span className="text-3xl leading-7">-</span>
-      </button>
-
-      <button
-        onClick={() => handler(value + 1)}
-        className="size-9 shrink-0 bg-font text-white hover:text-white hover:bg-main"
-      >
-        <span className="text-3xl leading-7">+</span>
-      </button>
+      <QuantityBtn
+        onClick={() => {
+          handler(Number(value) - 1);
+          setValue?.(name, Number(value) - 1);
+        }}
+        increase={false}
+        className={btnClassName}
+      />
+      <QuantityBtn
+        onClick={() => {
+          handler(Number(value) + 1);
+          setValue?.(name, Number(value) + 1);
+        }}
+        increase={true}
+        className={btnClassName}
+      />
     </div>
+  );
+}
+
+function QuantityBtn({
+  onClick,
+  increase,
+  className,
+}: {
+  onClick: () => void;
+  increase: boolean;
+  className?: string;
+}) {
+  return (
+    <button
+      onClick={(e) => {
+        e.preventDefault();
+        onClick();
+      }}
+      className={cn(
+        "flex size-9 h-full shrink-0 items-center justify-center bg-font text-white hover:bg-main hover:text-white",
+        className,
+      )}
+    >
+      <span className="text-3xl">{increase ? "+" : "-"}</span>
+    </button>
   );
 }
 

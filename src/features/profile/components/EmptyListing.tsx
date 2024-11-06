@@ -19,6 +19,7 @@ function EmptyListing() {
         <BackButton
           text="Publish Your First Ad"
           className="text-base capitalize"
+          href="/properties/new"
         />
       </div>
     </div>

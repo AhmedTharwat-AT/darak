@@ -10,7 +10,7 @@ function layout({ children }: { children: ReactNode }) {
         <ProfileLisnk text="listings" href="/profile/listings" />
         <ProfileLisnk text="settings" href="/profile/settings" />
         <li className="text-center shadow-md">
-          <SignoutBtn className="block size-full rounded-md bg-red-500 px-3 py-2 font-medium text-white transition-all hover:bg-red-700" />
+          <SignoutBtn className="block size-full rounded-md bg-red-500 px-3 py-2 font-medium capitalize text-white transition-all hover:bg-red-400" />
         </li>
       </ul>
 

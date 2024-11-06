@@ -2,42 +2,34 @@
 
 import { auth } from "@/auth";
 import prisma from "@/lib/prisma_db";
+import { CreatePropertySchema } from "@/lib/zodSchemas";
 import { getUser } from "@/services/prismaApi";
 import { User } from "@prisma/client";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
-export async function createProperty(
-  _currState: { status: string; message: string },
-  formData: FormData,
-) {
+export async function createProperty(data: CreatePropertySchema) {
   const session = await auth();
   if (!session) redirect("/signin");
 
-  if (!formData.get("name"))
-    return {
-      status: "failed",
-      message: "something went wrong",
-    };
-
   try {
-    const property = Object.fromEntries(formData) as any;
+    const user: User = await getUser(session.user?.email);
 
     await prisma.property.create({
       data: {
-        title: property.title,
-        description: property.description,
-        location: property.location,
-        type: property.type,
-        mode: property.mode,
-        price: Number(property.price),
-        space: Number(property.space),
-        rooms: Number(property.rooms),
-        bathrooms: Number(property.bathrooms),
-        ownerId: property.ownerId,
+        title: data.title,
+        description: data.description,
+        location: data.location,
+        type: data.type,
+        mode: data.mode,
+        price: Number(data.price),
+        space: Number(data.space),
+        rooms: Number(data.rooms),
+        bathrooms: Number(data.bathrooms),
+        ownerId: user.id,
         images: {
-          create: { url: property.images },
+          create: { url: data.title },
         },
       },
     });
@@ -62,7 +54,7 @@ export async function bookmarkProperty(state: {
 
   try {
     const user: User = await getUser(session.user.email);
-    const newBookmarked = await prisma.bookmarkedProperty.create({
+    await prisma.bookmarkedProperty.create({
       data: {
         userId: user.id,
         propertyId: state.propertyId,
