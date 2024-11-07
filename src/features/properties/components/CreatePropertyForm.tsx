@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createPropertySchema, CreatePropertySchema } from "@/lib/zodSchemas";
 import { PropertyType } from "@/hooks/useFilter";
+import { createProperty } from "@/actions/properties";
 
 import ErrorField from "@/components/form/ErrorField";
 import Input from "@/components/form/Input";
@@ -15,15 +16,22 @@ import QuantityHandler from "@/components/QuantityHandler";
 import { Button } from "@/components/ui/button";
 import LocationInput from "@/components/LocationInput";
 import LocationIcon from "@/components/LocationIcon";
+import Spinner from "@/components/Spinner";
+import DropImages from "@/components/DropImages";
+import { FileWithPath } from "react-dropzone";
 
 function CreatePropertyForm() {
-  const [serverError, setServerError] = useState("");
+  const [serverMessage, setServerMessage] = useState({
+    status: "",
+    message: "",
+  });
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
     getValues,
     setValue,
+    setError,
   } = useForm<CreatePropertySchema>({
     resolver: zodResolver(createPropertySchema),
     defaultValues: {
@@ -38,19 +46,21 @@ function CreatePropertyForm() {
       type: "apartment",
       phone: "",
       whatsapp: "",
+      images: [],
     },
   });
-
   console.log(errors);
-  console.log(getValues("mode"));
-
   async function onSubmit(data: CreatePropertySchema) {
     console.log(data);
     // try {
-    //   await createProperty(data);
+    //   const message = await createProperty(data);
+    //   setServerMessage(message);
     // } catch (err) {
     //   if (err instanceof Error) {
-    //     setServerError(err.message);
+    //     setServerMessage({
+    //       status: "failed",
+    //       message: err.message || "something went wrong!",
+    //     });
     //   }
     // }
   }
@@ -61,16 +71,8 @@ function CreatePropertyForm() {
       className="mx-auto flex max-w-[900px] flex-col items-center gap-5"
     >
       <div className="mb-6 flex w-full max-w-96 overflow-hidden rounded-lg border border-main">
-        <RadioBtn
-          register={register}
-          mode="rent"
-          // currentMode={getValues("mode")}
-        />
-        <RadioBtn
-          register={register}
-          mode="sell"
-          // currentMode={getValues("mode")}
-        />
+        <RadioBtn register={register} mode="rent" />
+        <RadioBtn register={register} mode="sell" />
       </div>
 
       <div className="w-full">
@@ -94,7 +96,23 @@ function CreatePropertyForm() {
         <ErrorField message={errors.description?.message} />
       </div>
 
-      {/* <DropImages /> */}
+      <div className="w-full">
+        <DropImages
+          images={getValues("images")}
+          setImages={(images: FileWithPath[]) =>
+            setValue("images", images, {
+              shouldValidate: true,
+            })
+          }
+          setError={(message: string) =>
+            setError("images", {
+              type: "validate",
+              message,
+            })
+          }
+        />
+        <ErrorField message={errors.images?.message} />
+      </div>
 
       <div className="flex w-full gap-4 max-md:flex-col">
         <div className="w-full">
@@ -214,10 +232,26 @@ function CreatePropertyForm() {
         <ErrorField message={errors.space?.message} />
       </div>
 
-      {/* <PropertyTypeMenu /> */}
-      <Button className="mt-6 w-full text-xl uppercase hover:bg-main/90">
-        submit property
-      </Button>
+      <div className="mt-6 w-full">
+        <Button
+          disabled={isSubmitting}
+          className="flex h-11 w-full items-center justify-center text-lg uppercase hover:bg-main/90 md:text-xl"
+        >
+          {isSubmitting ? (
+            <Spinner className="text-2xl text-white" />
+          ) : (
+            "create property"
+          )}
+        </Button>
+        {serverMessage && (
+          <ErrorField
+            className={`text-center text-lg capitalize ${
+              serverMessage.status === "success" ? "text-green-700" : ""
+            }`}
+            message={serverMessage.message}
+          />
+        )}
+      </div>
     </form>
   );
 }
@@ -225,10 +259,8 @@ function CreatePropertyForm() {
 function RadioBtn({
   mode,
   register,
-  // currentMode,
 }: {
   mode: "sell" | "rent";
-  // currentMode: string;
   register: any;
 }) {
   return (

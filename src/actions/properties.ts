@@ -12,37 +12,43 @@ import { redirect } from "next/navigation";
 export async function createProperty(data: CreatePropertySchema) {
   const session = await auth();
   if (!session) redirect("/signin");
+  console.log("erver");
 
-  try {
-    const user: User = await getUser(session.user?.email);
+  return {
+    status: "success",
+    message: "Property was added successfully",
+  };
 
-    await prisma.property.create({
-      data: {
-        title: data.title,
-        description: data.description,
-        location: data.location,
-        type: data.type,
-        mode: data.mode,
-        price: Number(data.price),
-        space: Number(data.space),
-        rooms: Number(data.rooms),
-        bathrooms: Number(data.bathrooms),
-        ownerId: user.id,
-        images: {
-          create: { url: data.title },
-        },
-      },
-    });
+  // try {
+  //   const user: User = await getUser(session.user?.email);
 
-    revalidatePath("/");
+  //   await prisma.property.create({
+  //     data: {
+  //       title: data.title,
+  //       description: data.description,
+  //       location: data.location,
+  //       type: data.type,
+  //       mode: data.mode,
+  //       price: Number(data.price),
+  //       space: Number(data.space),
+  //       rooms: Number(data.rooms),
+  //       bathrooms: Number(data.bathrooms),
+  //       ownerId: user.id,
+  //       images: {
+  //         create: { url: data.title },
+  //       },
+  //     },
+  //   });
 
-    return { status: "success", message: "property added successfully" };
-  } catch (error) {
-    return {
-      status: "failed",
-      message: error instanceof Error ? error.message : "something went wrong",
-    };
-  }
+  //   revalidatePath("/");
+
+  //   return { status: "success", message: "property was added successfully" };
+  // } catch (error) {
+  //   return {
+  //     status: "failed",
+  //     message: error instanceof Error ? error.message : "something went wrong",
+  //   };
+  // }
 }
 
 export async function bookmarkProperty(state: {

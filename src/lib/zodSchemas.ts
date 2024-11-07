@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { parsePhoneNumber } from "libphonenumber-js";
+import { FileWithPath } from "react-dropzone";
 
 export const zPhoneNumber = z
   .string({ message: "Please provide a phone number!" })
@@ -63,11 +64,11 @@ export type RegisterSchema = z.infer<typeof registerSchema>;
 
 export const createPropertySchema = z
   .object({
-    title: z.string().min(4, "name is less than 4 chars!"),
+    title: z.string().min(4, "Name is less than 4 chars!"),
     description: z
       .string()
-      .min(10, "description is less than 10 chars!")
-      .max(500, "description is more than 500 chars!"),
+      .min(10, "Description is less than 10 chars!")
+      .max(500, "Description is more than 500 chars!"),
     price: z.coerce.number().gte(1, "Please provide valid price!"),
     space: z.coerce.number().gte(10, "Minimum space is 10 square meters!"),
     rooms: z.coerce.number().gte(0, "Please provide valid rooms count!"),
@@ -83,6 +84,11 @@ export const createPropertySchema = z
     mode: z.string().min(1, "Please provide valid mode!"),
     phone: zPhoneNumber.optional(),
     whatsapp: zPhoneNumber.optional(),
+    images: z
+      .array(z.instanceof(File))
+      .refine((files) => files.length <= 3 && files.length > 0, {
+        message: "Please upload maximum 3 images!",
+      }),
   })
   .superRefine(({ whatsapp, phone }, ctx) => {
     if (!whatsapp && !phone) {
