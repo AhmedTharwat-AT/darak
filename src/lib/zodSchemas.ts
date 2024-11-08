@@ -1,6 +1,7 @@
-import { z } from "zod";
+import { z, ZodType } from "zod";
 import { parsePhoneNumber } from "libphonenumber-js";
 import { FileWithPath } from "react-dropzone";
+import { FileWithPreview } from "./types";
 
 export const zPhoneNumber = z
   .string({ message: "Please provide a phone number!" })
@@ -85,7 +86,7 @@ export const createPropertySchema = z
     phone: zPhoneNumber.optional(),
     whatsapp: zPhoneNumber.optional(),
     images: z
-      .array(z.instanceof(File))
+      .custom<FileWithPreview[]>()
       .refine((files) => files.length <= 3 && files.length > 0, {
         message: "Please upload maximum 3 images!",
       }),

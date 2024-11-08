@@ -2,17 +2,49 @@
 
 import { auth } from "@/auth";
 import prisma from "@/lib/prisma_db";
+import { FileWithPreview } from "@/lib/types";
 import { CreatePropertySchema } from "@/lib/zodSchemas";
 import { getUser } from "@/services/prismaApi";
 import { User } from "@prisma/client";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
+import { v2 as cloudinary } from "cloudinary";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
+async function getDataURI<T extends FileWithPreview>(file: T) {
+  const buffer = await file.arrayBuffer();
+  const base64String = Buffer.from(buffer).toString("base64");
+  const dataUri = `data:${file.type};base64,${base64String}`;
+  return dataUri;
+}
 
 export async function createProperty(data: CreatePropertySchema) {
   const session = await auth();
   if (!session) redirect("/signin");
-  console.log("erver");
+
+  const images = await Promise.all(
+    data.images.map(async (image) => {
+      const datauri = await getDataURI(image);
+      const uploadedImage = await cloudinary.uploader.upload(datauri, {
+        upload_preset: "darak",
+        folder: "properties",
+        resource_type: "image",
+        use_asset_folder_as_public_id_prefix: true,
+      });
+      return {
+        url: uploadedImage.secure_url,
+        public_id: uploadedImage.public_id,
+      };
+    }),
+  );
+
+  console.log(images);
 
   return {
     status: "success",

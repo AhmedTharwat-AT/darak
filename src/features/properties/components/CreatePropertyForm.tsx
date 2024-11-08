@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { createPropertySchema, CreatePropertySchema } from "@/lib/zodSchemas";
 import { PropertyType } from "@/hooks/useFilter";
 import { createProperty } from "@/actions/properties";
+import { FileWithPreview } from "@/lib/types";
 
 import ErrorField from "@/components/form/ErrorField";
 import Input from "@/components/form/Input";
@@ -18,7 +19,6 @@ import LocationInput from "@/components/LocationInput";
 import LocationIcon from "@/components/LocationIcon";
 import Spinner from "@/components/Spinner";
 import DropImages from "@/components/DropImages";
-import { FileWithPath } from "react-dropzone";
 
 function CreatePropertyForm() {
   const [serverMessage, setServerMessage] = useState({
@@ -49,20 +49,20 @@ function CreatePropertyForm() {
       images: [],
     },
   });
-  console.log(errors);
+
   async function onSubmit(data: CreatePropertySchema) {
-    console.log(data);
-    // try {
-    //   const message = await createProperty(data);
-    //   setServerMessage(message);
-    // } catch (err) {
-    //   if (err instanceof Error) {
-    //     setServerMessage({
-    //       status: "failed",
-    //       message: err.message || "something went wrong!",
-    //     });
-    //   }
-    // }
+    try {
+      const message = await createProperty(data);
+      setServerMessage(message);
+    } catch (err) {
+      if (err instanceof Error) {
+        console.log(err.message);
+        setServerMessage({
+          status: "failed",
+          message: "Something went wrong!",
+        });
+      }
+    }
   }
 
   return (
@@ -97,9 +97,10 @@ function CreatePropertyForm() {
       </div>
 
       <div className="w-full">
+        <Label name="upload images" />
         <DropImages
           images={getValues("images")}
-          setImages={(images: FileWithPath[]) =>
+          setImages={(images: FileWithPreview[]) =>
             setValue("images", images, {
               shouldValidate: true,
             })
@@ -189,7 +190,7 @@ function CreatePropertyForm() {
         </div>
       </div>
 
-      <hr className="my-5 h-1 w-full bg-gray-200" />
+      <hr className="my-4 h-1 w-full bg-gray-200" />
 
       <h3 className="self-start text-lg font-medium capitalize">features</h3>
 

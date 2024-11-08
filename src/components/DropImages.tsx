@@ -1,30 +1,37 @@
+import { FileWithPreview } from "@/lib/types";
 import Image from "next/image";
 import { useCallback } from "react";
 import { FileWithPath, useDropzone } from "react-dropzone";
 import { ImCross } from "react-icons/im";
-import ErrorField from "./form/ErrorField";
 
 function DropImages({
   images,
   setImages,
   setError,
 }: {
-  images: FileWithPath[];
-  setImages: (images: FileWithPath[]) => void;
+  images: FileWithPreview[];
+  setImages: (images: FileWithPreview[]) => void;
   setError: (message: string) => void;
 }) {
   const onDrop = useCallback(
     (acceptedimages: FileWithPath[]) => {
       const currFile = acceptedimages[0];
-      const newimages: FileWithPath[] = [
-        ...images.filter((f: FileWithPath) => f.name !== currFile.name),
+      // check if file is larger than 1mb
+      if (currFile.size > 1000000) {
+        setError("please select images smaller than 1mb");
+        return;
+      }
+      // check if file already exist
+      const newimages: FileWithPreview[] = [
+        ...images.filter((f) => f.name !== currFile.name),
         Object.assign(currFile, {
           preview: URL.createObjectURL(currFile),
         }),
       ];
       setImages(newimages);
     },
-    [images, setImages],
+
+    [images, setImages, setError],
   );
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -46,14 +53,19 @@ function DropImages({
           <div
             {...getRootProps({
               className:
-                "dropzone border-2 bg-gray-100 hover:bg-gray-200 transition-all duration-300 w-full h-36 text-center rounded-lg border-dashed flex items-center justify-center border-main p-4",
+                "dropzone border-4  hover:bg-gray-100 transition-all duration-300 w-full h-36 text-center rounded-lg border-dashed flex items-center justify-center border-gray-300 p-4",
             })}
           >
             <input {...getInputProps()} />
             {isDragActive ? (
-              <p>Drop the images here ...</p>
+              <p>Drop the images here</p>
             ) : (
-              <p>Drag and drop some images here, or click to select images</p>
+              <p className="cursor-pointer">
+                Drag and drop images or{" "}
+                <span className="font-medium capitalize text-main underline">
+                  browse
+                </span>
+              </p>
             )}
           </div>
         </>
@@ -71,8 +83,9 @@ function DropImages({
                 <button
                   onClick={(e) => {
                     e.preventDefault();
-                    setImages(images.filter((f: FileWithPath) => f !== file));
+                    setImages(images.filter((f) => f !== file));
                   }}
+                  className="p-1"
                 >
                   <ImCross className="text-lg text-main" />
                 </button>

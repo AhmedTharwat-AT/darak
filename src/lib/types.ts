@@ -4,6 +4,7 @@ import {
   PropertyImage,
   User,
 } from "@prisma/client";
+import { FileWithPath } from "react-dropzone";
 
 export type PropertyTypes =
   | "all"
@@ -24,4 +25,8 @@ export type BookmarkedWithProperty = BookmarkedProperty & {
 export type UserWithProperties = User & {
   bookmarked_properties: BookmarkedWithProperty[];
   properties: PropertyWithImages[];
+};
+
+export type FileWithPreview = FileWithPath & {
+  preview: string;
 };

@@ -18,6 +18,7 @@ async function main() {
           images: {
             create: {
               url: "https://loremflickr.com/300/200",
+              public_id: "1",
             },
           },
           mode: "rent",
@@ -47,6 +48,7 @@ async function main() {
           images: {
             create: {
               url: "https://loremflickr.com/300/200",
+              public_id: "1",
             },
           },
           mode: "sell",
@@ -76,6 +78,7 @@ async function main() {
           images: {
             create: {
               url: "https://loremflickr.com/300/200",
+              public_id: "1",
             },
           },
           mode: "rent",
@@ -105,6 +108,7 @@ async function main() {
           images: {
             create: {
               url: "https://loremflickr.com/300/200",
+              public_id: "1",
             },
           },
           mode: "sell",
@@ -134,6 +138,7 @@ async function main() {
           images: {
             create: {
               url: "https://loremflickr.com/300/200",
+              public_id: "1",
             },
           },
           mode: "sell",
@@ -162,6 +167,7 @@ async function main() {
           images: {
             create: {
               url: "https://loremflickr.com/300/200",
+              public_id: "1",
             },
           },
           mode: "sell",
@@ -190,6 +196,7 @@ async function main() {
           images: {
             create: {
               url: "https://loremflickr.com/300/200",
+              public_id: "1",
             },
           },
           mode: "sell",
@@ -220,6 +227,7 @@ async function main() {
           images: {
             create: {
               url: "https://loremflickr.com/300/200",
+              public_id: "1",
             },
           },
           mode: "sell",
