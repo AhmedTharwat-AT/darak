@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { FaLock } from "react-icons/fa6";
 import { IoMdMail } from "react-icons/io";
 import { isRedirectError } from "next/dist/client/components/redirect";
+import { toast } from "@/hooks/use-toast";
 
 function LoginForm({ callbackUrl }: { callbackUrl?: string | undefined }) {
   const [serverError, setServerError] = useState("");
@@ -31,6 +32,9 @@ function LoginForm({ callbackUrl }: { callbackUrl?: string | undefined }) {
   async function onSubmit(data: LoginSchema) {
     try {
       await signinAction(data);
+      toast({
+        title: "Login Successful",
+      });
     } catch (err) {
       if (err instanceof Error && !isRedirectError(err)) {
         setServerError(err.message);

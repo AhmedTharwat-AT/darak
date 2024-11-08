@@ -8,12 +8,12 @@ import PropertyItem from "@/features/properties/components/PropertyItem";
 async function page() {
   const session = await auth();
   if (!session?.user) {
-    redirect("/signin?callbackUrl=/profile");
+    redirect("/signin?callbackUrl=/profile/listings");
   }
 
   const user: UserWithProperties = await getUser(session.user.email);
   if (!user) {
-    redirect("/");
+    redirect("/signin?callbackUrl=/profile/listings");
   }
 
   const properties = user.properties;
@@ -21,9 +21,9 @@ async function page() {
   if (!properties.length) return <EmptyListing />;
 
   return (
-    <ul className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+    <ul className="grid grid-cols-1 items-start gap-4 md:grid-cols-2 xl:grid-cols-3">
       {properties.map((bookmarked: PropertyWithImages) => (
-        <PropertyItem key={bookmarked.id} property={bookmarked} />
+        <PropertyItem isOwner key={bookmarked.id} property={bookmarked} />
       ))}
     </ul>
   );

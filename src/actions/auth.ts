@@ -13,6 +13,17 @@ export async function createUser(
 ) {
   const { email, password, name, phone } = data;
   try {
+    // check if user exists
+    const user = await prisma.user.findUnique({
+      where: {
+        email,
+      },
+    });
+
+    if (user) {
+      throw new AuthError("User already exists");
+    }
+    // create user
     const hashedPassword = await hash(password, 10);
     await prisma.user.create({
       data: {
@@ -30,6 +41,9 @@ export async function createUser(
     }
     if (err instanceof Error) {
       console.log("error creating new user", err.message);
+    }
+    if (err instanceof AuthError) {
+      throw new Error(String(err.cause?.err).replace("Error:", ""));
     }
     throw new Error("Error creating new user");
   }
@@ -56,4 +70,5 @@ export async function signinAction(
 
 export async function signoutAction() {
   await signOut({ redirectTo: "/" });
+  console.log("signed out");
 }

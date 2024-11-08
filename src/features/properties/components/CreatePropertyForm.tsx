@@ -54,14 +54,11 @@ function CreatePropertyForm() {
     try {
       const message = await createProperty(data);
       setServerMessage(message);
-    } catch (err) {
-      if (err instanceof Error) {
-        console.log(err.message);
-        setServerMessage({
-          status: "failed",
-          message: "Something went wrong!",
-        });
-      }
+    } catch {
+      setServerMessage({
+        status: "failed",
+        message: "Something went wrong!",
+      });
     }
   }
 

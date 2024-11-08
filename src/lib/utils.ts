@@ -52,3 +52,10 @@ export const validateEmail = (email: string) =>
 
 export const validatePhone = (phone: string) =>
   /^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/.test(phone);
+
+export async function getDataURI<T extends File>(file: T) {
+  const buffer = await file.arrayBuffer();
+  const base64String = Buffer.from(buffer).toString("base64");
+  const dataUri = `data:${file.type};base64,${base64String}`;
+  return dataUri;
+}

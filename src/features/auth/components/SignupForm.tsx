@@ -9,6 +9,9 @@ import { Button } from "@/components/ui/button";
 import Spinner from "@/components/Spinner";
 import { FaLock } from "react-icons/fa6";
 import { IoMdMail } from "react-icons/io";
+import { isRedirectError } from "next/dist/client/components/redirect";
+import { AuthError } from "next-auth";
+import { toast } from "@/hooks/use-toast";
 
 function SignupForm({ callbackUrl }: { callbackUrl?: string | undefined }) {
   const [serverError, setServerError] = useState("");
@@ -30,7 +33,12 @@ function SignupForm({ callbackUrl }: { callbackUrl?: string | undefined }) {
   async function onSubmit(data: RegisterSchema) {
     try {
       await createUser(data);
+      toast({
+        description: "Account created successfully",
+      });
     } catch (err) {
+      if (isRedirectError(err)) throw err;
+      if (err instanceof AuthError) setServerError(err.message);
       if (err instanceof Error) {
         setServerError(err.message);
       }

@@ -13,7 +13,7 @@ async function page() {
 
   const user: UserWithProperties = await getUser(session.user.email || "");
   if (!user) {
-    redirect("/");
+    redirect("/signin?callbackUrl=/bookmark");
   }
 
   const bookmarkedProperties = user.bookmarked_properties.map(

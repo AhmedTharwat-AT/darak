@@ -3,6 +3,7 @@
 import { auth } from "@/auth";
 import prisma from "@/lib/prisma_db";
 import { FileWithPreview } from "@/lib/types";
+import { getDataURI } from "@/lib/utils";
 import { CreatePropertySchema } from "@/lib/zodSchemas";
 import { getUser } from "@/services/prismaApi";
 import { User } from "@prisma/client";
@@ -17,70 +18,104 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-async function getDataURI<T extends FileWithPreview>(file: T) {
-  const buffer = await file.arrayBuffer();
-  const base64String = Buffer.from(buffer).toString("base64");
-  const dataUri = `data:${file.type};base64,${base64String}`;
-  return dataUri;
-}
-
 export async function createProperty(data: CreatePropertySchema) {
   const session = await auth();
   if (!session) redirect("/signin");
 
-  const images = await Promise.all(
-    data.images.map(async (image) => {
-      const datauri = await getDataURI(image);
-      const uploadedImage = await cloudinary.uploader.upload(datauri, {
-        upload_preset: "darak",
-        folder: "properties",
-        resource_type: "image",
-        use_asset_folder_as_public_id_prefix: true,
-      });
-      return {
-        url: uploadedImage.secure_url,
-        public_id: uploadedImage.public_id,
-      };
-    }),
-  );
+  try {
+    // upload images to cloudinary
+    const images = await Promise.all(
+      data.images.map(async (image) => {
+        const dataUri = await getDataURI(image);
 
-  console.log(images);
+        const uploadedImage = await cloudinary.uploader.upload(dataUri, {
+          upload_preset: "darak",
+          folder: "properties",
+          resource_type: "image",
+          use_asset_folder_as_public_id_prefix: true,
+        });
 
-  return {
-    status: "success",
-    message: "Property was added successfully",
-  };
+        return {
+          url: uploadedImage.secure_url,
+          public_id: uploadedImage.public_id,
+        };
+      }),
+    );
 
-  // try {
-  //   const user: User = await getUser(session.user?.email);
+    const user: User = await getUser(session.user?.email);
 
-  //   await prisma.property.create({
-  //     data: {
-  //       title: data.title,
-  //       description: data.description,
-  //       location: data.location,
-  //       type: data.type,
-  //       mode: data.mode,
-  //       price: Number(data.price),
-  //       space: Number(data.space),
-  //       rooms: Number(data.rooms),
-  //       bathrooms: Number(data.bathrooms),
-  //       ownerId: user.id,
-  //       images: {
-  //         create: { url: data.title },
-  //       },
-  //     },
-  //   });
+    await prisma.property.create({
+      data: {
+        title: data.title,
+        description: data.description,
+        location: data.location,
+        type: data.type,
+        mode: data.mode,
+        price: Number(data.price),
+        space: Number(data.space),
+        rooms: Number(data.rooms),
+        bathrooms: Number(data.bathrooms),
+        phone: data.phone,
+        whatsapp: data.whatsapp,
+        ownerId: user.id,
+        images: {
+          createMany: { data: images },
+        },
+      },
+    });
 
-  //   revalidatePath("/");
+    revalidatePath("/");
 
-  //   return { status: "success", message: "property was added successfully" };
-  // } catch (error) {
-  //   return {
-  //     status: "failed",
-  //     message: error instanceof Error ? error.message : "something went wrong",
-  //   };
-  // }
+    return { status: "success", message: "property was added successfully" };
+  } catch (error) {
+    console.log("server error : ", error instanceof Error && error.message);
+    return {
+      status: "failed",
+      message: "something went wrong",
+    };
+  }
+}
+export async function deleteProperty({
+  propertyId,
+  message,
+}: {
+  propertyId: string;
+  message: string;
+}) {
+  const session = await auth();
+  if (!session) redirect("/signin");
+
+  try {
+    const property = await prisma.property.findUnique({
+      where: {
+        id: propertyId,
+      },
+      include: {
+        images: true,
+      },
+    });
+    // delete property images from cloudinary
+    const imagesPublicIds = property?.images.map((image) => image.public_id);
+    if (imagesPublicIds) {
+      await cloudinary.api.delete_resources(imagesPublicIds);
+    }
+    // delete property from database
+    await prisma.property.delete({
+      where: {
+        id: propertyId,
+      },
+    });
+
+    revalidatePath("/");
+
+    return { propertyId, message: "property was deleted successfully" };
+  } catch (error) {
+    console.log("server error : ", error instanceof Error && error.message);
+    return {
+      propertyId,
+      message: "something went wrong",
+    };
+  }
 }
 
 export async function bookmarkProperty(state: {

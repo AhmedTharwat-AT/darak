@@ -5,7 +5,6 @@ import GoogleProvider from "next-auth/providers/google";
 import prisma from "./lib/prisma_db";
 import { loginSchema } from "./lib/zodSchemas";
 import { getUser } from "./services/prismaApi";
-import { JWT } from "next-auth/jwt";
 
 export const { auth, handlers, signIn, signOut } = NextAuth({
   providers: [
