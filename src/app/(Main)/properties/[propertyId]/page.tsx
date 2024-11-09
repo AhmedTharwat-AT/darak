@@ -1,16 +1,14 @@
-import { getProperty } from "@/services/prismaApi";
 import { PropertyWithImages } from "@/lib/types";
 import { formatCurrency } from "@/lib/utils";
+import { getProperty } from "@/services/prismaApi";
 
 import BackButton from "@/components/BackButton";
 import Error from "@/components/Error";
-import { Button } from "@/components/ui/button";
 import BookmarkActionBtn from "@/features/properties/components/BookmarkActionBtn";
 import PropertyCarousel from "@/features/properties/components/PropertyCarousel";
-import PropertyFeatures from "@/features/properties/components/PropertyFeatures";
-import { FaLocationDot, FaPhone } from "react-icons/fa6";
-import { RiWhatsappFill } from "react-icons/ri";
 import PropertyContacts from "@/features/properties/components/PropertyContacts";
+import PropertyFeatures from "@/features/properties/components/PropertyFeatures";
+import { FaLocationDot } from "react-icons/fa6";
 
 async function page(props: { params: Promise<{ propertyId: string }> }) {
   const params = await props.params;

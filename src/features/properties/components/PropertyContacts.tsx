@@ -4,18 +4,38 @@ import { FaPhone } from "react-icons/fa6";
 import { RiWhatsappFill } from "react-icons/ri";
 
 function PropertyContacts({ property }: { property: PropertyWithImages }) {
+  const whatsappLink = property.whatsapp
+    ? `https://wa.me/${property.whatsapp}`
+    : property.owner?.whatsapp
+      ? `https://wa.me/${property.owner?.whatsapp}`
+      : "";
+  const phoneLink = property.phone
+    ? `tel:${property.phone}`
+    : property.owner?.phone
+      ? `tel:${property.owner?.phone}`
+      : "";
+
   return (
     <div className="ms-auto flex flex-wrap items-stretch gap-4">
-      {property.phone && (
-        <Button className="space-x-2">
-          <FaPhone className="size-4" />
-          <span className="text-xl">Call</span>
-        </Button>
+      {phoneLink && (
+        <a href={phoneLink} target="_blank" title={phoneLink}>
+          <Button className="space-x-2">
+            <FaPhone className="size-4" />
+            <span className="text-xl">Call</span>
+          </Button>
+        </a>
       )}
-      {property.whatsapp && (
-        <Button className="space-x-2 bg-[#67C15E]">
-          <RiWhatsappFill className="size-6" />
-          <span className="text-xl">WhatsApp</span>
+      {whatsappLink && (
+        <a href={whatsappLink} target="_blank" title={whatsappLink}>
+          <Button className="space-x-2 bg-[#67C15E]">
+            <RiWhatsappFill className="size-6" />
+            <span className="text-xl">WhatsApp</span>
+          </Button>
+        </a>
+      )}
+      {!phoneLink && !whatsappLink && (
+        <Button className="space-x-2 bg-red-500 capitalize text-white">
+          <span className="text-xl">no contacts</span>
         </Button>
       )}
     </div>

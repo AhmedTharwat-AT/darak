@@ -40,14 +40,15 @@ function BookmarkActionBtn({
   }, [state, toast]);
 
   return (
-    <form action={formAction}>
+    <form className="m-0 p-0" action={formAction}>
       <button
         disabled={isPending}
+        title={`${isAdding ? "Bookmark" : "Remove"} Property`}
         className={cn(
           "flex size-11 items-center justify-center rounded-lg shadow-md transition-all",
           isAdding
             ? "border border-gray-300 bg-bgDark hover:border-alt hover:bg-alt hover:text-white"
-            : "size-12 bg-red-500 text-white hover:bg-red-700",
+            : "bg-red-500 text-white hover:bg-red-700",
           className,
         )}
       >
@@ -56,7 +57,7 @@ function BookmarkActionBtn({
         ) : isAdding ? (
           <CiBookmark className="text-3xl" />
         ) : (
-          <ImCross className="text-3xl" />
+          <ImCross className="text-2xl" />
         )}
       </button>
     </form>

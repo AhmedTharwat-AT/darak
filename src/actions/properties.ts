@@ -106,7 +106,7 @@ export async function deleteProperty({
       },
     });
 
-    revalidatePath("/");
+    revalidatePath("/", "layout");
 
     return { propertyId, message: "property was deleted successfully" };
   } catch (error) {
@@ -134,7 +134,7 @@ export async function bookmarkProperty(state: {
       },
     });
 
-    revalidatePath("/bookmark");
+    revalidatePath("/", "layout");
 
     return { ...state, message: "Property bookmarked!" };
   } catch (err) {
@@ -168,7 +168,7 @@ export async function remvoeBookmarked(state: {
       },
     });
 
-    revalidatePath("/bookmark");
+    revalidatePath("/", "layout");
 
     return { ...state, message: "Property removed!" };
   } catch (err) {

@@ -6,10 +6,12 @@ function BackButton({
   text,
   className,
   href = "/properties",
+  iconStyle,
 }: {
   text: string;
   className?: string;
   href?: string;
+  iconStyle?: string;
 }) {
   return (
     <AnimatedLink
@@ -19,7 +21,12 @@ function BackButton({
       )}
       href={href}
     >
-      <FaChevronLeft className="size-5 rounded-full bg-main/40 p-1 text-main" />
+      <FaChevronLeft
+        className={cn(
+          "size-5 rounded-full bg-main/40 p-1 text-main",
+          iconStyle,
+        )}
+      />
 
       <span className="hover:underline">{text}</span>
     </AnimatedLink>

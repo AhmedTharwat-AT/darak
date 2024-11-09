@@ -33,7 +33,7 @@ async function page() {
             <PropertyItem
               key={bookmarked.id}
               property={bookmarked}
-              bookmarked={true}
+              isBookmarked={true}
             />
           ))}
         </ul>

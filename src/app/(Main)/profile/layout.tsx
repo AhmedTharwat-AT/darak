@@ -4,7 +4,7 @@ import { ReactNode } from "react";
 
 function layout({ children }: { children: ReactNode }) {
   return (
-    <div className="container grid h-full grid-cols-1 gap-4 py-8 font-poppins max-sm:grid-rows-[auto_1fr] sm:grid-cols-[auto_1fr]">
+    <div className="container grid h-full grid-cols-1 gap-8 py-8 font-poppins max-sm:grid-rows-[auto_1fr] sm:grid-cols-[auto_1fr] sm:gap-4">
       <ul className="flex h-fit flex-col gap-2 border-gray-400 pe-2 capitalize sm:h-full sm:w-40 sm:border-r">
         <ProfileLisnk text="profile" href="/profile" />
         <ProfileLisnk text="listings" href="/profile/listings" />

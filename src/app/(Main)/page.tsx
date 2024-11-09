@@ -32,7 +32,9 @@ export default function Home() {
               variant={"outline"}
               className="border-main bg-transparent text-sm font-medium capitalize text-main sm:text-lg lg:text-xl"
             >
-              sell property
+              <AnimatedLink href={"/properties/new"}>
+                sell property
+              </AnimatedLink>
             </Button>
           </div>
 

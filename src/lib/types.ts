@@ -15,7 +15,7 @@ export type PropertyTypes =
 
 export type PropertyWithImages = Property & {
   images: PropertyImage[];
-  owner?: { phone: string };
+  owner?: { phone: string; whatsapp: string };
 };
 
 export type BookmarkedWithProperty = BookmarkedProperty & {

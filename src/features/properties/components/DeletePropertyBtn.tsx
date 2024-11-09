@@ -5,7 +5,7 @@ import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 import { useActionState, useEffect } from "react";
 
-import { ImCross } from "react-icons/im";
+import { FaRegTrashAlt } from "react-icons/fa";
 import { ImSpinner2 } from "react-icons/im";
 
 function DeletePropertyBtn({
@@ -34,6 +34,7 @@ function DeletePropertyBtn({
     <form action={formAction}>
       <button
         disabled={isPending}
+        title="Delete Property"
         className={cn(
           "flex size-10 items-center justify-center rounded-lg bg-red-500 text-white shadow-md transition-all hover:bg-red-700",
           className,
@@ -42,7 +43,7 @@ function DeletePropertyBtn({
         {isPending ? (
           <ImSpinner2 className="animate-spin text-3xl" />
         ) : (
-          <ImCross className="text-2xl" />
+          <FaRegTrashAlt className="text-2xl" />
         )}
       </button>
     </form>

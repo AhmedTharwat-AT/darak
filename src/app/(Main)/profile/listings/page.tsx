@@ -1,4 +1,4 @@
-import { getUser } from "@/services/prismaApi";
+import { getProperties, getUser } from "@/services/prismaApi";
 import { redirect } from "next/navigation";
 import { auth } from "@/auth";
 import { PropertyWithImages, UserWithProperties } from "@/lib/types";
@@ -21,7 +21,7 @@ async function page() {
   if (!properties.length) return <EmptyListing />;
 
   return (
-    <ul className="grid grid-cols-1 items-start gap-4 md:grid-cols-2 xl:grid-cols-3">
+    <ul className="grid h-fit grid-cols-1 items-start gap-4 md:grid-cols-2 xl:grid-cols-3">
       {properties.map((bookmarked: PropertyWithImages) => (
         <PropertyItem isOwner key={bookmarked.id} property={bookmarked} />
       ))}

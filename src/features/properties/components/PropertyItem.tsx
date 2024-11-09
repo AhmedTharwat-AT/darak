@@ -10,13 +10,13 @@ import DeletePropertyBtn from "./DeletePropertyBtn";
 
 type Props = {
   property: PropertyWithImages;
-  bookmarked?: boolean;
+  isBookmarked?: boolean;
   isOwner?: boolean;
 };
 
 function PropertyItem({
   property,
-  bookmarked = false,
+  isBookmarked = false,
   isOwner = false,
 }: Props) {
   return (
@@ -27,12 +27,8 @@ function PropertyItem({
       <div className="absolute right-2 top-2 z-10">
         {isOwner ? (
           <DeletePropertyBtn propertyId={property.id} />
-        ) : bookmarked ? (
-          <BookmarkActionBtn
-            type="remove"
-            propertyId={property.id}
-            className="scale-75"
-          />
+        ) : isBookmarked ? (
+          <BookmarkActionBtn type="remove" propertyId={property.id} />
         ) : (
           <BookmarkActionBtn type="add" propertyId={property.id} />
         )}
