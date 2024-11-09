@@ -59,3 +59,15 @@ export async function getDataURI<T extends File>(file: T) {
   const dataUri = `data:${file.type};base64,${base64String}`;
   return dataUri;
 }
+
+export async function formatDate(date: Date) {
+  if (!(date instanceof Date)) return;
+
+  // const dateString = date.toISOString().split("T")[0];
+  // if (typeof window !== "undefined") {
+  //   console.log("client : ", dateString.length);
+  // } else {
+  //   console.log("server : ", dateString.length);
+  // }
+  return 5;
+}

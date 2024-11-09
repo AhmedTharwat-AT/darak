@@ -8,7 +8,7 @@ function layout({ children }: { children: ReactNode }) {
       <ul className="flex h-fit flex-col gap-2 border-gray-400 pe-2 capitalize sm:h-full sm:w-40 sm:border-r">
         <ProfileLisnk text="profile" href="/profile" />
         <ProfileLisnk text="listings" href="/profile/listings" />
-        <ProfileLisnk text="settings" href="/profile/settings" />
+
         <li className="text-center shadow-md">
           <SignoutBtn className="block size-full rounded-md bg-red-500 px-3 py-2 font-medium capitalize text-white transition-all hover:bg-red-400" />
         </li>
