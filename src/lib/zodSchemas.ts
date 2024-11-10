@@ -25,7 +25,7 @@ export const zPhoneNumber = z
         return z.NEVER;
       }
 
-      return phoneNumber.formatInternational();
+      return value;
     } catch {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
