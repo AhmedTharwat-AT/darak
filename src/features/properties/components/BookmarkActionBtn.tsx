@@ -53,7 +53,7 @@ function BookmarkActionBtn({
         )}
       >
         {isPending ? (
-          <ImSpinner2 className="animate-spin text-3xl" />
+          <ImSpinner2 className="animate-spin text-2xl" />
         ) : isAdding ? (
           <CiBookmark className="text-3xl" />
         ) : (

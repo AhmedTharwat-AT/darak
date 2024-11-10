@@ -6,28 +6,20 @@ import Image from "next/image";
 import { FaLocationDot, FaRegClock } from "react-icons/fa6";
 import BookmarkActionBtn from "./BookmarkActionBtn";
 import PropertyFeatures from "./PropertyFeatures";
-import DeletePropertyBtn from "./DeletePropertyBtn";
 
 type Props = {
   property: PropertyWithImages;
   isBookmarked?: boolean;
-  isOwner?: boolean;
 };
 
-function PropertyItem({
-  property,
-  isBookmarked = false,
-  isOwner = false,
-}: Props) {
+function PropertyItem({ property, isBookmarked = false }: Props) {
   return (
     <li
       key={property.id}
       className="relative overflow-hidden rounded-lg border bg-white font-poppins shadow-md"
     >
       <div className="absolute right-2 top-2 z-10">
-        {isOwner ? (
-          <DeletePropertyBtn propertyId={property.id} />
-        ) : isBookmarked ? (
+        {isBookmarked ? (
           <BookmarkActionBtn type="remove" propertyId={property.id} />
         ) : (
           <BookmarkActionBtn type="add" propertyId={property.id} />

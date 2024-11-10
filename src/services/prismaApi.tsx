@@ -62,6 +62,9 @@ export const getFilteredProperties = cache(
           images: true,
         },
         where: {
+          status: {
+            equals: "approved",
+          },
           price: {
             gte: priceObj?.from ? Number(priceObj.from) : 0,
             lte: priceObj?.to ? Number(priceObj.to) : 10_000_000,

@@ -10,7 +10,7 @@ import Image from "next/image";
 
 function PropertyCarousel({ images }: { images: PropertyImage[] }) {
   return (
-    <div className="relative min-h-96 overflow-hidden rounded-xl xl:min-h-[567px]">
+    <div className="relative h-full max-h-[567px] overflow-hidden rounded-xl">
       <Carousel className="h-full">
         <CarouselContent className="h-full">
           {images.length > 0 ? (

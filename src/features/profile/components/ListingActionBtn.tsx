@@ -18,10 +18,12 @@ import { useState } from "react";
 import DeletePropertyModal from "./DeletePropertyModal";
 import EditPropertyModal from "./EditPropertyModal";
 
-function ListingActionBtn() {
+function ListingActionBtn({ propertyId }: { propertyId: string }) {
   const [openedDialog, setOpenedDialog] = useState<"delete" | "edit">();
+  const [open, setOpen] = useState(false);
+
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DropdownMenu modal={false}>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" className="h-8 w-8 p-0">
@@ -29,6 +31,7 @@ function ListingActionBtn() {
             <MoreHorizontal />
           </Button>
         </DropdownMenuTrigger>
+
         <DropdownMenuContent align="end">
           <DialogTrigger
             asChild
@@ -40,6 +43,7 @@ function ListingActionBtn() {
               Delete
             </DropdownMenuItem>
           </DialogTrigger>
+
           <DialogTrigger
             asChild
             onClick={() => {
@@ -52,9 +56,12 @@ function ListingActionBtn() {
           </DialogTrigger>
         </DropdownMenuContent>
       </DropdownMenu>
-      <DialogContent>
+      <DialogContent className="rounded-lg max-sm:w-fit max-sm:min-w-[90vw]">
         {openedDialog === "delete" ? (
-          <DeletePropertyModal />
+          <DeletePropertyModal
+            propertyId={propertyId}
+            onCloseModal={() => setOpen(false)}
+          />
         ) : (
           <EditPropertyModal />
         )}

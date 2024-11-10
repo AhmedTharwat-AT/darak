@@ -89,7 +89,7 @@ const columns: ColumnDef<PropertyWithImages>[] = [
         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
       >
         Status
-        <ArrowUpDown className="size-4" />
+        <ArrowUpDown className="ml-1 size-4" />
       </Button>
     ),
     cell: ({ row }) => {
@@ -110,8 +110,9 @@ const columns: ColumnDef<PropertyWithImages>[] = [
   },
   {
     id: "actions",
-    cell: () => {
-      return <ListingActionBtn />;
+    cell: ({ row }) => {
+      const propertyId = row.original.id;
+      return <ListingActionBtn propertyId={propertyId} />;
     },
   },
 ];

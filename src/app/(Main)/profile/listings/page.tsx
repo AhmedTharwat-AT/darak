@@ -1,9 +1,11 @@
-import { getProperties, getUser } from "@/services/prismaApi";
-import { redirect } from "next/navigation";
 import { auth } from "@/auth";
-import { PropertyWithImages, UserWithProperties } from "@/lib/types";
+import { getUser } from "@/services/prismaApi";
+import { UserWithProperties } from "@/lib/types";
+import { redirect } from "next/navigation";
+import AnimatedLink from "@/components/AnimatedLink";
+
+import { Button } from "@/components/ui/button";
 import EmptyListing from "@/features/profile/components/EmptyListing";
-import PropertyItem from "@/features/properties/components/PropertyItem";
 import ListingsTable from "@/features/profile/components/ListingsTable";
 
 async function page() {
@@ -23,6 +25,13 @@ async function page() {
 
   return (
     <ul className="w-full">
+      <div className="mb-3 flex items-center justify-end">
+        <Button asChild>
+          <AnimatedLink href="/properties/new">
+            Create new property
+          </AnimatedLink>
+        </Button>
+      </div>
       <ListingsTable properties={properties} />
     </ul>
   );

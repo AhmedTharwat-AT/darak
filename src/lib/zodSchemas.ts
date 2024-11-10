@@ -1,6 +1,6 @@
-import { z, ZodType } from "zod";
 import { parsePhoneNumber } from "libphonenumber-js";
 import { FileWithPath } from "react-dropzone";
+import { z } from "zod";
 import { FileWithPreview } from "./types";
 
 export const zPhoneNumber = z
@@ -102,3 +102,12 @@ export const createPropertySchema = z
   });
 
 export type CreatePropertySchema = z.infer<typeof createPropertySchema>;
+
+export const editUserInfoSchema = z.object({
+  name: z.string().min(4, "name is less than 4 chars!").optional(),
+  phone: zPhoneNumber.optional(),
+  whatsapp: zPhoneNumber.optional(),
+  email: z.string().email("invalid email address"),
+});
+
+export type EditUserInfoSchema = z.infer<typeof editUserInfoSchema>;

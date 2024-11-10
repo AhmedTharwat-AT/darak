@@ -32,10 +32,9 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
           const { email, password } = parsedCredentials.data;
           const user = await getUser(email);
 
-          // create new user here
-          if (!user) return null;
+          if (!user || !user.password) return null;
 
-          const passwordsMatch = await compare(password, user.password! || "");
+          const passwordsMatch = await compare(password, user.password);
 
           if (passwordsMatch) return user;
         }

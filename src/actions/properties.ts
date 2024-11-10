@@ -1,6 +1,6 @@
 "use server";
 
-import { auth } from "@/auth";
+import { auth, signOut } from "@/auth";
 import prisma from "@/lib/prisma_db";
 import { FileWithPreview } from "@/lib/types";
 import { getDataURI } from "@/lib/utils";
@@ -19,10 +19,15 @@ cloudinary.config({
 });
 
 export async function createProperty(data: CreatePropertySchema) {
-  const session = await auth();
-  if (!session) redirect("/signin");
-
   try {
+    const session = await auth();
+    if (!session?.user) redirect("/signin");
+
+    const user: User = await getUser(session.user?.email);
+    if (!user || user.email !== session.user.email) {
+      signOut({ redirectTo: "/signin" });
+    }
+
     // upload images to cloudinary
     const images = await Promise.all(
       data.images.map(async (image) => {
@@ -41,8 +46,6 @@ export async function createProperty(data: CreatePropertySchema) {
         };
       }),
     );
-
-    const user: User = await getUser(session.user?.email);
 
     await prisma.property.create({
       data: {
@@ -75,13 +78,7 @@ export async function createProperty(data: CreatePropertySchema) {
     };
   }
 }
-export async function deleteProperty({
-  propertyId,
-  message,
-}: {
-  propertyId: string;
-  message: string;
-}) {
+export async function deleteProperty({ propertyId }: { propertyId: string }) {
   const session = await auth();
   if (!session) redirect("/signin");
 
@@ -108,12 +105,17 @@ export async function deleteProperty({
 
     revalidatePath("/", "layout");
 
-    return { propertyId, message: "property was deleted successfully" };
+    return {
+      propertyId,
+      message: "Property was deleted successfully",
+      type: "success",
+    };
   } catch (error) {
     console.log("server error : ", error instanceof Error && error.message);
     return {
       propertyId,
-      message: "something went wrong",
+      message: "Something went wrong",
+      type: "error",
     };
   }
 }
@@ -122,11 +124,16 @@ export async function bookmarkProperty(state: {
   message: string;
   propertyId: string;
 }) {
-  const session = await auth();
-  if (!session?.user) redirect("/signin");
-
   try {
+    const session = await auth();
+    if (!session?.user) redirect("/signin");
+
     const user: User = await getUser(session.user.email);
+
+    if (!user || user.email !== session.user.email) {
+      signOut({ redirectTo: "/signin" });
+    }
+
     await prisma.bookmarkedProperty.create({
       data: {
         userId: user.id,
@@ -154,11 +161,16 @@ export async function remvoeBookmarked(state: {
   message: string;
   propertyId: string;
 }) {
-  const session = await auth();
-  if (!session?.user) redirect("/signin");
-
   try {
+    const session = await auth();
+    if (!session?.user) redirect("/signin");
+
     const user: User = await getUser(session.user.email);
+
+    if (!user || user.email !== session.user.email) {
+      signOut({ redirectTo: "/signin" });
+    }
+
     await prisma.bookmarkedProperty.delete({
       where: {
         propertyId_userId: {
