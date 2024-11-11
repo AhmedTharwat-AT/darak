@@ -25,7 +25,7 @@ export const zPhoneNumber = z
         return z.NEVER;
       }
 
-      return value;
+      return phoneNumber.number;
     } catch {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,

@@ -9,12 +9,15 @@ import PropertyCarousel from "@/features/properties/components/PropertyCarousel"
 import PropertyContacts from "@/features/properties/components/PropertyContacts";
 import PropertyFeatures from "@/features/properties/components/PropertyFeatures";
 import { FaLocationDot } from "react-icons/fa6";
+import { redirect } from "next/navigation";
 
 async function page(props: { params: Promise<{ propertyId: string }> }) {
   const params = await props.params;
   const property: PropertyWithImages = await getProperty(params.propertyId);
 
-  if (!property) return <Error message="Property not found" />;
+  if (!property) return <Error message="Property was not found" />;
+
+  if (property.status !== "approved") redirect("/properties");
 
   return (
     <main className="font-poppins">

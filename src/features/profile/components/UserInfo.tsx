@@ -14,6 +14,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { User } from "@prisma/client";
 import ProfilePicture from "./ProfilePicture";
+import { removePhoneFormat } from "@/lib/utils";
 
 const initialServerStatus = {
   status: "",
@@ -32,8 +33,8 @@ function UserInfo({ user }: { user: User }) {
     defaultValues: {
       email: user.email,
       name: user.name || "",
-      phone: user.phone || "",
-      whatsapp: user.whatsapp || "",
+      phone: user.phone ? removePhoneFormat(user.phone) : "",
+      whatsapp: user.whatsapp ? removePhoneFormat(user.whatsapp) : "",
     },
     resolver: zodResolver(editUserInfoSchema),
   });

@@ -25,10 +25,10 @@ async function PropertiesList({
     ...filterValues,
   });
 
-  let filteredProperties;
-
   if (!properties || properties.length === 0)
-    return <Error message="no properties to load" />;
+    return <Error message="No properties to load" />;
+
+  let filteredProperties;
 
   if (sortBy === "default" || !sortBy) filteredProperties = properties;
   if (sortBy === "htlprice")
@@ -63,8 +63,8 @@ async function PropertiesList({
 
           return (
             <PropertyItem
-              isBookmarked={isBookmarked}
               key={property.id}
+              isBookmarked={isBookmarked}
               property={property}
             />
           );

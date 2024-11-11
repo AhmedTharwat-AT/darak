@@ -13,6 +13,8 @@ type Props = {
 };
 
 function PropertyItem({ property, isBookmarked = false }: Props) {
+  if (property.status !== "approved" || !property) return null;
+
   return (
     <li
       key={property.id}

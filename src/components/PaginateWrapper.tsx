@@ -10,7 +10,10 @@ async function PaginateWrapper({
   className?: string;
   filterValues: IFilterValues;
 }) {
-  const propertiesCount = await getFilteredPropertiesCount(filterValues);
+  const propertiesCount: number | null =
+    await getFilteredPropertiesCount(filterValues);
+
+  if (!propertiesCount) return null;
 
   return (
     <Paginate propertiesCount={propertiesCount || 0} className={className} />

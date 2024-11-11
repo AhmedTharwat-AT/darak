@@ -27,7 +27,7 @@ async function properties(props: {
   const { page = "1", sortBy, ...filterValues } = searchParams;
 
   return (
-    <div className="relative my-[3.5rem]">
+    <div className="relative my-5 lg:my-14">
       <div className="container flex h-full flex-wrap gap-4 max-md:justify-center md:flex-nowrap">
         {/* desktop filter */}
         <Suspense

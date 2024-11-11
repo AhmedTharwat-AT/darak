@@ -21,7 +21,7 @@ async function page(props: Props) {
   const { callbackUrl } = searchParams;
 
   return (
-    <div className="flex flex-col items-center justify-center bg-bgLight p-14 font-poppins">
+    <div className="flex flex-col items-center justify-center bg-bgLight p-5 font-poppins lg:p-14">
       <div className="w-full max-w-[600px]">
         <Logo />
 
@@ -40,12 +40,12 @@ async function page(props: Props) {
 
         <LoginForm callbackUrl={callbackUrl} />
 
-        <div className="mt-6 flex w-full justify-center gap-2">
-          <p className="capitalize">don&apos;t have an account?</p>
-          <Link className="text-main hover:underline" href="/signup">
+        <p className="mt-6 w-full text-center text-sm capitalize sm:text-base">
+          don&apos;t have an account?
+          <Link className="ms-2 text-main hover:underline" href="/signup">
             Create Account
           </Link>
-        </div>
+        </p>
       </div>
     </div>
   );

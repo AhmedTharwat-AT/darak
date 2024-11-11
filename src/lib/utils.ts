@@ -63,3 +63,12 @@ export async function getDataURI<T extends File>(file: T) {
 export function getProfilePublicId(url: string) {
   return "profile/" + url.split("/").pop()?.split(".")[0];
 }
+
+export function removePhoneFormat(number: string) {
+  try {
+    const newPhone = number.replace("+20", "0");
+    return newPhone;
+  } catch {
+    return number;
+  }
+}
