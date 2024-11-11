@@ -73,19 +73,26 @@ export async function changeProfilePicture(
         status: "error",
       };
     }
+    // max 1MB image
+    // if (newImage.size > 1024 * 1024) {
+    //   return {
+    //     message: "Image size is too large",
+    //     status: "error",
+    //   };
+    // }
 
     const session = await auth();
     if (!session?.user) redirect("/signin");
 
-    const user: User = await getUser(session?.user?.email);
+    const user: User = await getUser(session.user.email);
 
     if (!user) {
       signOut({ redirectTo: "/signin" });
     }
 
     // delete old image if it exists in cloudinary
-    if (user?.image?.startsWith("https://res.cloudinary.com")) {
-      const publicId = getProfilePublicId(user?.image);
+    if (user.image?.startsWith("https://res.cloudinary.com")) {
+      const publicId = getProfilePublicId(user.image);
       await cloudinary.uploader.destroy(publicId as string);
     }
 
@@ -111,6 +118,7 @@ export async function changeProfilePicture(
       status: "success",
     };
   } catch (err) {
+    console.log("server error : ", err);
     if (isRedirectError(err)) throw err;
     if (err instanceof Error) {
       console.log("updating user image error : ", err.message);

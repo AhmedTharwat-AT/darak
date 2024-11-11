@@ -10,7 +10,7 @@ export default function Home() {
   return (
     <div className="h-full">
       {/* background image */}
-      <HeroImage className="object-left-bottom" />
+      <HeroImage className="object-[-400px_100%] max-md:object-cover md:object-[-300px_100%]" />
 
       <div className="container relative z-10 flex h-full items-center justify-center py-8 xl:py-12">
         <div className="w-full">

@@ -19,6 +19,8 @@ async function page() {
     <div>
       <h1 className="text-2xl font-semibold">Account information</h1>
       <UserInfo user={user} />
+      {/* <h1 className="text-2xl font-semibold">Passwords</h1>
+      <UserPasswords user={user} /> */}
     </div>
   );
 }

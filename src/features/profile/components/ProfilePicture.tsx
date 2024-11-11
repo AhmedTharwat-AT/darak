@@ -36,7 +36,7 @@ function ProfilePicture({ user }: { user: User }) {
             <DialogTitle>Change Profile Picture</DialogTitle>
             <DialogDescription>Select a new profile picture </DialogDescription>
           </DialogHeader>
-          <ChangePictureForm user={user} />
+          <ChangePictureForm />
         </DialogContent>
       </Dialog>
     </div>

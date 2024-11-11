@@ -7,6 +7,7 @@ import AnimatedLink from "@/components/AnimatedLink";
 import { Button } from "@/components/ui/button";
 import EmptyListing from "@/features/profile/components/EmptyListing";
 import ListingsTable from "@/features/profile/components/ListingsTable";
+import { FaPlus } from "react-icons/fa";
 
 async function page() {
   const session = await auth();
@@ -26,11 +27,15 @@ async function page() {
   return (
     <ul className="w-full">
       <div className="mb-3 flex items-center justify-end">
-        <Button asChild>
-          <AnimatedLink href="/properties/new">
-            Create new property
-          </AnimatedLink>
-        </Button>
+        <AnimatedLink
+          href="/properties/new"
+          className="flex items-center gap-2"
+        >
+          <Button className="flex items-center gap-2 hover:bg-main/90">
+            <span>Create new property</span>
+            <FaPlus />
+          </Button>
+        </AnimatedLink>
       </div>
       <ListingsTable properties={properties} />
     </ul>

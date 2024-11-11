@@ -1,18 +1,18 @@
 "use client";
 
-import { useState } from "react";
-import { useForm } from "react-hook-form";
 import { editUserInfo } from "@/actions/profile";
-import { isRedirectError } from "next/dist/client/components/redirect";
 import { EditUserInfoSchema, editUserInfoSchema } from "@/lib/zodSchemas";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { UserWithProperties } from "@/lib/types";
+import { isRedirectError } from "next/dist/client/components/redirect";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
 
 import ErrorField from "@/components/form/ErrorField";
 import Label from "@/components/form/Label";
 import Spinner from "@/components/Spinner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { User } from "@prisma/client";
 import ProfilePicture from "./ProfilePicture";
 
 const initialServerStatus = {
@@ -20,7 +20,7 @@ const initialServerStatus = {
   message: "",
 };
 
-function UserInfo({ user }: { user: UserWithProperties }) {
+function UserInfo({ user }: { user: User }) {
   const [isEditing, setIsEditing] = useState(false);
   const [serverStatus, setServerStatus] = useState(initialServerStatus);
   const {
@@ -59,6 +59,7 @@ function UserInfo({ user }: { user: UserWithProperties }) {
   return (
     <div className="my-4 space-y-4 rounded-md border border-gray-300 bg-gray-200 p-4 shadow-md">
       <ProfilePicture user={user} />
+
       <form onSubmit={handleSubmit(onSubmit)} className="my-4 space-y-4">
         {serverStatus.status === "success" && (
           <p className="text-center text-green-600">{serverStatus.message}</p>
@@ -105,7 +106,7 @@ function UserInfo({ user }: { user: UserWithProperties }) {
             <div className="space-y-2">
               <Button
                 disabled={isSubmitting}
-                className="flex h-11 w-full items-center justify-center text-lg uppercase hover:bg-main/90"
+                className="flex h-10 w-full items-center justify-center uppercase hover:bg-main/90"
               >
                 {isSubmitting ? (
                   <Spinner className="text-2xl text-white" />
@@ -116,7 +117,7 @@ function UserInfo({ user }: { user: UserWithProperties }) {
               <Button
                 disabled={isSubmitting}
                 variant={"ghost"}
-                className="flex h-11 w-full items-center justify-center text-lg uppercase"
+                className="flex h-10 w-full items-center justify-center uppercase"
                 onClick={(e) => {
                   e.preventDefault();
                   setIsEditing(false);
@@ -129,7 +130,7 @@ function UserInfo({ user }: { user: UserWithProperties }) {
           ) : (
             <Button
               disabled={isSubmitting || isEditing}
-              className="flex h-11 w-full items-center justify-center text-lg uppercase hover:bg-main/90"
+              className="flex h-10 w-full items-center justify-center uppercase hover:bg-main/90"
               onClick={(e) => {
                 e.preventDefault();
                 setIsEditing(true);
