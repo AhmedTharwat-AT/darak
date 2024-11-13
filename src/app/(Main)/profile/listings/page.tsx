@@ -20,8 +20,6 @@ async function page() {
     redirect("/signin?callbackUrl=/profile/listings");
   }
 
-  console.log("listings user : ", user);
-
   const properties = user.properties;
 
   if (!properties.length) return <EmptyListing />;

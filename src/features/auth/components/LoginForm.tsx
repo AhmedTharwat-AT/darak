@@ -1,17 +1,16 @@
 "use client";
 
-import { useActionState, useState, useTransition } from "react";
-import { useForm } from "react-hook-form";
 import { signinAction } from "@/actions/auth";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { LoginSchema, loginSchema } from "@/lib/zodSchemas";
-import { validateEmail } from "@/lib/utils";
 import Spinner from "@/components/Spinner";
 import { Button } from "@/components/ui/button";
+import { toast } from "@/hooks/use-toast";
+import { LoginSchema, loginSchema } from "@/lib/zodSchemas";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { isRedirectError } from "next/dist/client/components/redirect";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
 import { FaLock } from "react-icons/fa6";
 import { IoMdMail } from "react-icons/io";
-import { isRedirectError } from "next/dist/client/components/redirect";
-import { toast } from "@/hooks/use-toast";
 
 function LoginForm({ callbackUrl }: { callbackUrl?: string | undefined }) {
   const [serverError, setServerError] = useState("");
@@ -24,6 +23,7 @@ function LoginForm({ callbackUrl }: { callbackUrl?: string | undefined }) {
     defaultValues: {
       email: "",
       password: "",
+      callbackUrl,
     },
   });
 

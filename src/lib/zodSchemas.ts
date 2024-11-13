@@ -39,6 +39,7 @@ export const zPhoneNumber = z
 export const loginSchema = z.object({
   email: z.string().email("invalid email address"),
   password: z.string().min(8, "password is less thnn 8 chars"),
+  callbackUrl: z.string().optional(),
 });
 
 export type LoginSchema = z.infer<typeof loginSchema>;

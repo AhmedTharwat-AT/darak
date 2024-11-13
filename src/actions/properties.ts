@@ -2,7 +2,6 @@
 
 import { auth, signOut } from "@/auth";
 import prisma from "@/lib/prisma_db";
-import { FileWithPreview } from "@/lib/types";
 import { getDataURI } from "@/lib/utils";
 import { CreatePropertySchema } from "@/lib/zodSchemas";
 import { getUser } from "@/services/prismaApi";
@@ -67,7 +66,7 @@ export async function createProperty(data: CreatePropertySchema) {
       },
     });
 
-    revalidatePath("/");
+    revalidatePath("/", "layout");
 
     return { status: "success", message: "property was added successfully" };
   } catch (error) {
