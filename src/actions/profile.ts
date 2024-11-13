@@ -73,13 +73,6 @@ export async function changeProfilePicture(
         status: "error",
       };
     }
-    // max 1MB image
-    // if (newImage.size > 1024 * 1024) {
-    //   return {
-    //     message: "Image size is too large",
-    //     status: "error",
-    //   };
-    // }
 
     const session = await auth();
     if (!session?.user) redirect("/signin");
