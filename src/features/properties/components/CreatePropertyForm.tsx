@@ -125,6 +125,7 @@ function CreatePropertyForm() {
           />
           <ErrorField message={errors.type?.message} />
         </div>
+
         <div className="w-full">
           <Label name="price" />
           <div className="flex overflow-hidden rounded-lg">

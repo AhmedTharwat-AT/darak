@@ -63,7 +63,7 @@ export const getFilteredProperties = cache(
         },
         where: {
           status: {
-            equals: "approved",
+            contains: "approved",
           },
           price: {
             gte: priceObj?.from ? Number(priceObj.from) : 0,
@@ -127,7 +127,7 @@ export const getFilteredPropertiesCount = cache(
       const count = await prisma.property.count({
         where: {
           status: {
-            equals: "approved",
+            contains: "approved",
           },
           price: {
             gte: priceObj?.from ? Number(priceObj.from) : 0,
@@ -170,6 +170,9 @@ export const getProperty = cache(
       const property = await prisma.property.findUnique({
         where: {
           id,
+          status: {
+            contains: "approved",
+          },
         },
         include: {
           images: true,
@@ -196,6 +199,11 @@ export const getProperties = cache(
   async () => {
     try {
       const properties = await prisma.property.findMany({
+        where: {
+          status: {
+            contains: "approved",
+          },
+        },
         include: {
           images: true,
         },

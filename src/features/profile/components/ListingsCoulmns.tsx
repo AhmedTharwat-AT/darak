@@ -100,7 +100,6 @@ const columns: ColumnDef<PropertyWithImages>[] = [
             "w-fit rounded-md bg-gray-200 p-1 text-start font-semibold capitalize",
             status == "preview" && "text-main",
             status == "approved" && "text-green-500",
-            status == "refused" && "text-red-500",
           )}
         >
           {status}
