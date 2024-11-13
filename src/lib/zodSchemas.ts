@@ -71,8 +71,14 @@ export const createPropertySchema = z
       .string()
       .min(10, "Description is less than 10 chars!")
       .max(500, "Description is more than 500 chars!"),
-    price: z.coerce.number().gte(1, "Please provide valid price!"),
-    space: z.coerce.number().gte(10, "Minimum space is 10 square meters!"),
+    price: z.coerce
+      .number()
+      .min(1, "Please provide valid price!")
+      .max(100_000_000, "Maximum price is 100,000,000 EGP!"),
+    space: z.coerce
+      .number()
+      .min(10, "Minimum space is 10 square meters!")
+      .max(10000, "Maximum space is 10000 square meters!"),
     rooms: z.coerce.number().gte(0, "Please provide valid rooms count!"),
     bathrooms: z.coerce
       .number()

@@ -40,7 +40,7 @@ function CreatePropertyForm() {
       location: "",
       mode: "",
       bathrooms: 0,
-      price: 0,
+      price: 100,
       rooms: 0,
       space: 10,
       type: "apartment",
