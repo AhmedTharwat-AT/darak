@@ -1,4 +1,8 @@
-import { getFilteredProperties, getUser } from "@/services/prismaApi";
+import {
+  getFilteredProperties,
+  getProperties,
+  getUser,
+} from "@/services/prismaApi";
 import { auth } from "@/auth";
 import { PropertyWithImages, UserWithProperties } from "@/lib/types";
 

@@ -62,16 +62,13 @@ export const getFilteredProperties = cache(
           images: true,
         },
         where: {
-          status: {
-            contains: "approved",
-          },
           price: {
             gte: priceObj?.from ? Number(priceObj.from) : 0,
-            lte: priceObj?.to ? Number(priceObj.to) : 10_000_000,
+            lte: priceObj?.to ? Number(priceObj.to) : 100_000_000,
           },
           space: {
             gte: spaceObj?.from ? Number(spaceObj.from) : 10,
-            lte: spaceObj?.to ? Number(spaceObj.to) : 1000,
+            lte: spaceObj?.to ? Number(spaceObj.to) : 10000,
           },
           mode: {
             contains: mode || "",
@@ -80,13 +77,16 @@ export const getFilteredProperties = cache(
             contains: type == "all" ? "" : type || "",
           },
           rooms: {
-            gte: rooms ? Number(rooms) : 1,
+            gte: rooms ? Number(rooms) : 0,
           },
           bathrooms: {
-            gte: bathrooms ? Number(bathrooms) : 1,
+            gte: bathrooms ? Number(bathrooms) : 0,
           },
           location: {
             contains: location || "",
+          },
+          status: {
+            equals: "approved",
           },
         },
         take: PAGE_SIZE,
@@ -126,16 +126,13 @@ export const getFilteredPropertiesCount = cache(
     try {
       const count = await prisma.property.count({
         where: {
-          status: {
-            contains: "approved",
-          },
           price: {
             gte: priceObj?.from ? Number(priceObj.from) : 0,
-            lte: priceObj?.to ? Number(priceObj.to) : 10_000_000,
+            lte: priceObj?.to ? Number(priceObj.to) : 100_000_000,
           },
           space: {
             gte: spaceObj?.from ? Number(spaceObj.from) : 10,
-            lte: spaceObj?.to ? Number(spaceObj.to) : 1000,
+            lte: spaceObj?.to ? Number(spaceObj.to) : 10000,
           },
           mode: {
             contains: mode || "",
@@ -144,13 +141,16 @@ export const getFilteredPropertiesCount = cache(
             contains: type == "all" ? "" : type || "",
           },
           rooms: {
-            gte: rooms ? Number(rooms) : 1,
+            gte: rooms ? Number(rooms) : 0,
           },
           bathrooms: {
-            gte: bathrooms ? Number(bathrooms) : 1,
+            gte: bathrooms ? Number(bathrooms) : 0,
           },
           location: {
             contains: location || "",
+          },
+          status: {
+            equals: "approved",
           },
         },
       });
@@ -170,9 +170,7 @@ export const getProperty = cache(
       const property = await prisma.property.findUnique({
         where: {
           id,
-          status: {
-            contains: "approved",
-          },
+          status: "approved",
         },
         include: {
           images: true,
@@ -200,9 +198,7 @@ export const getProperties = cache(
     try {
       const properties = await prisma.property.findMany({
         where: {
-          status: {
-            contains: "approved",
-          },
+          status: "approved",
         },
         include: {
           images: true,
