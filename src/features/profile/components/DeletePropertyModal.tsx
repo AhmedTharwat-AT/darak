@@ -1,19 +1,18 @@
 "use client";
 
+import { deleteProperty } from "@/actions/properties";
 import { useToast } from "@/hooks/use-toast";
 import { useActionState, useEffect, useRef } from "react";
-import { deleteProperty } from "@/actions/properties";
 
 import { Button } from "@/components/ui/button";
 import {
+  DialogClose,
   DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogClose,
 } from "@/components/ui/dialog";
 import { ImSpinner2 } from "react-icons/im";
-import { stat } from "fs";
 
 function DeletePropertyModal({
   propertyId,

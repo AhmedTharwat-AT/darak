@@ -21,10 +21,10 @@ async function page(props: { params: Promise<{ propertyId: string }> }) {
 
   return (
     <main className="font-poppins">
-      <div className="container my-12 flex flex-col">
+      <div className="container my-6 flex flex-col bp:my-12">
         <BackButton text="Back" />
 
-        <div className="mt-12 grid grow grid-cols-1 gap-8 bp:grid-cols-2">
+        <div className="mt-8 grid grow grid-cols-1 gap-8 bp:mt-12 bp:grid-cols-2">
           <PropertyCarousel images={property.images} />
 
           <div className="flex flex-col">
@@ -32,10 +32,10 @@ async function page(props: { params: Promise<{ propertyId: string }> }) {
               <div>
                 <div className="flex items-center gap-2">
                   <FaLocationDot className="size-5 fill-main" />
-                  <p className="text-xl">{property.location}</p>
+                  <p className="sm:text-xl">{property.location}</p>
                 </div>
 
-                <h2 className="mb-4 mt-2 line-clamp-1 text-2xl">
+                <h2 className="mb-4 mt-2 line-clamp-1 text-lg sm:text-2xl">
                   {property.title}
                 </h2>
               </div>
@@ -46,22 +46,24 @@ async function page(props: { params: Promise<{ propertyId: string }> }) {
             <hr className="my-3 bg-stroke" />
 
             <div>
-              <h3 className="mb-4 text-xl text-font">Features</h3>
+              <h3 className="mb-2 text-font sm:mb-4 sm:text-xl">Features</h3>
               <PropertyFeatures
                 property={property}
-                featureStyle="flex-row flex gap-3 text-xl text-main [&_svg]:size-6 [&_svg]:fill-font"
+                featureStyle="flex-row flex sm:gap-3 sm:text-xl text-main sm:[&_svg]:size-6 [&_svg]:fill-font"
               />
             </div>
 
-            <hr className="mb-4 mt-2 bg-stroke" />
+            <hr className="my-3 bg-stroke" />
 
             <div>
-              <h3 className="mb-4 text-xl text-font">Description</h3>
-              <p className="text-black">{property.description}</p>
+              <h3 className="mb-2 text-font sm:mb-4 sm:text-xl">Description</h3>
+              <p className="text-black max-sm:text-sm">
+                {property.description}
+              </p>
             </div>
 
             <div className="mt-auto flex flex-wrap items-end justify-between gap-8 pt-8">
-              <p className="line-clamp-1 text-3xl font-bold">
+              <p className="break-all text-xl font-bold sm:text-3xl">
                 {formatCurrency(property.price)}
               </p>
               <PropertyContacts property={property} />

@@ -20,16 +20,16 @@ function PropertyContacts({ property }: { property: PropertyWithImages }) {
       {phoneLink && (
         <a href={phoneLink} target="_blank" title={phoneLink}>
           <Button className="space-x-2">
-            <FaPhone className="size-4" />
-            <span className="text-xl">Call</span>
+            <FaPhone className="size-3 sm:size-4" />
+            <span className="sm:text-xl">Call</span>
           </Button>
         </a>
       )}
       {whatsappLink && (
         <a href={whatsappLink} target="_blank" title={whatsappLink}>
           <Button className="space-x-2 bg-[#67C15E]">
-            <RiWhatsappFill className="size-6" />
-            <span className="text-xl">WhatsApp</span>
+            <RiWhatsappFill className="sm:size-5" />
+            <span className="sm:text-xl">WhatsApp</span>
           </Button>
         </a>
       )}

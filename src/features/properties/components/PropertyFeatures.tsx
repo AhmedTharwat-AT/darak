@@ -7,12 +7,19 @@ import { PiBathtub, PiBedLight } from "react-icons/pi";
 function PropertyFeatures({
   property,
   featureStyle,
+  className,
 }: {
   property: Property;
   featureStyle?: string;
+  className?: string;
 }) {
   return (
-    <div className="flex w-full flex-wrap items-center justify-between gap-2 text-xs text-font sm:text-sm">
+    <div
+      className={cn(
+        "flex w-full flex-wrap items-center justify-between gap-2 text-xs text-font sm:text-sm",
+        className,
+      )}
+    >
       <Feature featureStyle={featureStyle}>
         <PiBedLight className="size-5" />
         {property.rooms} Rooms

@@ -13,7 +13,7 @@ type Props = {
 };
 
 function PropertyItem({ property, isBookmarked = false }: Props) {
-  if (property.status !== "approved" || !property) return null;
+  if (!property || property.status !== "approved") return null;
 
   return (
     <li

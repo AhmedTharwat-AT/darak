@@ -1,15 +1,13 @@
 "use client";
 
 import { useActionState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
+import { bookmarkProperty, remvoeBookmarked } from "@/actions/properties";
 import { cn } from "@/lib/utils";
-import { remvoeBookmarked, bookmarkProperty } from "@/actions/properties";
-
-import { ImCross } from "react-icons/im";
 
 import { CiBookmark } from "react-icons/ci";
-import Spinner from "@/components/Spinner";
-import { ImSpinner2 } from "react-icons/im";
+import { ImSpinner2, ImCross } from "react-icons/im";
 
 function BookmarkActionBtn({
   propertyId,
@@ -22,6 +20,7 @@ function BookmarkActionBtn({
 }) {
   const isAdding = type === "add";
   const { toast } = useToast();
+  const router = useRouter();
   const [state, formAction, isPending] = useActionState(
     isAdding ? bookmarkProperty : remvoeBookmarked,
     {
@@ -37,7 +36,8 @@ function BookmarkActionBtn({
       variant: "app",
       className: "text-black p-5",
     });
-  }, [state, toast]);
+    router.refresh();
+  }, [state, toast, router]);
 
   return (
     <form className="m-0 p-0" action={formAction}>
