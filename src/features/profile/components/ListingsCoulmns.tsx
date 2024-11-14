@@ -2,27 +2,12 @@ import { ColumnDef } from "@tanstack/react-table";
 
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { ArrowUpDown, MoreHorizontal } from "lucide-react";
+import { ArrowUpDown } from "lucide-react";
 import { IoMdImages } from "react-icons/io";
 
 import { PropertyWithImages } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { PropertyImage } from "@prisma/client";
-import { useState } from "react";
 import ListingActionBtn from "./ListingActionBtn";
 
 const columns: ColumnDef<PropertyWithImages>[] = [

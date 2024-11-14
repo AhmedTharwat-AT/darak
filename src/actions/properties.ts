@@ -85,6 +85,9 @@ export async function deleteProperty({ propertyId }: { propertyId: string }) {
     const property = await prisma.property.findUnique({
       where: {
         id: propertyId,
+        owner: {
+          email: session.user?.email || undefined,
+        },
       },
       include: {
         images: true,
@@ -99,6 +102,9 @@ export async function deleteProperty({ propertyId }: { propertyId: string }) {
     await prisma.property.delete({
       where: {
         id: propertyId,
+        owner: {
+          email: session.user?.email || undefined,
+        },
       },
     });
 
