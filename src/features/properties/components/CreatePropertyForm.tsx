@@ -32,6 +32,7 @@ function CreatePropertyForm() {
     getValues,
     setValue,
     setError,
+    reset,
   } = useForm<CreatePropertySchema>({
     resolver: zodResolver(createPropertySchema),
     defaultValues: {
@@ -54,6 +55,7 @@ function CreatePropertyForm() {
     try {
       const message = await createProperty(data);
       setServerMessage(message);
+      reset();
     } catch {
       setServerMessage({
         status: "failed",

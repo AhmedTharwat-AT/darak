@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { PropertyWithImages, UserWithProperties } from "@/lib/types";
 import EmptyBookmarks from "@/features/properties/components/EmptyBookmarks";
 import PropertyItem from "@/features/properties/components/PropertyItem";
+import SignoutWhenUserDeleted from "@/features/auth/components/SignoutWhenUserDeleted";
 
 async function page() {
   const session = await auth();
@@ -13,7 +14,7 @@ async function page() {
 
   const user: UserWithProperties = await getUser(session.user.email || "");
   if (!user) {
-    redirect("/signin?callbackUrl=/bookmark");
+    return <SignoutWhenUserDeleted />;
   }
 
   const bookmarkedProperties = user.bookmarked_properties.map(

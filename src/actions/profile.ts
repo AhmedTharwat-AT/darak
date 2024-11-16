@@ -79,7 +79,7 @@ export async function changeProfilePicture(
 
     const user: User = await getUser(session.user.email);
 
-    if (!user) {
+    if (!user || user.email !== session.user.email) {
       signOut({ redirectTo: "/signin" });
     }
 

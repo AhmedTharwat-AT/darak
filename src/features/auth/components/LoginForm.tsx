@@ -27,8 +27,6 @@ function LoginForm({ callbackUrl }: { callbackUrl?: string | undefined }) {
     },
   });
 
-  const pending = isSubmitting;
-
   async function onSubmit(data: LoginSchema) {
     try {
       await signinAction(data);
@@ -36,9 +34,12 @@ function LoginForm({ callbackUrl }: { callbackUrl?: string | undefined }) {
         title: "Login Successful",
       });
     } catch (err) {
-      if (err instanceof Error && !isRedirectError(err)) {
+      if (isRedirectError(err)) throw err;
+      if (err instanceof Error) {
         setServerError(err.message);
+        return;
       }
+      setServerError("Problem with the server!");
     }
   }
 
@@ -50,7 +51,7 @@ function LoginForm({ callbackUrl }: { callbackUrl?: string | undefined }) {
         <div className="relative">
           <IoMdMail className="absolute left-3 top-1/2 size-5 -translate-y-1/2 fill-stroke" />
           <input
-            disabled={pending}
+            disabled={isSubmitting}
             className="w-full rounded-lg border border-stroke py-4 pe-4 ps-10 focus:border-main"
             {...register("email")}
             type="email"
@@ -67,7 +68,7 @@ function LoginForm({ callbackUrl }: { callbackUrl?: string | undefined }) {
         <div className="relative">
           <FaLock className="absolute left-3 top-1/2 size-5 -translate-y-1/2 fill-stroke" />
           <input
-            disabled={pending}
+            disabled={isSubmitting}
             className="w-full rounded-lg border border-stroke py-4 pe-4 ps-10 focus:border-main"
             {...register("password")}
             type="password"
@@ -79,8 +80,12 @@ function LoginForm({ callbackUrl }: { callbackUrl?: string | undefined }) {
         )}
       </div>
       {/* <input name="callbackUrl" type="hidden" defaultValue={callbackUrl} /> */}
-      <Button disabled={pending} className="h-14 w-full py-4 text-xl" size="lg">
-        {pending ? <Spinner className="text-2xl text-white" /> : "Login"}
+      <Button
+        disabled={isSubmitting}
+        className="h-14 w-full py-4 text-xl"
+        size="lg"
+      >
+        {isSubmitting ? <Spinner className="text-2xl text-white" /> : "Login"}
       </Button>
     </form>
   );

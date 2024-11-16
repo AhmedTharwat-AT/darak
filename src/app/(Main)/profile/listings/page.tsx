@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import EmptyListing from "@/features/profile/components/EmptyListing";
 import ListingsTable from "@/features/profile/components/ListingsTable";
 import { FaPlus } from "react-icons/fa";
+import SignoutWhenUserDeleted from "@/features/auth/components/SignoutWhenUserDeleted";
 
 async function page() {
   const session = await auth();
@@ -17,7 +18,7 @@ async function page() {
 
   const user: UserWithProperties = await getUser(session.user.email);
   if (!user) {
-    redirect("/signin?callbackUrl=/profile/listings");
+    return <SignoutWhenUserDeleted />;
   }
 
   const properties = user.properties;

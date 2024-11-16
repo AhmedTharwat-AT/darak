@@ -1,7 +1,7 @@
 "use server";
 
 import prisma from "@/lib/prisma_db";
-import { signIn, signOut } from "@/auth";
+import { auth, signIn, signOut } from "@/auth";
 import { AuthError } from "next-auth";
 import { isRedirectError } from "next/dist/client/components/redirect";
 import { LoginSchema, RegisterSchema } from "@/lib/zodSchemas";
@@ -69,6 +69,9 @@ export async function signinAction(
 }
 
 export async function signoutAction() {
+  const session = await auth();
+
+  if (!session?.user) return null;
+
   await signOut({ redirectTo: "/" });
-  console.log("signed out");
 }

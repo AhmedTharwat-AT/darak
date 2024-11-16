@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
-import { auth } from "./auth";
+import { auth, signOut } from "./auth";
+import { getUser } from "./services/prismaApi";
 
 const authPages = ["/signin", "/signup"];
 const protectedPages = ["/profile", "/bookmark"];

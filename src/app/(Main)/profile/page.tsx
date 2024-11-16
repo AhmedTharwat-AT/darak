@@ -1,4 +1,5 @@
 import { auth } from "@/auth";
+import SignoutWhenUserDeleted from "@/features/auth/components/SignoutWhenUserDeleted";
 import UserInfo from "@/features/profile/components/UserInfo";
 import { UserWithProperties } from "@/lib/types";
 import { getUser } from "@/services/prismaApi";
@@ -12,7 +13,7 @@ async function page() {
 
   const user: UserWithProperties = await getUser(session.user.email);
   if (!user) {
-    redirect("/signin?callbackUrl=/profile");
+    return <SignoutWhenUserDeleted />;
   }
 
   return (

@@ -13,7 +13,7 @@ import { isRedirectError } from "next/dist/client/components/redirect";
 import { AuthError } from "next-auth";
 import { toast } from "@/hooks/use-toast";
 
-function SignupForm({ callbackUrl }: { callbackUrl?: string | undefined }) {
+function SignupForm() {
   const [serverError, setServerError] = useState("");
   const {
     register,
