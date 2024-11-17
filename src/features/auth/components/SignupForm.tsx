@@ -32,16 +32,23 @@ function SignupForm() {
 
   async function onSubmit(data: RegisterSchema) {
     try {
-      await createUser(data);
+      const state = await createUser(data);
+      const isError = state?.type === "error";
+
       toast({
-        description: "Account created successfully",
+        title: state.message,
+        variant: isError ? "destructive" : "default",
       });
+
+      if (isError) setServerError(state.message);
     } catch (err) {
       if (isRedirectError(err)) throw err;
-      if (err instanceof AuthError) setServerError(err.message);
+
       if (err instanceof Error) {
         setServerError(err.message);
       }
+
+      setServerError("Problem with the server!");
     }
   }
 

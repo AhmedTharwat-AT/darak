@@ -21,7 +21,7 @@ export async function createUser(
     });
 
     if (user) {
-      throw new AuthError("User already exists");
+      return { type: "error", message: "User already exists" };
     }
     // create user
     const hashedPassword = await hash(password, 10);
@@ -39,13 +39,15 @@ export async function createUser(
     if (isRedirectError(err)) {
       throw err;
     }
-    if (err instanceof Error) {
-      console.log("error creating new user", err.message);
-    }
+
     if (err instanceof AuthError) {
-      throw new Error(String(err.cause?.err).replace("Error:", ""));
+      return {
+        type: "error",
+        message: String(err.cause?.err).replace("Error:", ""),
+      };
     }
-    throw new Error("Error creating new user");
+
+    return { type: "error", message: "Error creating new user" };
   }
 }
 

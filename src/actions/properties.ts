@@ -67,8 +67,9 @@ export async function createProperty(data: CreatePropertySchema) {
     });
 
     revalidatePath("/", "layout");
+    redirect("/profile/listings");
 
-    return { status: "success", message: "property was added successfully" };
+    // return { status: "success", message: "property was added successfully" };
   } catch (error) {
     console.log("server error : ", error instanceof Error && error.message);
     return {
