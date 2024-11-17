@@ -29,16 +29,23 @@ function LoginForm({ callbackUrl }: { callbackUrl?: string | undefined }) {
 
   async function onSubmit(data: LoginSchema) {
     try {
-      await signinAction(data);
+      const state = await signinAction(data);
+      const isError = state?.type === "error";
+
       toast({
-        title: "Login Successful",
+        title: state.message,
+        variant: isError ? "destructive" : "default",
       });
+
+      if (isError) setServerError(state.message);
     } catch (err) {
       if (isRedirectError(err)) throw err;
+
       if (err instanceof Error) {
         setServerError(err.message);
         return;
       }
+
       setServerError("Problem with the server!");
     }
   }

@@ -58,13 +58,18 @@ export async function signinAction(
       password: data.password,
       redirectTo: data.callbackUrl || "/",
     });
+
+    return { type: "success", message: "Signed in successfully" };
   } catch (err: unknown) {
     if (isRedirectError(err)) {
       throw err;
     }
     if (err instanceof AuthError)
-      throw new Error(String(err.cause?.err).replace("Error:", ""));
-    throw new Error("Problem with the server!");
+      return {
+        type: "error",
+        message: String(err.cause?.err).replace("Error:", ""),
+      };
+    return { type: "error", message: "Error signing in" };
   }
 }
 
