@@ -7,6 +7,7 @@ export const getUser = cache(
   async (email: string) => {
     if (!email) return null;
 
+    console.log("getting user : ", email);
     const user = await prisma.user.findUnique({
       where: {
         email,
@@ -28,6 +29,8 @@ export const getUser = cache(
         },
       },
     });
+
+    console.log("prisma user : ", user);
 
     return user;
   },
