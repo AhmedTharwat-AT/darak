@@ -19,6 +19,7 @@ import LocationInput from "@/components/LocationInput";
 import LocationIcon from "@/components/LocationIcon";
 import Spinner from "@/components/Spinner";
 import DropImages from "@/components/DropImages";
+import { isRedirectError } from "next/dist/client/components/redirect";
 
 function CreatePropertyForm() {
   const [serverMessage, setServerMessage] = useState({
@@ -56,7 +57,9 @@ function CreatePropertyForm() {
       const message = await createProperty(data);
       setServerMessage(message);
       reset();
-    } catch {
+    } catch (err) {
+      if (isRedirectError(err)) throw err;
+
       setServerMessage({
         status: "failed",
         message: "Something went wrong!",

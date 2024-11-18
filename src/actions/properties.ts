@@ -9,6 +9,7 @@ import { User } from "@prisma/client";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import { v2 as cloudinary } from "cloudinary";
 import { revalidatePath } from "next/cache";
+import { isRedirectError } from "next/dist/client/components/redirect";
 import { redirect } from "next/navigation";
 
 cloudinary.config({
@@ -71,6 +72,8 @@ export async function createProperty(data: CreatePropertySchema) {
 
     // return { status: "success", message: "property was added successfully" };
   } catch (error) {
+    if (isRedirectError(error)) throw error;
+
     console.log("server error : ", error instanceof Error && error.message);
     return {
       status: "failed",

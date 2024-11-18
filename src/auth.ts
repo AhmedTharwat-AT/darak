@@ -32,6 +32,9 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
           const { email, password } = parsedCredentials.data;
           const user = await getUser(email);
 
+          console.log("user : ", user);
+          console.log("password : ", password);
+
           if (!user || !user.password) throw new Error("Invalid credentials 1");
 
           const passwordsMatch = await compare(password, user.password);
