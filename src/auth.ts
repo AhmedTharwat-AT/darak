@@ -4,7 +4,6 @@ import Credentials from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import prisma from "./lib/prisma_db";
 import { loginSchema } from "./lib/zodSchemas";
-import { getUser } from "./services/prismaApi";
 
 export const { auth, handlers, signIn, signOut } = NextAuth({
   providers: [
@@ -30,11 +29,12 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
 
         if (parsedCredentials.success) {
           const { email, password } = parsedCredentials.data;
-          console.log("email : ", email);
-          const user = await getUser(email);
 
-          console.log("user : ", user);
-          console.log("password : ", password);
+          const user = await prisma.user.findUnique({
+            where: {
+              email,
+            },
+          });
 
           if (!user || !user.password) throw new Error("Invalid credentials 1");
 
@@ -53,7 +53,11 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
     },
     signIn: async ({ account, user, profile }) => {
       if (account?.provider === "google") {
-        const existingUser = await getUser(user?.email || "");
+        const existingUser = await prisma.user.findUnique({
+          where: {
+            email: user?.email || "",
+          },
+        });
 
         if (!existingUser) {
           await prisma.user.create({

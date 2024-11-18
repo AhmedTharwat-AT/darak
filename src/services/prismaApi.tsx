@@ -3,40 +3,71 @@ import { PAGE_SIZE } from "../lib/constants";
 import { IFilterValues } from "@/app/(Main)/properties/page";
 import { cache } from "@/lib/utils";
 
-export const getUser = cache(
-  async (email: string) => {
-    if (!email) return null;
+// export const getUser = cache(
+//   async (email: string) => {
+//     if (!email) return null;
 
-    console.log("getting user : ", email);
-    const user = await prisma.user.findUnique({
-      where: {
-        email,
-      },
-      include: {
-        properties: {
-          include: {
-            images: true,
-          },
+//     const user = await prisma.user.findUnique({
+//       where: {
+//         email,
+//       },
+//       include: {
+//         properties: {
+//           include: {
+//             images: true,
+//           },
+//         },
+//         bookmarked_properties: {
+//           include: {
+//             property: {
+//               include: {
+//                 images: true,
+//               },
+//             },
+//           },
+//         },
+//       },
+//     });
+
+//     return user;
+//   },
+//   ["user"],
+//   { revalidate: 3600 },
+// );
+
+export const getUser = async (email: string | undefined | null) => {
+  if (!email) return null;
+
+  return cache(
+    async (email: string) => {
+      const user = await prisma.user.findUnique({
+        where: {
+          email,
         },
-        bookmarked_properties: {
-          include: {
-            property: {
-              include: {
-                images: true,
+        include: {
+          properties: {
+            include: {
+              images: true,
+            },
+          },
+          bookmarked_properties: {
+            include: {
+              property: {
+                include: {
+                  images: true,
+                },
               },
             },
           },
         },
-      },
-    });
+      });
 
-    console.log("prisma user : ", user);
-
-    return user;
-  },
-  ["user"],
-  { revalidate: 3600 },
-);
+      return user;
+    },
+    ["user", email],
+    { revalidate: 3600 },
+  )(email);
+};
 
 export const getFilteredProperties = cache(
   async ({
