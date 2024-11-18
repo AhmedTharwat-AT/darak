@@ -36,14 +36,14 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
             },
           });
 
-          if (!user || !user.password) throw new Error("Invalid credentials 1");
+          if (!user || !user.password) throw new Error("Invalid credentials");
 
           const passwordsMatch = await compare(password, user.password);
 
           if (passwordsMatch) return user;
         }
 
-        throw new Error("Invalid credentials 2");
+        throw new Error("Invalid credentials");
       },
     }),
   ],

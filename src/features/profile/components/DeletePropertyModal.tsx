@@ -31,6 +31,7 @@ function DeletePropertyModal({
 
   useEffect(() => {
     if (!state.message || toastId.current) return;
+
     if (state.type === "success") {
       const { id } = toast({
         description: state.message,
@@ -46,6 +47,7 @@ function DeletePropertyModal({
       });
       toastId.current = id;
     }
+
     onCloseModal();
   }, [state.message, toast, onCloseModal, state.type]);
 
@@ -57,6 +59,7 @@ function DeletePropertyModal({
           Are you sure you want to delete this property ?
         </DialogDescription>
       </DialogHeader>
+
       <DialogFooter className="flex flex-row justify-center gap-2">
         <form action={formAction}>
           <Button
