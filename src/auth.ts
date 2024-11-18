@@ -32,14 +32,14 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
           const { email, password } = parsedCredentials.data;
           const user = await getUser(email);
 
-          if (!user || !user.password) throw new Error("Invalid credentials");
+          if (!user || !user.password) throw new Error("Invalid credentials 1");
 
           const passwordsMatch = await compare(password, user.password);
 
           if (passwordsMatch) return user;
         }
 
-        throw new Error("Invalid credentials");
+        throw new Error("Invalid credentials 2");
       },
     }),
   ],

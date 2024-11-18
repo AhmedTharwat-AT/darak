@@ -23,8 +23,10 @@ export async function createUser(
     if (user) {
       return { type: "error", message: "User already exists" };
     }
+
     // create user
     const hashedPassword = await hash(password, 10);
+
     await prisma.user.create({
       data: {
         email,

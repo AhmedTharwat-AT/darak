@@ -49,7 +49,7 @@ export const registerSchema = z
     email: z.string().email("invalid email address"),
     name: z.string().min(4, "name is less than 4 chars!"),
     phone: zPhoneNumber,
-    password: z.string().min(8, "password is less thnn 8 chars"),
+    password: z.string().min(8, "password is less than 8 chars"),
     confirm_password: z.string(),
   })
   .superRefine(({ confirm_password, password }, ctx) => {

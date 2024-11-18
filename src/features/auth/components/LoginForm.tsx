@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { toast } from "@/hooks/use-toast";
 import { LoginSchema, loginSchema } from "@/lib/zodSchemas";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { AuthError } from "next-auth";
 import { isRedirectError } from "next/dist/client/components/redirect";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -41,7 +42,7 @@ function LoginForm({ callbackUrl }: { callbackUrl?: string | undefined }) {
     } catch (err) {
       if (isRedirectError(err)) throw err;
 
-      if (err instanceof Error) {
+      if (err instanceof AuthError) {
         setServerError(err.message);
         return;
       }
