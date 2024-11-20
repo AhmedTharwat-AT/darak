@@ -4,16 +4,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import FilterProvider from "@/context/FilterContext";
 
 import { Suspense } from "react";
-
-export type IFilterValues = {
-  price?: string;
-  space?: string;
-  mode?: string;
-  type?: string;
-  rooms?: string;
-  bathrooms?: string;
-  location?: string;
-};
+import { IFilterValues } from "@/lib/types";
 
 async function properties(props: {
   searchParams: Promise<{

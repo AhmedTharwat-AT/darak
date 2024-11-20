@@ -9,7 +9,7 @@ import { Suspense } from "react";
 async function page() {
   const session = await auth();
   if (!session?.user) {
-    redirect("/signin?callbackUrl=/bookmark");
+    redirect("/en/signin?callbackUrl=/en/properties/new");
   }
 
   const user = await getUser(session?.user?.email || "");

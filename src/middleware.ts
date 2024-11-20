@@ -1,22 +1,31 @@
 import { NextResponse } from "next/server";
-import { auth, signOut } from "./auth";
-import { getUser } from "./services/prismaApi";
+import { auth } from "./auth";
 
 const authPages = ["/signin", "/signup"];
 const protectedPages = ["/profile", "/bookmark"];
+const locales = ["en", "ar"];
 
 export const middleware = auth(async (req) => {
   const pathname = req.nextUrl.pathname;
   const isAuth = req.auth;
+  const pathnameHasLocale = locales.some(
+    (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`,
+  );
+  const locale = pathnameHasLocale ? pathname.split("/")[1] : "en";
+  const newPathname = pathnameHasLocale ? pathname : `/en${pathname}`;
 
-  if (authPages.includes(pathname) && isAuth) {
-    return NextResponse.redirect(new URL("/", req.url));
+  if (authPages.some((page) => pathname.includes(page)) && isAuth) {
+    return NextResponse.redirect(new URL(`/${locale}`, req.url));
   }
 
-  if (protectedPages.includes(pathname) && !isAuth) {
+  if (protectedPages.some((page) => pathname.includes(page)) && !isAuth) {
     return NextResponse.redirect(
-      new URL(`/signin?callbackUrl=${pathname}`, req.url),
+      new URL(`/${locale}/signin?callbackUrl=${newPathname}`, req.url),
     );
+  }
+
+  if (!pathnameHasLocale) {
+    return NextResponse.redirect(new URL(newPathname, req.url));
   }
 
   return NextResponse.next();

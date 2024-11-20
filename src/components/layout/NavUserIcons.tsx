@@ -3,6 +3,7 @@ import AnimatedLink from "../AnimatedLink";
 import profileIcon from "@/assets/icons/profile.svg";
 import globeIcon from "@/assets/icons/globe.svg";
 import bookmarkIcon from "@/assets/icons/bookmark-1.svg";
+import ChangeLocale from "../ChangeLocale";
 
 function NavUserIcons({ scale = 35 }: { scale?: number }) {
   return (
@@ -16,15 +17,9 @@ function NavUserIcons({ scale = 35 }: { scale?: number }) {
           height={scale}
         />
       </AnimatedLink>
-      <AnimatedLink href={"/"}>
-        <Image
-          src={globeIcon}
-          className="rounded-full bg-bgDark p-2"
-          alt="user"
-          width={scale}
-          height={scale}
-        />
-      </AnimatedLink>
+
+      <ChangeLocale scale={scale} />
+
       <AnimatedLink href={"/bookmark"}>
         <Image
           src={bookmarkIcon}

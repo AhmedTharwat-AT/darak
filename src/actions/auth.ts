@@ -8,9 +8,7 @@ import { LoginSchema, RegisterSchema } from "@/lib/zodSchemas";
 import { hash } from "bcryptjs";
 import { redirect } from "next/navigation";
 
-export async function createUser(
-  data: RegisterSchema & { callbackUrl?: string },
-) {
+export async function createUser(data: RegisterSchema) {
   const { email, password, name, phone } = data;
   try {
     // check if user exists
@@ -36,7 +34,7 @@ export async function createUser(
       },
     });
 
-    redirect("/signin");
+    redirect("/en/signin");
   } catch (err: unknown) {
     if (isRedirectError(err)) {
       throw err;
@@ -60,7 +58,7 @@ export async function signinAction(
     await signIn("credentials", {
       email: data.email,
       password: data.password,
-      redirectTo: data.callbackUrl || "/",
+      redirectTo: data.callbackUrl || "/en",
     });
 
     return { type: "success", message: "Signed in successfully" };
@@ -82,5 +80,5 @@ export async function signoutAction() {
 
   if (!session?.user) return null;
 
-  await signOut({ redirectTo: "/" });
+  await signOut({ redirectTo: "/en" });
 }

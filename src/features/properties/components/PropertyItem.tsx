@@ -27,6 +27,7 @@ function PropertyItem({ property, isBookmarked = false }: Props) {
           <BookmarkActionBtn type="add" propertyId={property.id} />
         )}
       </div>
+
       <AnimatedLink href={`/properties/${property.id}`}>
         <div className="relative">
           <Image

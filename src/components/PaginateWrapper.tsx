@@ -1,7 +1,7 @@
 import { getFilteredPropertiesCount } from "@/services/prismaApi";
 
 import Paginate from "./Paginate";
-import { IFilterValues } from "@/app/(Main)/properties/page";
+import { IFilterValues } from "@/lib/types";
 
 async function PaginateWrapper({
   className,

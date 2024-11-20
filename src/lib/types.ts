@@ -30,3 +30,13 @@ export type UserWithProperties = User & {
 export type FileWithPreview = FileWithPath & {
   preview: string;
 };
+
+export type IFilterValues = {
+  price?: string;
+  space?: string;
+  mode?: string;
+  type?: string;
+  rooms?: string;
+  bathrooms?: string;
+  location?: string;
+};

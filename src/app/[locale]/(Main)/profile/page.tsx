@@ -8,7 +8,7 @@ import { redirect } from "next/navigation";
 async function page() {
   const session = await auth();
   if (!session?.user) {
-    redirect("/signin?callbackUrl=/profile");
+    redirect("/en/signin?callbackUrl=/en/profile");
   }
 
   const user: UserWithProperties = await getUser(session.user.email);

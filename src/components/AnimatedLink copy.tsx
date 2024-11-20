@@ -1,10 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { ReactNode } from "react";
 import { useAnimation } from "@/context/AnimationProvider";
-import useLocale from "@/hooks/useLocale";
 
 export default function AnimatedLink({
   href,
@@ -16,10 +15,8 @@ export default function AnimatedLink({
   className?: string;
 }) {
   const router = useRouter();
-  const { pathname, locale } = useLocale();
+  const pathname = usePathname();
   const { setIsAnimating, startTransition, isAnimating } = useAnimation();
-
-  const newHref = "/" + locale + href;
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
@@ -28,17 +25,17 @@ export default function AnimatedLink({
     setIsAnimating(true);
 
     // prefetching the next page while displaying the exit animation
-    router.prefetch(newHref);
+    router.prefetch(href);
 
     setTimeout(() => {
       startTransition(() => {
-        router.push(newHref);
+        router.push(href);
       });
     }, 200);
   };
 
   return (
-    <Link className={className} href={newHref} prefetch onClick={handleClick}>
+    <Link className={className} href={href} onClick={handleClick}>
       {children}
     </Link>
   );

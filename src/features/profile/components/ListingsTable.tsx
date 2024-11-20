@@ -47,7 +47,7 @@ export default function ListingsTable({
   });
 
   return (
-    <div className="w-full">
+    <div className="w-full" dir="ltr">
       <div className="rounded-md border">
         <Table>
           <TableHeader>

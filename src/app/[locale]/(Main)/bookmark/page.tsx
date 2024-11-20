@@ -9,7 +9,7 @@ import SignoutWhenUserDeleted from "@/features/auth/components/SignoutWhenUserDe
 async function page() {
   const session = await auth();
   if (!session?.user) {
-    redirect("/signin?callbackUrl=/bookmark");
+    redirect("/en/signin?callbackUrl=/en/bookmark");
   }
 
   const user: UserWithProperties = await getUser(session.user.email || "");

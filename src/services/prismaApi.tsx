@@ -1,7 +1,8 @@
 import prisma from "@/lib/prisma_db";
 import { PAGE_SIZE } from "../lib/constants";
-import { IFilterValues } from "@/app/(Main)/properties/page";
+
 import { cache } from "@/lib/utils";
+import { IFilterValues } from "@/lib/types";
 
 // export const getUser = cache(
 //   async (email: string) => {

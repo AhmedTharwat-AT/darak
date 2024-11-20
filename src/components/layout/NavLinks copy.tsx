@@ -1,21 +1,19 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import AnimatedLink from "../AnimatedLink";
-import useLocale from "@/hooks/useLocale";
 
 function NavLinks() {
-  const { locale, pathname } = useLocale();
+  const pathname = usePathname();
 
   return (
     <>
       <li>
         <AnimatedLink
           className={` ${
-            pathname === `/${locale}`
-              ? "font-semibold text-alt"
-              : "text-blacker"
+            pathname === "/" ? "text-alt  font-semibold" : "text-blacker"
           }`}
-          href={`/`}
+          href="/"
         >
           Home
         </AnimatedLink>
@@ -23,11 +21,11 @@ function NavLinks() {
       <li>
         <AnimatedLink
           className={` ${
-            pathname === `/${locale}/properties`
-              ? "font-semibold text-alt"
+            pathname === "/properties"
+              ? "text-alt font-semibold"
               : "text-blacker"
           }`}
-          href={`/properties`}
+          href="/properties"
         >
           Properties
         </AnimatedLink>
@@ -35,11 +33,9 @@ function NavLinks() {
       <li>
         <AnimatedLink
           className={` ${
-            pathname === `/${locale}/contact`
-              ? "font-semibold text-alt"
-              : "text-blacker"
+            pathname === "/contact" ? "text-alt font-semibold" : "text-blacker"
           }`}
-          href={`/contact`}
+          href="/contact"
         >
           Contact Us
         </AnimatedLink>
