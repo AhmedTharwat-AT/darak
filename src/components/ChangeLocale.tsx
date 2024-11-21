@@ -3,17 +3,20 @@
 import globeIcon from "@/assets/icons/globe.svg";
 import useLocale from "@/hooks/useLocale";
 import Image from "next/image";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 function ChangeLocale({ scale }: { scale?: number }) {
   const router = useRouter();
-  const { pathname, hasLocale } = useLocale();
-  const isArabic = pathname.startsWith("/ar");
-  const newHref = hasLocale
+  const { pathname, hasLocale, locale } = useLocale();
+  const searchParams = useSearchParams().toString();
+
+  const isArabic = locale === "ar";
+  const newPathname = hasLocale
     ? isArabic
       ? pathname.replace("/ar", "/en")
       : pathname.replace("/en", "/ar")
     : "/en" + pathname;
+  const newHref = newPathname + (searchParams ? `?${searchParams}` : "");
 
   return (
     <button

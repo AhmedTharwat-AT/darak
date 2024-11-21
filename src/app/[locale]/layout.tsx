@@ -1,7 +1,8 @@
 import { Toaster } from "@/components/ui/toaster";
 import { AnimationProvider } from "@/context/AnimationProvider";
 import { Playfair_Display, Poppins } from "next/font/google";
-import { redirect } from "next/navigation";
+import { getDictionary } from "./dictionaries";
+import TranslationProvider from "@/context/TranslationProvider";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -25,10 +26,8 @@ async function RootLayout({
   children: React.ReactNode;
 }) {
   const locale = (await params).locale;
-  // const isLocale = lacales.includes(locale);
   const direction = locale === "ar" ? "rtl" : "ltr";
-
-  // if (!isLocale) redirect(`/en/${locale}`);
+  const dictionary = await getDictionary(locale);
 
   return (
     <html
@@ -37,7 +36,9 @@ async function RootLayout({
       className={`${playfair.variable} ${poppins.variable}`}
     >
       <body>
-        <AnimationProvider>{children}</AnimationProvider>
+        <TranslationProvider dictionary={dictionary}>
+          <AnimationProvider>{children}</AnimationProvider>
+        </TranslationProvider>
         <Toaster />
       </body>
     </html>

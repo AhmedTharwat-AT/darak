@@ -7,12 +7,15 @@ const locales = ["en", "ar"];
 
 export const middleware = auth(async (req) => {
   const pathname = req.nextUrl.pathname;
+  // const searchParams = req.nextUrl.searchParams.toString();
   const isAuth = req.auth;
+
   const pathnameHasLocale = locales.some(
     (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`,
   );
   const locale = pathnameHasLocale ? pathname.split("/")[1] : "en";
   const newPathname = pathnameHasLocale ? pathname : `/en${pathname}`;
+  // const newHref = newPathname + (searchParams ? `?${searchParams}` : "");
 
   if (authPages.some((page) => pathname.includes(page)) && isAuth) {
     return NextResponse.redirect(new URL(`/${locale}`, req.url));

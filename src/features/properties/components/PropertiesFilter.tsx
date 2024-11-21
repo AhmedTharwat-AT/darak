@@ -1,8 +1,6 @@
 "use client";
 
-import { useFilterContext } from "@/context/FilterContext";
 import { cn, formatCurrency } from "@/lib/utils";
-import Image from "next/image";
 
 import LocationInput from "@/components/LocationInput";
 import PropertyTypeMenu from "@/components/PropertyTypeMenu";
@@ -10,8 +8,8 @@ import QuantityHandler from "@/components/QuantityHandler";
 import Slider from "@/components/Slider";
 import { Button } from "@/components/ui/button";
 
-import gpsIcon from "@/assets/icons/gps.svg";
 import LocationIcon from "@/components/LocationIcon";
+import useFilter from "@/hooks/useFilter";
 
 function PropertiesFilter({
   className,
@@ -37,7 +35,7 @@ function PropertiesFilter({
     handleLocation,
     propertyType,
     handlePropertyType,
-  } = useFilterContext();
+  } = useFilter();
 
   return (
     <div

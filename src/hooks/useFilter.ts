@@ -1,30 +1,33 @@
 "use client";
 
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useState } from "react";
+import useLocale from "./useLocale";
 
 export type PropertyMode = "rent" | "sell";
 export type PropertyType = "all" | "apartment" | "building" | "store";
 
 function useFilter() {
   const router = useRouter();
-  const pathname = usePathname();
+  const { pathWithlocale } = useLocale();
   const searchParams = useSearchParams();
 
   const [propertyMode, setPropertyMode] = useState<PropertyMode>(
-    (searchParams.get("mode") as PropertyMode) || "rent"
+    (searchParams.get("mode") as PropertyMode) || "rent",
   );
   const [propertyType, setPropertyType] = useState<PropertyType>(
-    (searchParams.get("type") as PropertyType) || "all"
+    (searchParams.get("type") as PropertyType) || "all",
   );
   const [rooms, setRooms] = useState<number>(() =>
-    searchParams.get("rooms") ? Number(searchParams.get("rooms")) : 1
+    searchParams.get("rooms") ? Number(searchParams.get("rooms")) : 1,
   );
   const [bathrooms, setBathrooms] = useState<number>(() =>
-    searchParams.get("bathrooms") ? Number(searchParams.get("bathrooms")) : 1
+    searchParams.get("bathrooms") ? Number(searchParams.get("bathrooms")) : 1,
   );
   const [location, setLocation] = useState<string>(() =>
-    searchParams.get("location") ? (searchParams.get("location") as string) : ""
+    searchParams.get("location")
+      ? (searchParams.get("location") as string)
+      : "",
   );
   const [priceRange, setPriceRange] = useState<{ from: number; to: number }>(
     () =>
@@ -36,7 +39,7 @@ function useFilter() {
         : {
             from: 100000,
             to: 1000_000,
-          }
+          },
   );
   const [space, setSpace] = useState<{ from: number; to: number }>(() =>
     searchParams.get("price")
@@ -47,7 +50,7 @@ function useFilter() {
       : {
           from: 50,
           to: 200,
-        }
+        },
   );
 
   // helper to set search params
@@ -116,13 +119,13 @@ function useFilter() {
     setPriceRange({ from: 100000, to: 1000_000 });
     setSpace({ from: 50, to: 200 });
     setLocation("");
-    router.push(pathname, { scroll: false });
+    router.push(pathWithlocale, { scroll: false });
   }
 
   function submitFilter() {
     // create query string for all fitlers
     const queryString = createAllQueryString();
-    router.push("/properties" + "?" + queryString, { scroll: false });
+    router.push("?" + queryString, { scroll: false });
   }
 
   return {

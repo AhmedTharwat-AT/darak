@@ -1,10 +1,9 @@
+import { Skeleton } from "@/components/ui/skeleton";
 import PropertiesFilter from "@/features/properties/components/PropertiesFilter";
 import PropertiesWrapper from "@/features/properties/components/PropertiesWrapper";
-import { Skeleton } from "@/components/ui/skeleton";
-import FilterProvider from "@/context/FilterContext";
 
-import { Suspense } from "react";
 import { IFilterValues } from "@/lib/types";
+import { Suspense } from "react";
 
 async function properties(props: {
   searchParams: Promise<{
@@ -27,9 +26,7 @@ async function properties(props: {
           }
         >
           <div className="min-h-full">
-            <FilterProvider>
-              <PropertiesFilter className="top-0 hidden shadow-md md:block md:max-w-80" />
-            </FilterProvider>
+            <PropertiesFilter className="top-0 hidden shadow-md md:block md:max-w-80" />
           </div>
         </Suspense>
 
