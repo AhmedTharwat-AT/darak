@@ -4,6 +4,7 @@ import profileIcon from "@/assets/icons/profile.svg";
 import globeIcon from "@/assets/icons/globe.svg";
 import bookmarkIcon from "@/assets/icons/bookmark-1.svg";
 import ChangeLocale from "../ChangeLocale";
+import { Suspense } from "react";
 
 function NavUserIcons({ scale = 35 }: { scale?: number }) {
   return (
@@ -18,7 +19,9 @@ function NavUserIcons({ scale = 35 }: { scale?: number }) {
         />
       </AnimatedLink>
 
-      <ChangeLocale scale={scale} />
+      <Suspense fallback={null}>
+        <ChangeLocale scale={scale} />
+      </Suspense>
 
       <AnimatedLink href={"/bookmark"}>
         <Image
