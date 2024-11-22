@@ -8,7 +8,7 @@ function HeroImage({ className }: { className?: string }) {
       src={heroImage}
       alt="hero"
       className={cn(
-        "absolute bottom-0 z-[1] size-full animate-popup-hero object-contain",
+        "absolute bottom-0 -z-[1] size-full animate-popup-hero object-contain",
         className,
       )}
     />

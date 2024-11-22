@@ -8,7 +8,7 @@ import FilterProvider from "@/context/FilterContext";
 
 export default function Home() {
   return (
-    <div className="h-full">
+    <div className="relative z-10 h-full overflow-y-hidden">
       {/* background image */}
       <HeroImage className="object-[-400px_100%] max-md:object-cover md:object-[-300px_100%]" />
 
@@ -28,6 +28,7 @@ export default function Home() {
             <Button className="border border-main text-sm font-medium capitalize sm:text-lg lg:text-xl">
               <AnimatedLink href={"/properties"}>find property</AnimatedLink>
             </Button>
+
             <Button
               variant={"outline"}
               className="border-main bg-transparent text-sm font-medium capitalize text-main sm:text-lg lg:text-xl"

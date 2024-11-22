@@ -1,15 +1,18 @@
 "use client";
 
+import { dictionaryType } from "@/app/[locale]/dictionaries";
 import { createContext, use } from "react";
 
-const TranslationContext = createContext({ dictionary: {} });
+const TranslationContext = createContext<{ dictionary: dictionaryType } | null>(
+  null,
+);
 
 function TranslationProvider({
   children,
   dictionary,
 }: {
   children: React.ReactNode;
-  dictionary: object;
+  dictionary: dictionaryType;
 }) {
   return (
     <TranslationContext.Provider value={{ dictionary }}>

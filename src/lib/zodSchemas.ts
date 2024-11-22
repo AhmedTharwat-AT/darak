@@ -1,5 +1,4 @@
 import { parsePhoneNumber } from "libphonenumber-js";
-import { FileWithPath } from "react-dropzone";
 import { z } from "zod";
 import { FileWithPreview } from "./types";
 

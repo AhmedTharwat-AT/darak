@@ -1,5 +1,4 @@
 import { usePathname } from "next/navigation";
-import path from "path";
 
 const locales = ["en", "ar"];
 
@@ -10,7 +9,7 @@ function useLocale() {
   const locale = hasLocale ? firstParam : "en";
   const pathWithlocale = hasLocale ? pathname : `/${locale}${pathname}`;
 
-  return { pathname, locale, hasLocale ,pathWithlocale};
+  return { pathname, locale, hasLocale, pathWithlocale };
 }
 
 export default useLocale;

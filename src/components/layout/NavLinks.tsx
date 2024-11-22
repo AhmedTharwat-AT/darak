@@ -1,10 +1,12 @@
 "use client";
 
+import { useTranslation } from "@/context/TranslationProvider";
 import AnimatedLink from "../AnimatedLink";
 import useLocale from "@/hooks/useLocale";
 
 function NavLinks() {
   const { locale, pathname } = useLocale();
+  const { dictionary } = useTranslation();
 
   return (
     <>
@@ -17,7 +19,7 @@ function NavLinks() {
           }`}
           href={`/`}
         >
-          Home
+          {dictionary.navlinks.home}
         </AnimatedLink>
       </li>
       <li>
@@ -29,7 +31,7 @@ function NavLinks() {
           }`}
           href={`/properties`}
         >
-          Properties
+          {dictionary.navlinks.properties}
         </AnimatedLink>
       </li>
       <li>
@@ -41,7 +43,7 @@ function NavLinks() {
           }`}
           href={`/contact`}
         >
-          Contact Us
+          {dictionary.navlinks.contact}
         </AnimatedLink>
       </li>
     </>
