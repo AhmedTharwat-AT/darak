@@ -13,24 +13,28 @@
     "contact": "اتصل بنا"
   },
   "filter": {
-    "home": {
-      "mode": {
-        "sell": "للبيع",
-        "rent": "للايجار"
-      },
-      "location": {
-        "label": "العنوان",
-        "placeholder": "اختر العنوان..."
-      },
-      "type": {
-        "label": "نوع الممتلكات",
-        "all": "الكل",
-        "apartment": "شقة",
-        "building": "مبنى",
-        "store": "متجر",
-        "office": "مكتب"
-      },
-      "price": "السعر"
-    }
+    "title": "تصفية",
+    "mode": {
+      "sell": "للبيع",
+      "rent": "للايجار"
+    },
+    "location": {
+      "label": "العنوان",
+      "placeholder": "اختر العنوان..."
+    },
+    "type": {
+      "label": "نوع الممتلكات",
+      "all": "الكل",
+      "apartment": "شقة",
+      "building": "مبنى",
+      "store": "متجر",
+      "office": "مكتب"
+    },
+    "price": "السعر",
+    "space": "المساحة",
+    "rooms": "الغرف",
+    "bathrooms": "الحمامات",
+    "apply": "تطبيق",
+    "cancel": "الغاء"
   }
 }

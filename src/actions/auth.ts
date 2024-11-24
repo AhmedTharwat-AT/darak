@@ -31,6 +31,7 @@ export async function createUser(data: RegisterSchema) {
         name,
         phone,
         password: hashedPassword,
+        auth_method: "credentials",
       },
     });
 

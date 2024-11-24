@@ -7,7 +7,6 @@ const locales = ["en", "ar"];
 
 export const middleware = auth(async (req) => {
   const pathname = req.nextUrl.pathname;
-  // const searchParams = req.nextUrl.searchParams.toString();
   const isAuth = req.auth;
 
   const pathnameHasLocale = locales.some(
@@ -15,20 +14,21 @@ export const middleware = auth(async (req) => {
   );
   const locale = pathnameHasLocale ? pathname.split("/")[1] : "en";
   const newPathname = pathnameHasLocale ? pathname : `/en${pathname}`;
-  // const newHref = newPathname + (searchParams ? `?${searchParams}` : "");
 
-  if (authPages.some((page) => pathname.includes(page)) && isAuth) {
+  if (isAuth && authPages.some((page) => pathname.includes(page))) {
     return NextResponse.redirect(new URL(`/${locale}`, req.url));
   }
 
-  if (protectedPages.some((page) => pathname.includes(page)) && !isAuth) {
+  if (!isAuth && protectedPages.some((page) => pathname.includes(page))) {
     return NextResponse.redirect(
       new URL(`/${locale}/signin?callbackUrl=${newPathname}`, req.url),
     );
   }
 
   if (!pathnameHasLocale) {
-    return NextResponse.redirect(new URL(newPathname, req.url));
+    const searchParams = req.nextUrl.searchParams.toString();
+    const newHref = newPathname + (searchParams ? `?${searchParams}` : "");
+    return NextResponse.redirect(new URL(newHref, req.url));
   }
 
   return NextResponse.next();

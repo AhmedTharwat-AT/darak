@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 
 import LocationIcon from "@/components/LocationIcon";
 import useFilter from "@/hooks/useFilter";
+import { useTranslation } from "@/context/TranslationProvider";
 
 function PropertiesFilter({
   className,
@@ -36,6 +37,7 @@ function PropertiesFilter({
     propertyType,
     handlePropertyType,
   } = useFilter();
+  const { dictionary } = useTranslation();
 
   return (
     <div
@@ -46,34 +48,38 @@ function PropertiesFilter({
     >
       <div>
         {showHeader && (
-          <h2 className="mb-10 font-medium uppercase text-blacker">filter</h2>
+          <h2 className="mb-10 font-medium uppercase text-blacker rtl:mb-6 rtl:text-xl">
+            {dictionary.filter.title}
+          </h2>
         )}
 
         <div className="mb-6 overflow-hidden rounded-lg border border-main text-main">
           <Button
-            className={`w-1/2 rounded-r-none rounded-bl-none py-2 font-medium uppercase text-main disabled:opacity-100 ${
+            className={`w-1/2 py-2 font-medium uppercase text-main disabled:opacity-100 ltr:rounded-r-none rtl:rounded-l-none ${
               propertyMode === "rent" ? "bg-main text-white" : "bg-transparent"
             }`}
             disabled={propertyMode === "rent"}
             onClick={() => handlePropertyMode("rent")}
           >
-            rent
+            {dictionary.filter.mode.rent}
           </Button>
 
           <Button
-            className={`w-1/2 rounded-l-none rounded-bl-none py-2 font-medium uppercase text-main disabled:opacity-100 ${
+            className={`w-1/2 py-2 font-medium uppercase text-main disabled:opacity-100 ltr:rounded-l-none rtl:rounded-r-none ${
               propertyMode === "sell" ? "bg-main text-white" : "bg-transparent"
             }`}
             disabled={propertyMode === "sell"}
             onClick={() => handlePropertyMode("sell")}
           >
-            sell
+            {dictionary.filter.mode.sell}
           </Button>
         </div>
 
         <div className="space-y-4">
           <div className="space-y-2 border-b border-grayLight pb-4">
-            <h3 className="capitalize text-font">Location</h3>
+            <h3 className="capitalize text-font">
+              {dictionary.filter.location.label}
+            </h3>
             <div className="flex w-full items-center rounded-lg bg-white p-1 ps-2">
               <LocationInput
                 currentLocation={location}
@@ -85,7 +91,9 @@ function PropertiesFilter({
           </div>
 
           <div className="space-y-2 border-b border-grayLight pb-4">
-            <h3 className="capitalize text-font">type</h3>
+            <h3 className="capitalize text-font">
+              {dictionary.filter.type.label}
+            </h3>
             <PropertyTypeMenu
               propertyType={propertyType}
               handlePropertyType={handlePropertyType}
@@ -94,7 +102,9 @@ function PropertiesFilter({
 
           <div className="space-y-2 border-b border-grayLight pb-4">
             <div className="flex items-center justify-between">
-              <h3 className="capitalize text-font">space</h3>
+              <h3 className="capitalize text-font">
+                {dictionary.filter.space}
+              </h3>
               <button
                 onClick={() => handleSpaceRange({ from: 50, to: 200 })}
                 className="capitalize underline"
@@ -105,7 +115,7 @@ function PropertiesFilter({
 
             <Slider
               renderLabel={(value) => (
-                <div className="flex items-center justify-between gap-2">
+                <div className="flex items-center justify-between gap-2 rtl:flex-row-reverse">
                   <p className="font-medium">
                     {value.from} m<sup>2</sup>
                   </p>
@@ -122,12 +132,14 @@ function PropertiesFilter({
           </div>
 
           <div className="space-y-2 border-b border-grayLight pb-4">
-            <h3 className="capitalize text-font">Rooms</h3>
+            <h3 className="capitalize text-font"> {dictionary.filter.rooms}</h3>
             <QuantityHandler name="rooms" value={rooms} handler={handleRooms} />
           </div>
 
           <div className="space-y-2 border-b border-grayLight pb-4">
-            <h3 className="capitalize text-font">Bathrooms</h3>
+            <h3 className="capitalize text-font">
+              {dictionary.filter.bathrooms}
+            </h3>
             <QuantityHandler
               name="bathrooms"
               value={bathrooms}
@@ -137,7 +149,9 @@ function PropertiesFilter({
 
           <div className="space-y-2 border-b border-grayLight pb-4">
             <div className="flex items-center justify-between">
-              <h3 className="capitalize text-font">Price</h3>
+              <h3 className="capitalize text-font">
+                {dictionary.filter.price}
+              </h3>
               <button
                 onClick={() => handlePriceRange({ from: 0, to: 1000000 })}
                 className="capitalize underline"
@@ -148,7 +162,7 @@ function PropertiesFilter({
 
             <Slider
               renderLabel={(value) => (
-                <div className="flex flex-wrap items-center gap-2">
+                <div className="flex flex-wrap items-center gap-2 rtl:flex-row-reverse">
                   <p className="max-w-full truncate font-medium">
                     {formatCurrency(value.from)}
                   </p>
@@ -172,13 +186,13 @@ function PropertiesFilter({
               onClick={reset}
               className="w-32 rounded-lg border border-main bg-transparent font-medium capitalize text-main"
             >
-              cancel
+              {dictionary.filter.cancel}
             </Button>
             <Button
               onClick={submitFilter}
               className="w-32 rounded-lg border-main bg-opacity-0 font-medium capitalize transition-all hover:opacity-90"
             >
-              apply
+              {dictionary.filter.apply}
             </Button>
           </div>
         </div>

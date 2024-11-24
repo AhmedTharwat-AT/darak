@@ -8,7 +8,7 @@ import { Metadata } from "next";
 import Logo from "@/components/Logo";
 
 export const metadata: Metadata = {
-  title: "404 ",
+  title: "Page not found ",
 };
 
 function notFound() {

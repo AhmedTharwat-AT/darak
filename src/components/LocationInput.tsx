@@ -1,7 +1,9 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { useState } from "react";
+import { useState, useTransition } from "react";
+import { useTranslation } from "@/context/TranslationProvider";
+import useLocale from "@/hooks/useLocale";
 import data from "../../data/countries.json";
 
 import { Button } from "@/components/ui/button";
@@ -19,8 +21,6 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Check } from "lucide-react";
-import { useTranslation } from "@/context/TranslationProvider";
-import useLocale from "@/hooks/useLocale";
 
 function LocationInput({
   className,
@@ -33,6 +33,7 @@ function LocationInput({
 }) {
   const [open, setOpen] = useState(false);
   const { dictionary } = useTranslation();
+  const [_, startTransition] = useTransition();
   const { locale } = useLocale();
 
   const locations: {
@@ -54,16 +55,22 @@ function LocationInput({
             "w-[200px] justify-between focus:outline-none focus:ring-0 focus-visible:ring-0",
             className,
           )}
+          onClick={() => {
+            startTransition(() => {
+              setOpen(true);
+            });
+          }}
         >
-          {currentLocation || dictionary.filter.home.location.placeholder}
+          {currentLocation || dictionary.filter.location.placeholder}
         </Button>
       </PopoverTrigger>
+
       <PopoverContent className="w-[200px] p-0">
         <Command>
-          <CommandInput
-            placeholder={dictionary.filter.home.location.placeholder}
-          />
+          <CommandInput placeholder={dictionary.filter.location.placeholder} />
+
           <CommandEmpty>No locations found.</CommandEmpty>
+
           <CommandList>
             <CommandGroup>
               {locations.map((location) => {
@@ -74,15 +81,17 @@ function LocationInput({
                 return (
                   <CommandItem
                     key={location.id}
-                    value={location.city_name_en}
+                    value={cityName}
                     className={`text-black aria-selected:bg-bgDarker ${
                       currentLocation === location.city_name_en
                         ? "bg-gray-200"
                         : ""
                     }`}
-                    onSelect={(selectedCity) => {
+                    onSelect={() => {
                       handleLocation(
-                        selectedCity === currentLocation ? "" : selectedCity,
+                        currentLocation === location.city_name_en
+                          ? ""
+                          : location.city_name_en,
                       );
                       setOpen(false);
                     }}

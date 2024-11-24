@@ -1,5 +1,10 @@
 "use client";
 
+import { useTranslation } from "@/context/TranslationProvider";
+import { cn } from "@/lib/utils";
+import { PropertyTypes } from "@/lib/types";
+import { PROPERTY_TYPES } from "@/lib/constants";
+
 import {
   Select,
   SelectContent,
@@ -7,10 +12,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useTranslation } from "@/context/TranslationProvider";
-import { PROPERTY_TYPES } from "@/lib/constants";
-import { PropertyTypes } from "@/lib/types";
-import { cn } from "@/lib/utils";
 
 function PropertyTypeMenu({
   className,
@@ -47,7 +48,7 @@ function PropertyTypeMenu({
             key={type}
             value={type}
           >
-            {dictionary.filter.home.type[type]}
+            {dictionary.filter.type[type]}
           </SelectItem>
         ))}
       </SelectContent>

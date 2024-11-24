@@ -13,24 +13,28 @@
     "contact": "Contact"
   },
   "filter": {
-    "home": {
-      "mode": {
-        "sell": "For Sale",
-        "rent": "For Rent"
-      },
-      "location": {
-        "label": "Location",
-        "placeholder": "Select Location..."
-      },
-      "type": {
-        "label": "Property Type",
-        "all": "All",
-        "apartment": "Apartment",
-        "building": "building",
-        "store": "store",
-        "office": "office"
-      },
-      "price": "Price"
-    }
+    "title": "Filter",
+    "mode": {
+      "sell": "For Sale",
+      "rent": "For Rent"
+    },
+    "location": {
+      "label": "Location",
+      "placeholder": "Select Location..."
+    },
+    "type": {
+      "label": "Property Type",
+      "all": "All",
+      "apartment": "Apartment",
+      "building": "building",
+      "store": "store",
+      "office": "office"
+    },
+    "price": "Price",
+    "space": "Space",
+    "rooms": "Rooms",
+    "bathrooms": "Bathrooms",
+    "apply": "apply",
+    "cancel": "cancel"
   }
 }

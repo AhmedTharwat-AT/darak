@@ -1,11 +1,10 @@
 import { Suspense } from "react";
-
+import { getDictionary } from "../dictionaries";
 import AnimatedLink from "@/components/AnimatedLink";
+
 import HeroImage from "@/components/HeroImage";
 import HomeFilter from "@/components/HomeFilter";
 import { Button } from "@/components/ui/button";
-import FilterProvider from "@/context/FilterContext";
-import { getDictionary } from "../dictionaries";
 
 export default async function Home({
   params,
@@ -13,7 +12,7 @@ export default async function Home({
   params: Promise<{ locale: string }>;
 }) {
   const locale = (await params).locale;
-  const dictionary = await getDictionary(locale);
+  const dictionary = await getDictionary(locale || "en");
 
   return (
     <div className="relative z-10 h-full overflow-y-hidden">
@@ -48,9 +47,7 @@ export default async function Home({
           </div>
 
           <Suspense fallback={<div>Loading home filter...</div>}>
-            <FilterProvider>
-              <HomeFilter />
-            </FilterProvider>
+            <HomeFilter />
           </Suspense>
         </div>
       </div>

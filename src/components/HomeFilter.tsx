@@ -41,7 +41,7 @@ function HomeFilter() {
             disabled={propertyMode === "rent"}
             onClick={() => handlePropertyMode("rent")}
           >
-            {dictionary.filter.home.mode.rent}
+            {dictionary.filter.mode.rent}
           </Button>
 
           <Button
@@ -51,14 +51,14 @@ function HomeFilter() {
             disabled={propertyMode === "sell"}
             onClick={() => handlePropertyMode("sell")}
           >
-            {dictionary.filter.home.mode.sell}
+            {dictionary.filter.mode.sell}
           </Button>
         </div>
 
         <div className="flex w-full items-center justify-between gap-4 rounded-lg rounded-tl-none bg-white p-4 shadow-md max-md:flex-col max-md:justify-center max-sm:max-w-96 md:p-6 lg:gap-6">
           <div className="flex h-24 w-full max-w-96 flex-col justify-between rounded-md border border-grayLight bg-bgLight p-4 sm:max-w-80">
             <h3 className="text-sm uppercase text-font lg:text-base">
-              {dictionary.filter.home.location.label}
+              {dictionary.filter.location.label}
             </h3>
 
             <div className="flex items-center justify-between gap-1">
@@ -74,7 +74,7 @@ function HomeFilter() {
 
           <div className="flex h-24 w-full max-w-96 flex-col justify-between rounded-md border border-grayLight bg-bgLight p-4 sm:max-w-80">
             <h3 className="text-sm uppercase text-font lg:text-base">
-              {dictionary.filter.home.type.label}
+              {dictionary.filter.type.label}
             </h3>
 
             <div className="flex items-center justify-between">
@@ -97,7 +97,7 @@ function HomeFilter() {
 
           <div className="flex h-24 w-full max-w-96 flex-col justify-between rounded-md border border-grayLight bg-bgLight p-4 sm:max-w-80">
             <h3 className="text-sm uppercase text-font lg:text-base">
-              {dictionary.filter.home.price}
+              {dictionary.filter.price}
             </h3>
 
             <div className="flex items-center justify-between gap-x-1">

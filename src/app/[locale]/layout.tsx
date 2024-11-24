@@ -29,7 +29,7 @@ async function RootLayout({
 
   return (
     <html
-      lang={locale}
+      lang={locale || "en"}
       dir={direction}
       className={`${playfair.variable} ${poppins.variable}`}
     >

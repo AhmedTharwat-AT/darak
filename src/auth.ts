@@ -70,6 +70,18 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
             },
           });
         }
+
+        // if user already has an credential's account
+        if (existingUser && existingUser.auth_method == "credentials") {
+          await prisma.user.update({
+            where: {
+              email: existingUser.email,
+            },
+            data: {
+              auth_method: "google_credentials",
+            },
+          });
+        }
       }
       return true;
     },
