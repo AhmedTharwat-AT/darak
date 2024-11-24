@@ -1,7 +1,36 @@
 {
+  "home": {
+    "title": "Discover your perfect home",
+    "description": "Find your dream home or sell your property with ease in our trusted marketplace.",
+    "buttons": {
+      "find": "Find Property",
+      "sell": "Sell Property"
+    }
+  },
   "navlinks": {
     "home": "Home",
     "properties": "Properties",
     "contact": "Contact"
+  },
+  "filter": {
+    "home": {
+      "mode": {
+        "sell": "For Sale",
+        "rent": "For Rent"
+      },
+      "location": {
+        "label": "Location",
+        "placeholder": "Select Location..."
+      },
+      "type": {
+        "label": "Property Type",
+        "all": "All",
+        "apartment": "Apartment",
+        "building": "building",
+        "store": "store",
+        "office": "office"
+      },
+      "price": "Price"
+    }
   }
 }

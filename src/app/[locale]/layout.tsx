@@ -26,7 +26,6 @@ async function RootLayout({
   const locale = (await params).locale;
   const direction = locale === "ar" ? "rtl" : "ltr";
   const dictionary = await getDictionary(locale);
-  console.log("render");
 
   return (
     <html

@@ -1,5 +1,5 @@
-import MultiRangeSlider from "multi-range-slider-react";
 import "@/app/sliderStyles.css";
+import MultiRangeSlider from "multi-range-slider-react";
 import { ReactNode } from "react";
 
 function Slider({
@@ -29,7 +29,7 @@ function Slider({
       <MultiRangeSlider
         min={min}
         max={max}
-        baseClassName="multi-range"
+        baseClassName="multi-range "
         ruler={false}
         label={false}
         barInnerColor="var(--font)"

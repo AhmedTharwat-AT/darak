@@ -7,8 +7,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { PropertyType } from "@/hooks/useFilter";
+import { useTranslation } from "@/context/TranslationProvider";
 import { PROPERTY_TYPES } from "@/lib/constants";
+import { PropertyTypes } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
 function PropertyTypeMenu({
@@ -20,10 +21,12 @@ function PropertyTypeMenu({
 }: {
   icon?: boolean;
   className?: string;
-  propertyType: PropertyType;
-  handlePropertyType: (type: PropertyType) => void;
-  types?: string[];
+  propertyType: PropertyTypes;
+  handlePropertyType: (type: PropertyTypes) => void;
+  types?: PropertyTypes[];
 }) {
+  const { dictionary } = useTranslation();
+
   return (
     <Select onValueChange={handlePropertyType} value={propertyType}>
       <SelectTrigger
@@ -40,11 +43,11 @@ function PropertyTypeMenu({
       <SelectContent side="bottom">
         {types.map((type) => (
           <SelectItem
-            className="capitalize data-[highlighted]:bg-bgDarker"
+            className="text-start capitalize data-[highlighted]:bg-bgDarker"
             key={type}
             value={type}
           >
-            {type}
+            {dictionary.filter.home.type[type]}
           </SelectItem>
         ))}
       </SelectContent>

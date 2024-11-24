@@ -7,15 +7,14 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 function ChangeLocale({ scale }: { scale?: number }) {
   const router = useRouter();
-  const { pathname, hasLocale, locale } = useLocale();
+  const { locale, pathWithlocale } = useLocale();
   const searchParams = useSearchParams().toString();
 
   const isArabic = locale === "ar";
-  const newPathname = hasLocale
-    ? isArabic
-      ? pathname.replace("/ar", "/en")
-      : pathname.replace("/en", "/ar")
-    : "/en" + pathname;
+  const newPathname = isArabic
+    ? pathWithlocale.replace("/ar", "/en")
+    : pathWithlocale.replace("/en", "/ar");
+
   const newHref = newPathname + (searchParams ? `?${searchParams}` : "");
 
   return (

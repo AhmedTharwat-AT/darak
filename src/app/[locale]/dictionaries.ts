@@ -1,5 +1,6 @@
 import "server-only";
 import en from "@/dictionaries/en.json";
+import { cache } from "@/lib/utils";
 export type dictionaryType = typeof en;
 
 const dictionaries: Record<string, () => Promise<dictionaryType>> = {
@@ -7,4 +8,11 @@ const dictionaries: Record<string, () => Promise<dictionaryType>> = {
   ar: () => import("@/dictionaries/ar.json").then((module) => module.default),
 };
 
-export const getDictionary = async (locale: string) => dictionaries[locale]();
+// export const getDictionary = async (locale: string) => dictionaries[locale]();
+
+export const getDictionary: (
+  locale: string,
+) => Promise<dictionaryType> = async (locale = "en") =>
+  cache(async (locale: string) => dictionaries[locale](), ["locale", locale], {
+    revalidate: 1,
+  })(locale);

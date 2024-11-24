@@ -22,20 +22,18 @@
   display: flex;
   height: 6px;
 }
+html[dir="rtl"] .multi-range .bar {
+  flex-direction: row-reverse;
+}
 .multi-range .bar-left {
   width: 25%;
   background-color: #f0f0f0;
-  /* border-radius: 10px 0px 0px 10px; */
-  /* box-shadow: inset 0px 0px 5px black; */
   height: 6px;
 }
 .multi-range .bar-right {
   width: 25%;
   height: 6px;
-
   background-color: #f0f0f0;
-  /* border-radius: 0px 10px 10px 0px; */
-  /* box-shadow: inset 0px 0px 5px black; */
 }
 .multi-range .bar-inner {
   background-color: lime;
@@ -44,9 +42,7 @@
   flex-shrink: 1;
   justify-content: space-between;
   position: relative;
-  /* border: solid 1px black; */
   justify-content: space-between;
-  /* box-shadow: inset 0px 0px 5px black; */
 }
 
 .multi-range .bar-inner-left {
@@ -68,10 +64,8 @@
   width: 18px;
   height: 18px;
   border: solid 2px var(--font);
-  /* border: solid 1px black; */
-  /* box-shadow: 0px 0px 3px black, inset 0px 0px 5px gray; */
   border-radius: 50%;
-  z-index: 1;
+  z-index: 5;
   margin: -7px -12px;
   cursor: pointer;
 }
@@ -85,7 +79,9 @@
   z-index: 2;
   border-radius: 50%;
   border: dotted 1px black;
-  box-shadow: 0px 0px 5px white, inset 0px 0px 10px black;
+  box-shadow:
+    0px 0px 5px white,
+    inset 0px 0px 10px black;
 }
 .multi-range .caption {
   position: absolute;
@@ -214,11 +210,15 @@
 }
 .multi-range.disabled .thumb::before {
   border: solid 1px rgb(200, 200, 200);
-  box-shadow: 0px 0px 3px rgb(35, 35, 35), inset 0px 0px 5px gray;
+  box-shadow:
+    0px 0px 3px rgb(35, 35, 35),
+    inset 0px 0px 5px gray;
 }
 .multi-range.disabled .input-type-range:focus + .thumb::after {
   border: dotted 1px rgb(35, 35, 35);
-  box-shadow: 0px 0px 5px white, inset 0px 0px 10px rgb(35, 35, 35);
+  box-shadow:
+    0px 0px 5px white,
+    inset 0px 0px 10px rgb(35, 35, 35);
 }
 .multi-range.disabled .thumb .caption * {
   background-color: rgb(84, 84, 137);

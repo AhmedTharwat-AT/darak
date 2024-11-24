@@ -4,9 +4,8 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createPropertySchema, CreatePropertySchema } from "@/lib/zodSchemas";
-import { PropertyType } from "@/hooks/useFilter";
 import { createProperty } from "@/actions/properties";
-import { FileWithPreview } from "@/lib/types";
+import { FileWithPreview, PropertyTypes } from "@/lib/types";
 
 import ErrorField from "@/components/form/ErrorField";
 import Input from "@/components/form/Input";
@@ -122,7 +121,7 @@ function CreatePropertyForm() {
           <Label name="type" />
           <PropertyTypeMenu
             className="border"
-            propertyType={getValues("type") as PropertyType}
+            propertyType={getValues("type") as PropertyTypes}
             handlePropertyType={(type) =>
               setValue("type", type, { shouldValidate: true })
             }

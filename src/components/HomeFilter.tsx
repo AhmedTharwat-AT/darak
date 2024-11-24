@@ -1,7 +1,8 @@
 "use client";
 
 import { formatCurrency } from "@/lib/utils";
-import { useFilterContext } from "@/context/FilterContext";
+import { useTranslation } from "@/context/TranslationProvider";
+import useFilter from "@/hooks/useFilter";
 
 import Image from "next/image";
 import LocationInput from "./LocationInput";
@@ -10,8 +11,8 @@ import Slider from "./Slider";
 import { Button } from "./ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 
-import locationIcon from "@/assets/icons/location.svg";
 import houseIcon from "@/assets/icons/house.svg";
+import locationIcon from "@/assets/icons/location.svg";
 import moneyIcon from "@/assets/icons/money.svg";
 import searchIcon from "@/assets/icons/search.svg";
 
@@ -26,7 +27,8 @@ function HomeFilter() {
     handlePropertyType,
     location,
     handleLocation,
-  } = useFilterContext();
+  } = useFilter();
+  const { dictionary } = useTranslation();
 
   return (
     <div className="mt-14 flex w-full font-poppins">
@@ -39,7 +41,7 @@ function HomeFilter() {
             disabled={propertyMode === "rent"}
             onClick={() => handlePropertyMode("rent")}
           >
-            for rent
+            {dictionary.filter.home.mode.rent}
           </Button>
 
           <Button
@@ -49,14 +51,14 @@ function HomeFilter() {
             disabled={propertyMode === "sell"}
             onClick={() => handlePropertyMode("sell")}
           >
-            for sell
+            {dictionary.filter.home.mode.sell}
           </Button>
         </div>
 
         <div className="flex w-full items-center justify-between gap-4 rounded-lg rounded-tl-none bg-white p-4 shadow-md max-md:flex-col max-md:justify-center max-sm:max-w-96 md:p-6 lg:gap-6">
           <div className="flex h-24 w-full max-w-96 flex-col justify-between rounded-md border border-grayLight bg-bgLight p-4 sm:max-w-80">
             <h3 className="text-sm uppercase text-font lg:text-base">
-              location
+              {dictionary.filter.home.location.label}
             </h3>
 
             <div className="flex items-center justify-between gap-1">
@@ -72,7 +74,7 @@ function HomeFilter() {
 
           <div className="flex h-24 w-full max-w-96 flex-col justify-between rounded-md border border-grayLight bg-bgLight p-4 sm:max-w-80">
             <h3 className="text-sm uppercase text-font lg:text-base">
-              property type
+              {dictionary.filter.home.type.label}
             </h3>
 
             <div className="flex items-center justify-between">
@@ -80,7 +82,7 @@ function HomeFilter() {
                 propertyType={propertyType}
                 handlePropertyType={handlePropertyType}
                 icon={false}
-                className="h-auto appearance-none border-none bg-bgLight bg-none p-0 text-base capitalize lg:text-xl"
+                className="h-auto appearance-none border-none bg-bgLight bg-none p-0 text-base capitalize lg:text-xl rtl:justify-end"
               />
 
               <Image
@@ -94,7 +96,9 @@ function HomeFilter() {
           </div>
 
           <div className="flex h-24 w-full max-w-96 flex-col justify-between rounded-md border border-grayLight bg-bgLight p-4 sm:max-w-80">
-            <h3 className="text-sm uppercase text-font lg:text-base">price</h3>
+            <h3 className="text-sm uppercase text-font lg:text-base">
+              {dictionary.filter.home.price}
+            </h3>
 
             <div className="flex items-center justify-between gap-x-1">
               <Popover>

@@ -3,20 +3,20 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useState } from "react";
 import useLocale from "./useLocale";
+import { PropertyTypes } from "@/lib/types";
 
 export type PropertyMode = "rent" | "sell";
-export type PropertyType = "all" | "apartment" | "building" | "store";
 
 function useFilter() {
   const router = useRouter();
-  const { pathWithlocale } = useLocale();
+  const { pathWithlocale, locale } = useLocale();
   const searchParams = useSearchParams();
 
   const [propertyMode, setPropertyMode] = useState<PropertyMode>(
     (searchParams.get("mode") as PropertyMode) || "rent",
   );
-  const [propertyType, setPropertyType] = useState<PropertyType>(
-    (searchParams.get("type") as PropertyType) || "all",
+  const [propertyType, setPropertyType] = useState<PropertyTypes>(
+    (searchParams.get("type") as PropertyTypes) || "all",
   );
   const [rooms, setRooms] = useState<number>(() =>
     searchParams.get("rooms") ? Number(searchParams.get("rooms")) : 1,
@@ -79,7 +79,7 @@ function useFilter() {
     propertyMode,
   ]);
 
-  function handlePropertyType(type: PropertyType) {
+  function handlePropertyType(type: PropertyTypes) {
     setPropertyType(type);
   }
 
@@ -125,7 +125,7 @@ function useFilter() {
   function submitFilter() {
     // create query string for all fitlers
     const queryString = createAllQueryString();
-    router.push("?" + queryString, { scroll: false });
+    router.push(`/${locale}/properties?` + queryString, { scroll: false });
   }
 
   return {

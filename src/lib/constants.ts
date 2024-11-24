@@ -1,4 +1,6 @@
-export const PROPERTY_TYPES = [
+import { PropertyTypes } from "./types";
+
+export const PROPERTY_TYPES: PropertyTypes[] = [
   "all",
   "apartment",
   "building",
