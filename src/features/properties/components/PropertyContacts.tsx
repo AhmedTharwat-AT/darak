@@ -19,17 +19,17 @@ function PropertyContacts({ property }: { property: PropertyWithImages }) {
     <div className="ms-auto flex flex-wrap items-stretch gap-4">
       {phoneLink && (
         <a href={phoneLink} target="_blank" title={phoneLink}>
-          <Button className="space-x-2">
+          <Button>
             <FaPhone className="size-3 sm:size-4" />
-            <span className="sm:text-xl">Call</span>
+            <span className="ms-2 sm:text-xl">Call</span>
           </Button>
         </a>
       )}
       {whatsappLink && (
         <a href={whatsappLink} target="_blank" title={whatsappLink}>
-          <Button className="space-x-2 bg-[#67C15E]">
+          <Button className="bg-[#67C15E]">
             <RiWhatsappFill className="sm:size-5" />
-            <span className="sm:text-xl">WhatsApp</span>
+            <span className="ms-2 sm:text-xl">WhatsApp</span>
           </Button>
         </a>
       )}

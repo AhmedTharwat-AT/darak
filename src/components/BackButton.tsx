@@ -16,7 +16,7 @@ function BackButton({
   return (
     <AnimatedLink
       className={cn(
-        "flex w-fit items-center gap-2 text-xl uppercase text-main",
+        "mr-auto flex w-fit items-center gap-2 text-xl uppercase text-main rtl:flex-row-reverse",
         className,
       )}
       href={href}
