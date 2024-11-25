@@ -5,8 +5,9 @@ import { PropertyWithImages, UserWithProperties } from "@/lib/types";
 import EmptyBookmarks from "@/features/properties/components/EmptyBookmarks";
 import PropertyItem from "@/features/properties/components/PropertyItem";
 import SignoutWhenUserDeleted from "@/features/auth/components/SignoutWhenUserDeleted";
+import { getDictionary } from "../../dictionaries";
 
-async function page() {
+async function page({ params }: { params: Promise<{ locale: string }> }) {
   const session = await auth();
   if (!session?.user) {
     redirect("/en/signin?callbackUrl=/en/bookmark");
@@ -23,6 +24,9 @@ async function page() {
 
   if (!bookmarkedProperties.length) return <EmptyBookmarks />;
 
+  const locale = (await params).locale;
+  const dictionary = await getDictionary(locale);
+
   return (
     <div>
       <div className="container py-6 font-poppins">
@@ -35,6 +39,7 @@ async function page() {
               key={bookmarked.id}
               property={bookmarked}
               isBookmarked={true}
+              dictionary={dictionary}
             />
           ))}
         </ul>

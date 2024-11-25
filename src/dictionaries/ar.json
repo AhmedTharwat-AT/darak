@@ -36,5 +36,9 @@
     "bathrooms": "الحمامات",
     "apply": "تطبيق",
     "cancel": "الغاء"
+  },
+  "property": {
+    "features": "المميزات",
+    "description": "الوصف"
   }
 }

@@ -1,9 +1,9 @@
 "use client";
 
-import { dictionaryType } from "@/app/[locale]/dictionaries";
+import { DictionaryType } from "@/app/[locale]/dictionaries";
 import { createContext, use } from "react";
 
-const TranslationContext = createContext<{ dictionary: dictionaryType } | null>(
+const TranslationContext = createContext<{ dictionary: DictionaryType } | null>(
   null,
 );
 
@@ -12,7 +12,7 @@ function TranslationProvider({
   dictionary,
 }: {
   children: React.ReactNode;
-  dictionary: dictionaryType;
+  dictionary: DictionaryType;
 }) {
   return (
     <TranslationContext.Provider value={{ dictionary }}>

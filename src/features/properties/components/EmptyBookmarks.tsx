@@ -18,7 +18,7 @@ function EmptyBookmarks() {
         </p>
         <BackButton
           text="Back to Properties"
-          className="text-base capitalize lg:text-xl"
+          className="mr-0 text-base capitalize lg:text-xl"
         />
       </div>
     </div>

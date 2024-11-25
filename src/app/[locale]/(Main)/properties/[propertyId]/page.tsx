@@ -10,18 +10,23 @@ import PropertyContacts from "@/features/properties/components/PropertyContacts"
 import PropertyFeatures from "@/features/properties/components/PropertyFeatures";
 import { FaLocationDot } from "react-icons/fa6";
 import { redirect } from "next/navigation";
+import { getDictionary } from "@/app/[locale]/dictionaries";
 
-async function page(props: { params: Promise<{ propertyId: string }> }) {
-  const params = await props.params;
-  const property: PropertyWithImages = await getProperty(params.propertyId);
+async function page(props: {
+  params: Promise<{ propertyId: string; locale: string }>;
+}) {
+  const { propertyId, locale } = await props.params;
+  const property: PropertyWithImages = await getProperty(propertyId);
 
   if (!property) return <Error message="Property was not found" />;
 
   if (property.status !== "approved") redirect("/properties");
 
+  const dictionary = await getDictionary(locale);
+
   return (
     <main className="font-poppins">
-      <div className="container my-6 flex flex-col bp:my-12">
+      <div className="container my-8 flex flex-col bp:my-12">
         <BackButton text="Back" />
 
         <div className="mt-8 grid grow grid-cols-1 gap-8 bp:mt-12 bp:grid-cols-2">
@@ -40,15 +45,18 @@ async function page(props: { params: Promise<{ propertyId: string }> }) {
                 </h2>
               </div>
 
-              <BookmarkActionBtn type="add" propertyId={params.propertyId} />
+              <BookmarkActionBtn type="add" propertyId={propertyId} />
             </div>
 
             <hr className="my-3 bg-stroke" />
 
             <div>
-              <h3 className="mb-2 text-font sm:mb-4 sm:text-xl">Features</h3>
+              <h3 className="mb-2 text-font sm:mb-4 sm:text-xl">
+                {dictionary.property.features}
+              </h3>
               <PropertyFeatures
                 property={property}
+                dictionary={dictionary}
                 featureStyle="flex-row flex sm:gap-3 sm:text-xl text-main sm:[&_svg]:size-6 [&_svg]:fill-font"
               />
             </div>
@@ -56,7 +64,9 @@ async function page(props: { params: Promise<{ propertyId: string }> }) {
             <hr className="my-3 bg-stroke" />
 
             <div>
-              <h3 className="mb-2 text-font sm:mb-4 sm:text-xl">Description</h3>
+              <h3 className="mb-2 text-font sm:mb-4 sm:text-xl">
+                {dictionary.property.description}
+              </h3>
               <p className="text-black max-sm:text-sm">
                 {property.description}
               </p>

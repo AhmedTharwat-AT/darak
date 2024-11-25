@@ -11,25 +11,27 @@ function PropertiesWrapper({
   page,
   sortBy,
   filterValues,
+  locale,
 }: {
   page: string;
   sortBy: string;
   filterValues: IFilterValues;
+  locale: string;
 }) {
   return (
     <section className="flex w-full max-w-[450px] flex-col lg:max-w-full">
       <div className="mb-4 flex justify-end gap-4 lg:justify-between">
-        <SortBy />
-
-        {/* desktop pagination */}
         <Suspense fallback={null}>
+          <SortBy />
+
+          {/* desktop pagination */}
           <PaginateWrapper
             className="hidden bp:flex"
             filterValues={filterValues}
           />
-        </Suspense>
 
-        <MobileFilter />
+          <MobileFilter />
+        </Suspense>
       </div>
 
       <Suspense
@@ -45,6 +47,7 @@ function PropertiesWrapper({
           page={page}
           sortBy={sortBy}
           filterValues={filterValues}
+          locale={locale}
         />
       </Suspense>
 

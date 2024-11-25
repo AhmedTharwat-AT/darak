@@ -29,12 +29,12 @@ function Paginate({
   }
 
   return (
-    <div className={cn("flex gap-2 flex-wrap ", className)}>
+    <div className={cn("flex flex-wrap gap-2 rtl:flex-row-reverse", className)}>
       <Button
         disabled={currPage === 1}
         onClick={() => currPage > 1 && goToPage(currPage - 1)}
         variant={"ghost"}
-        className="text-lg px-2"
+        className="px-2 text-lg"
       >
         <BsChevronDoubleLeft />
       </Button>
@@ -99,7 +99,7 @@ function Paginate({
         onClick={() => currPage < pagesCount && goToPage(currPage + 1)}
         disabled={!hasNext}
         variant={"ghost"}
-        className="text-lg px-2"
+        className="px-2 text-lg"
       >
         <BsChevronDoubleRight />
       </Button>

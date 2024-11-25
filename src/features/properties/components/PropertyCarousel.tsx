@@ -12,7 +12,7 @@ function PropertyCarousel({ images }: { images: PropertyImage[] }) {
   return (
     <div className="relative h-full max-h-[567px] overflow-hidden rounded-xl">
       <Carousel className="h-full">
-        <CarouselContent className="h-full">
+        <CarouselContent className="h-full rtl:flex-row-reverse">
           {images.length > 0 ? (
             images.map((image) => (
               <CarouselItem key={image.id}>

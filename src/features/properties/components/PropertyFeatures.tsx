@@ -3,15 +3,18 @@ import { cn } from "@/lib/utils";
 import { ReactNode } from "react";
 import { BiArea } from "react-icons/bi";
 import { PiBathtub, PiBedLight } from "react-icons/pi";
+import { DictionaryType } from "@/app/[locale]/dictionaries";
 
 function PropertyFeatures({
   property,
   featureStyle,
   className,
+  dictionary,
 }: {
   property: Property;
   featureStyle?: string;
   className?: string;
+  dictionary: DictionaryType;
 }) {
   return (
     <div
@@ -22,14 +25,20 @@ function PropertyFeatures({
     >
       <Feature featureStyle={featureStyle}>
         <PiBedLight className="size-5" />
-        {property.rooms} Rooms
+        <p className="flex gap-1">
+          <span>{property.rooms}</span>
+          <span>{dictionary.filter.rooms}</span>
+        </p>
       </Feature>
 
       <span className="block min-h-full w-[1px] self-stretch bg-stroke"></span>
 
       <Feature featureStyle={featureStyle}>
         <PiBathtub className="size-5" />
-        {property.bathrooms} Bathrooms
+        <p className="flex gap-1">
+          <span> {property.bathrooms}</span>
+          <span>{dictionary.filter.bathrooms}</span>
+        </p>
       </Feature>
 
       <span className="block min-h-full w-[1px] self-stretch bg-stroke"></span>

@@ -1,18 +1,24 @@
 import AnimatedLink from "@/components/AnimatedLink";
-import { PropertyWithImages } from "@/lib/types";
+import { PropertyTypes, PropertyWithImages } from "@/lib/types";
 import { formatCurrency, relativeDateInDays } from "@/lib/utils";
 import Image from "next/image";
 
 import { FaLocationDot, FaRegClock } from "react-icons/fa6";
 import BookmarkActionBtn from "./BookmarkActionBtn";
 import PropertyFeatures from "./PropertyFeatures";
+import { DictionaryType, getDictionary } from "@/app/[locale]/dictionaries";
 
 type Props = {
   property: PropertyWithImages;
   isBookmarked?: boolean;
+  dictionary: DictionaryType;
 };
 
-function PropertyItem({ property, isBookmarked = false }: Props) {
+async function PropertyItem({
+  property,
+  dictionary,
+  isBookmarked = false,
+}: Props) {
   if (!property || property.status !== "approved") return null;
 
   return (
@@ -21,11 +27,10 @@ function PropertyItem({ property, isBookmarked = false }: Props) {
       className="relative overflow-hidden rounded-lg border bg-white font-poppins shadow-md"
     >
       <div className="absolute right-2 top-2 z-10">
-        {isBookmarked ? (
-          <BookmarkActionBtn type="remove" propertyId={property.id} />
-        ) : (
-          <BookmarkActionBtn type="add" propertyId={property.id} />
-        )}
+        <BookmarkActionBtn
+          type={isBookmarked ? "remove" : "add"}
+          propertyId={property.id}
+        />
       </div>
 
       <AnimatedLink href={`/properties/${property.id}`}>
@@ -39,7 +44,7 @@ function PropertyItem({ property, isBookmarked = false }: Props) {
           />
 
           <div className="absolute bottom-2 flex w-full items-center justify-between px-4 text-white contrast-200">
-            <p className="flex items-center gap-2 text-sm font-semibold capitalize">
+            <p className="flex items-center gap-2 text-sm font-semibold capitalize rtl:flex-row-reverse">
               <FaRegClock />
               {relativeDateInDays(property.createdAt)}
             </p>
@@ -48,8 +53,9 @@ function PropertyItem({ property, isBookmarked = false }: Props) {
         </div>
 
         <div className="p-4">
-          <p className="relative ps-4 text-sm capitalize text-font before:absolute before:left-0 before:top-1/2 before:size-2 before:-translate-y-1/2 before:rounded-full before:bg-alt">
-            {property.type}
+          <p className="relative ps-4 text-sm capitalize before:absolute before:top-1/2 before:size-2 before:-translate-y-1/2 before:rounded-full before:bg-alt ltr:before:left-0 rtl:text-base rtl:before:right-0">
+            {/* {property.type} */}
+            {dictionary.filter.type[property.type as PropertyTypes]}
           </p>
 
           <h2 className="mb-4 mt-2 line-clamp-1 text-xl">{property.title}</h2>
@@ -62,7 +68,7 @@ function PropertyItem({ property, isBookmarked = false }: Props) {
           {/* seperator */}
           <hr className="my-4 bg-stroke" />
 
-          <PropertyFeatures property={property} />
+          <PropertyFeatures property={property} dictionary={dictionary} />
         </div>
       </AnimatedLink>
     </li>

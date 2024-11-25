@@ -11,13 +11,17 @@ async function properties(props: {
     sortBy: string;
     filterValues: IFilterValues;
   }>;
+  params: Promise<{ locale: string }>;
 }) {
-  const searchParams = await props.searchParams;
+  const [searchParams, { locale }] = await Promise.all([
+    props.searchParams,
+    props.params,
+  ]);
 
   const { page = "1", sortBy, ...filterValues } = searchParams;
 
   return (
-    <div className="relative my-5 lg:my-14">
+    <div className="relative my-8 lg:my-14">
       <div className="container flex h-full flex-wrap gap-4 max-md:justify-center md:flex-nowrap">
         {/* desktop filter */}
         <Suspense
@@ -33,6 +37,7 @@ async function properties(props: {
         <PropertiesWrapper
           page={page}
           sortBy={sortBy}
+          locale={locale}
           filterValues={filterValues as IFilterValues}
         />
       </div>

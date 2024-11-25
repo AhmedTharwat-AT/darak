@@ -1,25 +1,29 @@
-import {
-  getFilteredProperties,
-  getProperties,
-  getUser,
-} from "@/services/prismaApi";
+import { getFilteredProperties, getUser } from "@/services/prismaApi";
 import { auth } from "@/auth";
-import { PropertyWithImages, UserWithProperties } from "@/lib/types";
+import {
+  IFilterValues,
+  PropertyWithImages,
+  UserWithProperties,
+} from "@/lib/types";
 
 import PropertyItem from "./PropertyItem";
 import Error from "@/components/Error";
+import { getDictionary } from "@/app/[locale]/dictionaries";
 
 async function PropertiesList({
   page,
   sortBy,
   filterValues,
+  locale,
 }: {
   page: string;
   sortBy: string;
-  filterValues: any;
+  filterValues: IFilterValues;
+  locale: string;
 }) {
   const session = await auth();
   let user: UserWithProperties;
+
   if (session?.user) {
     user = await getUser(session.user.email);
   }
@@ -32,25 +36,35 @@ async function PropertiesList({
   if (!properties || properties.length === 0)
     return <Error message="No properties to load" />;
 
+  const dictionary = await getDictionary(locale);
+
   let filteredProperties;
 
-  if (sortBy === "default" || !sortBy) filteredProperties = properties;
-  if (sortBy === "htlprice")
-    filteredProperties = properties.sort(
-      (a: { price: number }, b: { price: number }) => b.price - a.price,
-    );
-  if (sortBy === "lthprice")
-    filteredProperties = properties.sort(
-      (a: { price: number }, b: { price: number }) => a.price - b.price,
-    );
-  if (sortBy === "htlspace")
-    filteredProperties = properties.sort(
-      (a: { space: number }, b: { space: number }) => b.space - a.space,
-    );
-  if (sortBy === "lthspace")
-    filteredProperties = properties.sort(
-      (a: { space: number }, b: { space: number }) => a.space - b.space,
-    );
+  switch (sortBy) {
+    case "htlprice":
+      filteredProperties = properties.sort(
+        (a: { price: number }, b: { price: number }) => b.price - a.price,
+      );
+      break;
+    case "lthprice":
+      filteredProperties = properties.sort(
+        (a: { price: number }, b: { price: number }) => a.price - b.price,
+      );
+      break;
+    case "htlspace":
+      filteredProperties = properties.sort(
+        (a: { space: number }, b: { space: number }) => b.space - a.space,
+      );
+      break;
+    case "lthspace":
+      filteredProperties = properties.sort(
+        (a: { space: number }, b: { space: number }) => a.space - b.space,
+      );
+      break;
+    default:
+      filteredProperties = properties;
+      break;
+  }
 
   return (
     <div className="flex flex-col">
@@ -70,6 +84,7 @@ async function PropertiesList({
               key={property.id}
               isBookmarked={isBookmarked}
               property={property}
+              dictionary={dictionary}
             />
           );
         })}

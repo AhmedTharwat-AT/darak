@@ -36,5 +36,9 @@
     "bathrooms": "Bathrooms",
     "apply": "apply",
     "cancel": "cancel"
+  },
+  "property": {
+    "features": "Features",
+    "description": "Description"
   }
 }
