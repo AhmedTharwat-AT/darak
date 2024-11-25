@@ -21,13 +21,6 @@ async function PropertiesList({
   filterValues: IFilterValues;
   locale: string;
 }) {
-  const session = await auth();
-  let user: UserWithProperties;
-
-  if (session?.user) {
-    user = await getUser(session.user.email);
-  }
-
   const properties: PropertyWithImages[] | null = await getFilteredProperties({
     page: page ? Number(page) : 1,
     ...filterValues,
@@ -35,6 +28,12 @@ async function PropertiesList({
 
   if (!properties || properties.length === 0)
     return <Error message="No properties to load" />;
+
+  const session = await auth();
+  let user: UserWithProperties;
+  if (session?.user) {
+    user = await getUser(session.user.email);
+  }
 
   const dictionary = await getDictionary(locale);
 

@@ -40,5 +40,23 @@
   "property": {
     "features": "المميزات",
     "description": "الوصف"
+  },
+  "bookmarks": {
+    "title": "الممتلكات المفضلة"
+  },
+  "profile": {
+    "nav": {
+      "profile": "الملف الشخصي",
+      "listings": "الممتلكات",
+      "signout": "تسجيل الخروج"
+    },
+    "account": {
+      "title": "معلومات الحساب",
+      "name": "الاسم",
+      "email": "البريد الالكتروني",
+      "phone": "رقم الهاتف",
+      "whatsapp": "رقم الواتساب",
+      "edit": "تعديل"
+    }
   }
 }

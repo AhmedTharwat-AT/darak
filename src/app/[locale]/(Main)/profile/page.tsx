@@ -4,8 +4,9 @@ import UserInfo from "@/features/profile/components/UserInfo";
 import { UserWithProperties } from "@/lib/types";
 import { getUser } from "@/services/prismaApi";
 import { redirect } from "next/navigation";
+import { getDictionary } from "../../dictionaries";
 
-async function page() {
+async function page({ params }: { params: Promise<{ locale: string }> }) {
   const session = await auth();
   if (!session?.user) {
     redirect("/en/signin?callbackUrl=/en/profile");
@@ -16,10 +17,15 @@ async function page() {
     return <SignoutWhenUserDeleted />;
   }
 
+  const locale = (await params).locale;
+  const dictionary = await getDictionary(locale);
+
   return (
     <div>
-      <h1 className="text-2xl font-semibold">Account information</h1>
-      <UserInfo user={user} />
+      <h1 className="text-2xl font-semibold">
+        {dictionary.profile.account.title}
+      </h1>
+      <UserInfo user={user} dictionary={dictionary} />
       {/* <h1 className="text-2xl font-semibold">Passwords</h1>
       <UserPasswords user={user} /> */}
     </div>

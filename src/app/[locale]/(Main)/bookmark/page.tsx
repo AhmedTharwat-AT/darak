@@ -29,9 +29,9 @@ async function page({ params }: { params: Promise<{ locale: string }> }) {
 
   return (
     <div>
-      <div className="container py-6 font-poppins">
-        <h1 className="my-4 text-center text-xl font-medium capitalize sm:text-2xl md:my-6">
-          my saved properties
+      <div className="container py-8 font-poppins">
+        <h1 className="mb-4 text-center text-xl font-medium capitalize sm:text-2xl md:mb-6">
+          {dictionary.bookmarks.title}
         </h1>
         <ul className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
           {bookmarkedProperties.map((bookmarked: PropertyWithImages) => (

@@ -1,9 +1,9 @@
 import { signoutAction } from "@/actions/auth";
 
-function SignoutBtn({ className }: { className?: string }) {
+function SignoutBtn({ className, text }: { className?: string; text: string }) {
   return (
     <form action={signoutAction}>
-      <button className={className}>sign out</button>
+      <button className={className}>{text}</button>
     </form>
   );
 }

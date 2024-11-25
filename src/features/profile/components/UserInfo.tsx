@@ -15,13 +15,20 @@ import { Input } from "@/components/ui/input";
 import { User } from "@prisma/client";
 import ProfilePicture from "./ProfilePicture";
 import { removePhoneFormat } from "@/lib/utils";
+import { DictionaryType } from "@/app/[locale]/dictionaries";
 
 const initialServerStatus = {
   status: "",
   message: "",
 };
 
-function UserInfo({ user }: { user: User }) {
+function UserInfo({
+  user,
+  dictionary,
+}: {
+  user: User;
+  dictionary: DictionaryType;
+}) {
   const [isEditing, setIsEditing] = useState(false);
   const [serverStatus, setServerStatus] = useState(initialServerStatus);
   const {
@@ -57,6 +64,8 @@ function UserInfo({ user }: { user: User }) {
 
   const pending = isSubmitting || !isEditing;
 
+  const { name, email, phone, whatsapp, edit } = dictionary.profile.account;
+
   return (
     <div className="my-4 space-y-4 rounded-md border border-gray-300 bg-gray-200 p-4 shadow-md">
       <ProfilePicture user={user} />
@@ -67,24 +76,24 @@ function UserInfo({ user }: { user: User }) {
         )}
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
           <div>
-            <Label name="Name" />
+            <Label name={name} />
             <Input disabled={pending} {...register("name")} />
             <ErrorField message={errors?.name?.message} />
           </div>
           <div>
-            <Label name="Email" />
+            <Label name={email} />
             <Input disabled={true} {...register("email")} />
             <ErrorField message={errors?.email?.message} />
           </div>
         </div>
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
           <div>
-            <Label name="Phone" />
+            <Label name={phone} />
             <Input disabled={pending} {...register("phone")} />
             <ErrorField message={errors?.phone?.message} />
           </div>
           <div>
-            <Label name="Whatsapp" />
+            <Label name={whatsapp} />
             <Input disabled={pending} {...register("whatsapp")} />
             <ErrorField message={errors?.whatsapp?.message} />
           </div>
@@ -103,6 +112,7 @@ function UserInfo({ user }: { user: User }) {
           {serverStatus.status === "error" && (
             <ErrorField message={serverStatus.message} />
           )}
+
           {isEditing ? (
             <div className="space-y-2">
               <Button
@@ -131,14 +141,14 @@ function UserInfo({ user }: { user: User }) {
           ) : (
             <Button
               disabled={isSubmitting || isEditing}
-              className="flex h-10 w-full items-center justify-center uppercase hover:bg-main/90"
+              className="flex h-10 w-full items-center justify-center uppercase hover:bg-main/90 rtl:tracking-wider"
               onClick={(e) => {
                 e.preventDefault();
                 setIsEditing(true);
                 setServerStatus(initialServerStatus);
               }}
             >
-              Edit
+              {edit}
             </Button>
           )}
         </div>

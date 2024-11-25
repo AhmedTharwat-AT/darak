@@ -1,6 +1,6 @@
-import { PropertyWithImages } from "@/lib/types";
+import { PropertyWithImages, UserWithProperties } from "@/lib/types";
 import { formatCurrency } from "@/lib/utils";
-import { getProperty } from "@/services/prismaApi";
+import { getProperty, getUser } from "@/services/prismaApi";
 
 import BackButton from "@/components/BackButton";
 import Error from "@/components/Error";
@@ -11,6 +11,7 @@ import PropertyFeatures from "@/features/properties/components/PropertyFeatures"
 import { FaLocationDot } from "react-icons/fa6";
 import { redirect } from "next/navigation";
 import { getDictionary } from "@/app/[locale]/dictionaries";
+import { auth } from "@/auth";
 
 async function page(props: {
   params: Promise<{ propertyId: string; locale: string }>;
@@ -23,6 +24,21 @@ async function page(props: {
   if (property.status !== "approved") redirect("/properties");
 
   const dictionary = await getDictionary(locale);
+
+  const session = await auth();
+  let user: UserWithProperties;
+  let isBookmarked = false;
+
+  if (session?.user) {
+    user = await getUser(session.user.email);
+
+    if (
+      user &&
+      user.bookmarked_properties.some((p) => p.propertyId === property.id)
+    ) {
+      isBookmarked = true;
+    }
+  }
 
   return (
     <main className="font-poppins">
@@ -45,7 +61,10 @@ async function page(props: {
                 </h2>
               </div>
 
-              <BookmarkActionBtn type="add" propertyId={propertyId} />
+              <BookmarkActionBtn
+                type={isBookmarked ? "remove" : "add"}
+                propertyId={propertyId}
+              />
             </div>
 
             <hr className="my-3 bg-stroke" />

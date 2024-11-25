@@ -40,5 +40,23 @@
   "property": {
     "features": "Features",
     "description": "Description"
+  },
+  "bookmarks": {
+    "title": "my saved properties"
+  },
+  "profile": {
+    "nav": {
+      "listings": "Listings",
+      "profile": "Profile",
+      "signout": "Sign Out"
+    },
+    "account": {
+      "title": "account information",
+      "name": "name",
+      "email": "email",
+      "phone": "phone",
+      "whatsapp": "whatsapp",
+      "edit": "edit"
+    }
   }
 }
