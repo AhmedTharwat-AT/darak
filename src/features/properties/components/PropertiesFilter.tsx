@@ -37,6 +37,7 @@ function PropertiesFilter({
     propertyType,
     handlePropertyType,
   } = useFilter();
+
   const { dictionary } = useTranslation();
 
   return (
@@ -125,7 +126,7 @@ function PropertiesFilter({
                 </div>
               )}
               min={10}
-              max={1000}
+              max={10000}
               value={space}
               handler={handleSpaceRange}
             />
@@ -174,7 +175,7 @@ function PropertiesFilter({
                 </div>
               )}
               min={10}
-              max={10000000}
+              max={100_000_000}
               step={1000}
               value={priceRange}
               handler={handlePriceRange}

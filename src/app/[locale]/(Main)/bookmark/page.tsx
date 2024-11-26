@@ -40,6 +40,7 @@ async function page({ params }: { params: Promise<{ locale: string }> }) {
               property={bookmarked}
               isBookmarked={true}
               dictionary={dictionary}
+              locale={locale}
             />
           ))}
         </ul>

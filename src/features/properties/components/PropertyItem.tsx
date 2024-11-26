@@ -6,18 +6,20 @@ import Image from "next/image";
 import { FaLocationDot, FaRegClock } from "react-icons/fa6";
 import BookmarkActionBtn from "./BookmarkActionBtn";
 import PropertyFeatures from "./PropertyFeatures";
-import { DictionaryType, getDictionary } from "@/app/[locale]/dictionaries";
+import { DictionaryType } from "@/app/[locale]/dictionaries";
 
 type Props = {
   property: PropertyWithImages;
   isBookmarked?: boolean;
   dictionary: DictionaryType;
+  locale?: string;
 };
 
 async function PropertyItem({
   property,
   dictionary,
   isBookmarked = false,
+  locale = "en",
 }: Props) {
   if (!property || property.status !== "approved") return null;
 
@@ -43,18 +45,19 @@ async function PropertyItem({
             className="aspect-[1.9] h-[200px] w-full overflow-hidden object-cover brightness-75"
           />
 
-          <div className="absolute bottom-2 flex w-full items-center justify-between px-4 text-white contrast-200">
-            <p className="flex items-center gap-2 text-sm font-semibold capitalize rtl:flex-row-reverse">
+          <div className="absolute bottom-2 flex w-full items-center justify-between px-4 text-white contrast-200 rtl:flex-row-reverse">
+            <p className="flex items-center gap-2 text-sm font-semibold capitalize">
               <FaRegClock />
-              {relativeDateInDays(property.createdAt)}
+              {relativeDateInDays(property.createdAt, locale)}
             </p>
-            <p className="font-bold">{formatCurrency(property.price)}</p>
+            <p className="font-bold">
+              {formatCurrency(property.price, locale)}
+            </p>
           </div>
         </div>
 
         <div className="p-4">
           <p className="relative ps-4 text-sm capitalize before:absolute before:top-1/2 before:size-2 before:-translate-y-1/2 before:rounded-full before:bg-alt ltr:before:left-0 rtl:text-base rtl:before:right-0">
-            {/* {property.type} */}
             {dictionary.filter.type[property.type as PropertyTypes]}
           </p>
 
@@ -65,7 +68,6 @@ async function PropertyItem({
             <p>{property.location}</p>
           </div>
 
-          {/* seperator */}
           <hr className="my-4 bg-stroke" />
 
           <PropertyFeatures property={property} dictionary={dictionary} />

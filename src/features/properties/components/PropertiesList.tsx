@@ -84,6 +84,7 @@ async function PropertiesList({
               isBookmarked={isBookmarked}
               property={property}
               dictionary={dictionary}
+              locale={locale}
             />
           );
         })}

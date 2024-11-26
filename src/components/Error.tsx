@@ -8,7 +8,12 @@ function Error({ message }: { message: string }) {
         <MdErrorOutline className="size-5 text-red-500" />
         <p className="font-poppins text-lg font-medium">{message}</p>
       </div>
-      <BackButton text="Back" href="/" className="text-sm" iconStyle="size-4" />
+      <BackButton
+        text="Back"
+        href="/"
+        className="mr-0 text-sm"
+        iconStyle="size-4"
+      />
     </div>
   );
 }

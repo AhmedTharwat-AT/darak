@@ -43,7 +43,7 @@ function BookmarkActionBtn({
     <form className="m-0 p-0" action={formAction}>
       <button
         disabled={isPending}
-        title={`${isAdding ? "Bookmark" : "Remove"} Property`}
+        title={`${isAdding ? "Bookmark" : "Unbookmark"} Property`}
         className={cn(
           "flex size-11 items-center justify-center rounded-lg shadow-md transition-all",
           isAdding

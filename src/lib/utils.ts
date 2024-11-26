@@ -9,8 +9,8 @@ export function cn(...inputs: ClassValue[]) {
 
 export function formatCurrency(
   amount: number,
+  locale = "en",
   currency = "EGP",
-  locale = "en-US",
 ) {
   return new Intl.NumberFormat(locale, {
     style: "currency",
@@ -19,10 +19,10 @@ export function formatCurrency(
   }).format(amount);
 }
 
-export function relativeDateInDays(date: unknown) {
+export function relativeDateInDays(date: unknown, locale = "en") {
   if (!(date instanceof Date)) return;
 
-  const rtf = new Intl.RelativeTimeFormat("en", {
+  const rtf = new Intl.RelativeTimeFormat(locale, {
     style: "short",
     numeric: "auto",
   });

@@ -38,7 +38,7 @@ function useFilter() {
           }
         : {
             from: 100000,
-            to: 1000_000,
+            to: 10_000_000,
           },
   );
   const [space, setSpace] = useState<{ from: number; to: number }>(() =>
@@ -48,8 +48,8 @@ function useFilter() {
           to: Number(searchParams.get("space")?.split("-")[1]),
         }
       : {
-          from: 50,
-          to: 200,
+          from: 10,
+          to: 2000,
         },
   );
 

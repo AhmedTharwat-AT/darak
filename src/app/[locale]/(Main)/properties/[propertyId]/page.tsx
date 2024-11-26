@@ -19,9 +19,8 @@ async function page(props: {
   const { propertyId, locale } = await props.params;
   const property: PropertyWithImages = await getProperty(propertyId);
 
-  if (!property) return <Error message="Property was not found" />;
-
-  if (property.status !== "approved") redirect("/properties");
+  if (!property || property.status !== "approved")
+    return <Error message="Property was not found" />;
 
   const dictionary = await getDictionary(locale);
 
@@ -93,7 +92,7 @@ async function page(props: {
 
             <div className="mt-auto flex flex-wrap items-end justify-between gap-8 pt-8">
               <p className="break-all text-xl font-bold sm:text-3xl">
-                {formatCurrency(property.price)}
+                {formatCurrency(property.price, locale)}
               </p>
               <PropertyContacts property={property} />
             </div>

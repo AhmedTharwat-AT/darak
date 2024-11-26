@@ -72,7 +72,7 @@ export const createPropertySchema = z
       .max(500, "Description is more than 500 chars!"),
     price: z.coerce
       .number()
-      .min(1, "Please provide valid price!")
+      .min(10, "Please provide valid price!")
       .max(100_000_000, "Maximum price is 100,000,000 EGP!"),
     space: z.coerce
       .number()
