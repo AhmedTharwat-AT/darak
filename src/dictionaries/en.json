@@ -39,7 +39,24 @@
   },
   "property": {
     "features": "Features",
-    "description": "Description"
+    "description": "Description",
+    "new": {
+      "header": "create new property",
+      "title": "title",
+      "description": "description",
+      "mode": {
+        "sell": "For Sale",
+        "rent": "For Rent"
+      },
+      "images": "upload images",
+      "location": "location",
+      "type": "type",
+      "price": "Price",
+      "space": "Space (m2)",
+      "rooms": "Rooms",
+      "bathrooms": "Bathrooms",
+      "create": "create property"
+    }
   },
   "bookmarks": {
     "title": "my saved properties"
@@ -58,5 +75,15 @@
       "whatsapp": "whatsapp",
       "edit": "edit"
     }
+  },
+  "contact": {
+    "title": "get in touch!",
+    "name": "name",
+    "email": "email",
+    "message": "message",
+    "name_placeholder": "enter your name",
+    "email_placeholder": "enter your email",
+    "message_placeholder": "type your message here",
+    "submit": "submit"
   }
 }

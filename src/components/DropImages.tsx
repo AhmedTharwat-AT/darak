@@ -53,7 +53,7 @@ function DropImages({
           <div
             {...getRootProps({
               className:
-                "dropzone border-4  hover:bg-gray-100 transition-all duration-300 w-full h-36 text-center rounded-lg border-dashed flex items-center justify-center border-gray-300 p-4",
+                "dropzone border-4  hover:bg-gray-100 hover:border-main/70 transition-all duration-300 w-full h-36 text-center rounded-lg border-dashed flex items-center justify-center border-gray-300 p-4",
             })}
           >
             <input {...getInputProps()} />

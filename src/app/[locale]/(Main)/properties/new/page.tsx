@@ -1,3 +1,4 @@
+import { getDictionary } from "@/app/[locale]/dictionaries";
 import { auth } from "@/auth";
 import Spinner from "@/components/Spinner";
 import SignoutWhenUserDeleted from "@/features/auth/components/SignoutWhenUserDeleted";
@@ -6,10 +7,12 @@ import { getUser } from "@/services/prismaApi";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
 
-async function page() {
+async function page({ params }: { params: Promise<{ locale: string }> }) {
   const session = await auth();
+  const locale = (await params).locale;
+
   if (!session?.user) {
-    redirect("/en/signin?callbackUrl=/en/properties/new");
+    redirect(`/${locale}/signin?callbackUrl=/${locale}/properties/new`);
   }
 
   const user = await getUser(session?.user?.email || "");
@@ -17,10 +20,12 @@ async function page() {
     return <SignoutWhenUserDeleted />;
   }
 
+  const dictionary = await getDictionary(locale);
+
   return (
     <div className="container pb-16 pt-8 font-poppins">
       <h1 className="pb-6 text-center text-2xl font-semibold capitalize text-black">
-        Create new property
+        {dictionary.property.new.header}
       </h1>
       <Suspense
         fallback={
@@ -29,7 +34,7 @@ async function page() {
           </div>
         }
       >
-        <CreatePropertyForm />
+        <CreatePropertyForm dictionary={dictionary} />
       </Suspense>
     </div>
   );

@@ -1,15 +1,18 @@
 import { auth } from "@/auth";
-import SignoutWhenUserDeleted from "@/features/auth/components/SignoutWhenUserDeleted";
-import UserInfo from "@/features/profile/components/UserInfo";
-import { UserWithProperties } from "@/lib/types";
+import { getDictionary } from "../../dictionaries";
 import { getUser } from "@/services/prismaApi";
 import { redirect } from "next/navigation";
-import { getDictionary } from "../../dictionaries";
+import { UserWithProperties } from "@/lib/types";
+
+import SignoutWhenUserDeleted from "@/features/auth/components/SignoutWhenUserDeleted";
+import UserInfo from "@/features/profile/components/UserInfo";
 
 async function page({ params }: { params: Promise<{ locale: string }> }) {
   const session = await auth();
+  const locale = (await params).locale;
+
   if (!session?.user) {
-    redirect("/en/signin?callbackUrl=/en/profile");
+    redirect(`/${locale}/signin?callbackUrl=/${locale}/profile`);
   }
 
   const user: UserWithProperties = await getUser(session.user.email);
@@ -17,7 +20,6 @@ async function page({ params }: { params: Promise<{ locale: string }> }) {
     return <SignoutWhenUserDeleted />;
   }
 
-  const locale = (await params).locale;
   const dictionary = await getDictionary(locale);
 
   return (
@@ -26,8 +28,6 @@ async function page({ params }: { params: Promise<{ locale: string }> }) {
         {dictionary.profile.account.title}
       </h1>
       <UserInfo user={user} dictionary={dictionary} />
-      {/* <h1 className="text-2xl font-semibold">Passwords</h1>
-      <UserPasswords user={user} /> */}
     </div>
   );
 }

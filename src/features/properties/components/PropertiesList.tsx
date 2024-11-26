@@ -1,5 +1,6 @@
-import { getFilteredProperties, getUser } from "@/services/prismaApi";
 import { auth } from "@/auth";
+import { getFilteredProperties, getUser } from "@/services/prismaApi";
+import { getDictionary } from "@/app/[locale]/dictionaries";
 import {
   IFilterValues,
   PropertyWithImages,
@@ -8,7 +9,6 @@ import {
 
 import PropertyItem from "./PropertyItem";
 import Error from "@/components/Error";
-import { getDictionary } from "@/app/[locale]/dictionaries";
 
 async function PropertiesList({
   page,

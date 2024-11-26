@@ -10,10 +10,12 @@ import ListingsTable from "@/features/profile/components/ListingsTable";
 import { FaPlus } from "react-icons/fa";
 import SignoutWhenUserDeleted from "@/features/auth/components/SignoutWhenUserDeleted";
 
-async function page() {
+async function page({ params }: { params: Promise<{ locale: string }> }) {
   const session = await auth();
+  const locale = (await params).locale;
+
   if (!session?.user) {
-    redirect("/en/signin?callbackUrl=/en/profile/listings");
+    redirect(`/${locale}/signin?callbackUrl=/${locale}/profile/listings`);
   }
 
   const user: UserWithProperties = await getUser(session.user.email);
@@ -33,11 +35,14 @@ async function page() {
           className="flex items-center gap-2"
         >
           <Button className="flex items-center gap-2 hover:bg-main/90">
-            <span>Create new property</span>
+            <span>
+              {locale == "ar" ? "إضافة عقار جديد" : "Create new property"}
+            </span>
             <FaPlus />
           </Button>
         </AnimatedLink>
       </div>
+
       <ListingsTable properties={properties} />
     </ul>
   );

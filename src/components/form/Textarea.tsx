@@ -5,11 +5,13 @@ export default function Textarea({
   placeholder,
   className,
   register,
+  label,
 }: {
   name: string;
   placeholder: string;
   className?: string;
   register?: any;
+  label: string;
 }) {
   return (
     <div className={cn("w-full", className)}>
@@ -17,7 +19,7 @@ export default function Textarea({
         htmlFor={name}
         className="mb-1 block w-full font-medium capitalize"
       >
-        {name}
+        {label || name}
       </label>
       <textarea
         {...register(name)}

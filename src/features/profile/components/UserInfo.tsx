@@ -98,16 +98,7 @@ function UserInfo({
             <ErrorField message={errors?.whatsapp?.message} />
           </div>
         </div>
-        {/* <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-        <div>
-          <Label name="Password" />
-          <Input disabled={pending} {...register("password")} />
-        </div>
-        <div>
-          <Label name="Confirm Password" />
-          <Input disabled={pending} {...register("confirm_password")} />
-        </div>
-      </div> */}
+
         <div className="w-full pt-5 lg:pt-3">
           {serverStatus.status === "error" && (
             <ErrorField message={serverStatus.message} />

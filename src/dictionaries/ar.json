@@ -39,7 +39,24 @@
   },
   "property": {
     "features": "المميزات",
-    "description": "الوصف"
+    "description": "الوصف",
+    "new": {
+      "header": "قم باضافة عقار جديد",
+      "title": "عنوان العقار",
+      "description": "وصف العقار",
+      "mode": {
+        "sell": "للبيع",
+        "rent": "للايجار"
+      },
+      "images": "اضف صور",
+      "location": "العنوان",
+      "type": "نوع الممتلكات",
+      "price": "السعر",
+      "space": "المساحة (m2)",
+      "rooms": "الغرف",
+      "bathrooms": "الحمامات",
+      "create": "انشاء العقار"
+    }
   },
   "bookmarks": {
     "title": "الممتلكات المفضلة"
@@ -58,5 +75,15 @@
       "whatsapp": "رقم الواتساب",
       "edit": "تعديل"
     }
+  },
+  "contact": {
+    "title": "قم بالاتصال بنا!",
+    "name": "الاسم",
+    "email": "البريد الالكتروني",
+    "message": "الرسالة",
+    "name_placeholder": "ادخل الاسم",
+    "email_placeholder": "ادخل البريد الالكتروني",
+    "message_placeholder": "اكتب رسالتك هنا",
+    "submit": "ارسال"
   }
 }
