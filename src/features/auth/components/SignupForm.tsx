@@ -90,7 +90,7 @@ function SignupForm() {
       </div>
 
       <div>
-        <label className="mb-2 block">phone</label>
+        <label className="mb-2 block">Phone</label>
         <div className="relative">
           <FaLock className="absolute left-3 top-1/2 size-5 -translate-y-1/2 fill-stroke" />
           <input
@@ -144,7 +144,7 @@ function SignupForm() {
       {/* <input name="callbackUrl" type="hidden" defaultValue={callbackUrl} /> */}
       <Button
         disabled={isSubmitting}
-        className="h-14 w-full py-4 text-xl"
+        className="h-14 w-full bg-main py-4 text-xl transition-all hover:opacity-90"
         size="lg"
       >
         {isSubmitting ? <Spinner className="text-2xl text-white" /> : "Sign up"}

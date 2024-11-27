@@ -1,13 +1,14 @@
 "use client";
 
-import { useActionState, useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { useToast } from "@/hooks/use-toast";
 import { bookmarkProperty, remvoeBookmarked } from "@/actions/properties";
+import { toast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
+import { useRouter } from "next/navigation";
+import { useActionState, useEffect } from "react";
 
 import { CiBookmark } from "react-icons/ci";
-import { ImSpinner2, ImCross } from "react-icons/im";
+import { GoBookmarkSlashFill } from "react-icons/go";
+import { ImSpinner2 } from "react-icons/im";
 
 function BookmarkActionBtn({
   propertyId,
@@ -19,7 +20,6 @@ function BookmarkActionBtn({
   type: "add" | "remove";
 }) {
   const isAdding = type === "add";
-  const { toast } = useToast();
   const router = useRouter();
   const [state, formAction, isPending] = useActionState(
     isAdding ? bookmarkProperty : remvoeBookmarked,
@@ -35,9 +35,10 @@ function BookmarkActionBtn({
       description: state.message,
       variant: "app",
       className: "text-black p-5",
+      uniqueId: "bookmark-property",
     });
     router.refresh();
-  }, [state, toast, router]);
+  }, [state, router]);
 
   return (
     <form className="m-0 p-0" action={formAction}>
@@ -57,7 +58,7 @@ function BookmarkActionBtn({
         ) : isAdding ? (
           <CiBookmark className="text-3xl" />
         ) : (
-          <ImCross className="text-2xl" />
+          <GoBookmarkSlashFill className="text-3xl" />
         )}
       </button>
     </form>

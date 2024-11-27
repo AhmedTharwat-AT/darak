@@ -90,7 +90,7 @@ function LoginForm({ callbackUrl }: { callbackUrl?: string | undefined }) {
       {/* <input name="callbackUrl" type="hidden" defaultValue={callbackUrl} /> */}
       <Button
         disabled={isSubmitting}
-        className="h-14 w-full py-4 text-xl"
+        className="h-14 w-full py-4 text-xl transition-all hover:opacity-90"
         size="lg"
       >
         {isSubmitting ? <Spinner className="text-2xl text-white" /> : "Login"}

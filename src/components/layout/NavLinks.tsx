@@ -10,9 +10,9 @@ function NavLinks() {
 
   return (
     <>
-      <li>
+      <li className="w-full">
         <AnimatedLink
-          className={` ${
+          className={`block whitespace-nowrap ${
             pathname === `/${locale}`
               ? "font-semibold text-alt"
               : "text-blacker"
@@ -22,9 +22,9 @@ function NavLinks() {
           {dictionary.navlinks.home}
         </AnimatedLink>
       </li>
-      <li>
+      <li className="w-full">
         <AnimatedLink
-          className={` ${
+          className={`block whitespace-nowrap ${
             pathname === `/${locale}/properties`
               ? "font-semibold text-alt"
               : "text-blacker"
@@ -34,9 +34,9 @@ function NavLinks() {
           {dictionary.navlinks.properties}
         </AnimatedLink>
       </li>
-      <li>
+      <li className="w-full">
         <AnimatedLink
-          className={` ${
+          className={`block whitespace-nowrap ${
             pathname === `/${locale}/contact`
               ? "font-semibold text-alt"
               : "text-blacker"

@@ -7,7 +7,7 @@ function NavBar() {
   return (
     <header className="relative z-10 pt-8 lg:pt-14">
       <div className="container">
-        <nav className="flex h-12 justify-between border-b border-stroke pb-2 font-poppins">
+        <nav className="flex h-12 justify-between border-b border-stroke pb-2 font-poppins rtl:flex-row-reverse">
           <Logo />
 
           {/* desktop */}
@@ -16,7 +16,7 @@ function NavBar() {
           </ul>
 
           {/* desktop */}
-          <div className="hidden items-center gap-4 lg:flex">
+          <div className="hidden items-center gap-4 lg:flex lg:rtl:flex-row-reverse">
             <NavUserIcons />
           </div>
 

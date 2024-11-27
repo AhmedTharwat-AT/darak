@@ -17,21 +17,27 @@ function MobileSheet() {
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger className="lg:hidden">
-        <CgMenuRight className="size-8 text-font rtl:rotate-180" />
+        <CgMenuRight className="size-8 text-font" />
       </SheetTrigger>
 
       <SheetContent className="py-8">
         <SheetTitle></SheetTitle>
         <SheetDescription></SheetDescription>
 
-        <nav className="flex h-full flex-col" onClick={() => setOpen(false)}>
-          <div className="flex items-center justify-center gap-5">
+        <nav className="flex h-full flex-col">
+          <div
+            className="flex select-none items-center justify-center gap-5 rtl:flex-row-reverse"
+            onClick={() => setOpen(false)}
+          >
             <NavUserIcons scale={40} />
           </div>
 
           <hr className="my-8 bg-stroke" />
 
-          <ul className="mb-8 flex flex-col items-start gap-8 font-poppins text-lg font-medium rtl:ps-6 rtl:text-xl">
+          <ul
+            className="mb-8 flex flex-col items-start gap-8 font-poppins text-lg font-medium rtl:ps-6 rtl:text-xl"
+            onClick={() => setOpen(false)}
+          >
             <NavLinks />
           </ul>
 

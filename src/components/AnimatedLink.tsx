@@ -1,10 +1,10 @@
 "use client";
 
+import { useAnimation } from "@/context/AnimationProvider";
+import useLocale from "@/hooks/useLocale";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ReactNode } from "react";
-import { useAnimation } from "@/context/AnimationProvider";
-import useLocale from "@/hooks/useLocale";
 
 export default function AnimatedLink({
   href,
