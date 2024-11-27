@@ -21,11 +21,11 @@ cloudinary.config({
 export async function createProperty(data: CreatePropertySchema) {
   try {
     const session = await auth();
-    if (!session?.user) redirect("/signin");
+    if (!session?.user) redirect("/en/signin");
 
     const user: User = await getUser(session.user?.email);
     if (!user || user.email !== session.user.email) {
-      signOut({ redirectTo: "/signin" });
+      signOut({ redirectTo: "/en/signin" });
     }
 
     // upload images to cloudinary
@@ -68,7 +68,7 @@ export async function createProperty(data: CreatePropertySchema) {
     });
 
     revalidatePath("/", "layout");
-    redirect("/profile/listings");
+    redirect("/en/profile/listings");
 
     // return { status: "success", message: "property was added successfully" };
   } catch (error) {
@@ -83,7 +83,7 @@ export async function createProperty(data: CreatePropertySchema) {
 }
 export async function deleteProperty({ propertyId }: { propertyId: string }) {
   const session = await auth();
-  if (!session) redirect("/signin");
+  if (!session) redirect("/en/signin");
 
   try {
     const property = await prisma.property.findUnique({
@@ -115,14 +115,12 @@ export async function deleteProperty({ propertyId }: { propertyId: string }) {
     revalidatePath("/", "layout");
 
     return {
-      propertyId,
       message: "Property was deleted successfully",
       type: "success",
     };
   } catch (error) {
     console.log("server error : ", error instanceof Error && error.message);
     return {
-      propertyId,
       message: "Something went wrong",
       type: "error",
     };
@@ -135,12 +133,12 @@ export async function bookmarkProperty(state: {
 }) {
   try {
     const session = await auth();
-    if (!session?.user) redirect("/signin");
+    if (!session?.user) redirect("/en/signin");
 
     const user: User = await getUser(session.user.email);
 
     if (!user || user.email !== session.user.email) {
-      signOut({ redirectTo: "/signin" });
+      signOut({ redirectTo: "/en/signin" });
     }
 
     await prisma.bookmarkedProperty.create({
@@ -172,12 +170,12 @@ export async function remvoeBookmarked(state: {
 }) {
   try {
     const session = await auth();
-    if (!session?.user) redirect("/signin");
+    if (!session?.user) redirect("/en/signin");
 
     const user: User = await getUser(session.user.email);
 
     if (!user || user.email !== session.user.email) {
-      signOut({ redirectTo: "/signin" });
+      signOut({ redirectTo: "/en/signin" });
     }
 
     await prisma.bookmarkedProperty.delete({
