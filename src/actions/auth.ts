@@ -77,9 +77,5 @@ export async function signinAction(
 }
 
 export async function signoutAction() {
-  const session = await auth();
-
-  if (!session?.user) return null;
-
   await signOut({ redirectTo: "/en" });
 }

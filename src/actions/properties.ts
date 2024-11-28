@@ -11,6 +11,7 @@ import { v2 as cloudinary } from "cloudinary";
 import { revalidatePath } from "next/cache";
 import { isRedirectError } from "next/dist/client/components/redirect";
 import { redirect } from "next/navigation";
+import { signoutAction } from "./auth";
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -69,12 +70,9 @@ export async function createProperty(data: CreatePropertySchema) {
 
     revalidatePath("/", "layout");
     redirect("/en/profile/listings");
-
-    // return { status: "success", message: "property was added successfully" };
   } catch (error) {
     if (isRedirectError(error)) throw error;
 
-    console.log("server error : ", error instanceof Error && error.message);
     return {
       status: "failed",
       message: "something went wrong",
@@ -119,7 +117,6 @@ export async function deleteProperty({ propertyId }: { propertyId: string }) {
       type: "success",
     };
   } catch (error) {
-    console.log("server error : ", error instanceof Error && error.message);
     return {
       message: "Something went wrong",
       type: "error",
@@ -133,12 +130,11 @@ export async function bookmarkProperty(state: {
 }) {
   try {
     const session = await auth();
-    if (!session?.user) redirect("/en/signin");
+    if (!session?.user) return { ...state, message: "Please sign in first!" };
 
-    const user: User = await getUser(session.user.email);
-
-    if (!user || user.email !== session.user.email) {
-      signOut({ redirectTo: "/en/signin" });
+    const user: User = await getUser(session?.user?.email);
+    if (!user || user.email !== session?.user?.email) {
+      await signoutAction();
     }
 
     await prisma.bookmarkedProperty.create({
@@ -152,14 +148,14 @@ export async function bookmarkProperty(state: {
 
     return { ...state, message: "Property bookmarked!" };
   } catch (err) {
+    if (isRedirectError(err)) throw err;
+
     if (err instanceof PrismaClientKnownRequestError) {
       if (err.code === "P2002") {
-        // this property is already bookmarked to the user
-        console.log("This property is already bookmarked!");
         return { ...state, message: "This property is already bookmarked!" };
       }
     }
-    console.log("unexpected error bookmarking property!");
+
     return { ...state, message: "Unexpected error bookmarking property!" };
   }
 }
@@ -170,12 +166,11 @@ export async function remvoeBookmarked(state: {
 }) {
   try {
     const session = await auth();
-    if (!session?.user) redirect("/en/signin");
+    if (!session?.user) return { ...state, message: "Please sign in first!" };
 
     const user: User = await getUser(session.user.email);
-
-    if (!user || user.email !== session.user.email) {
-      signOut({ redirectTo: "/en/signin" });
+    if (!user || user.email !== session?.user?.email) {
+      await signoutAction();
     }
 
     await prisma.bookmarkedProperty.delete({
@@ -191,14 +186,14 @@ export async function remvoeBookmarked(state: {
 
     return { ...state, message: "Property removed!" };
   } catch (err) {
+    if (isRedirectError(err)) throw err;
+
     if (err instanceof PrismaClientKnownRequestError) {
       if (err.code === "P2025") {
-        // this property is already removed from bookmarks
-        console.log("This property is already removed!");
         return { ...state, message: "This property is already removed!" };
       }
     }
-    console.log("unexpected error removing property!");
+
     return { ...state, message: "Unexpected error removing property!" };
   }
 }

@@ -41,7 +41,7 @@ function BookmarkActionBtn({
   }, [state, router]);
 
   return (
-    <form className="m-0 p-0" action={formAction}>
+    <form action={formAction} className="m-0 p-0">
       <button
         disabled={isPending}
         title={`${isAdding ? "Bookmark" : "Unbookmark"} Property`}

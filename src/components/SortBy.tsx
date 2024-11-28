@@ -27,10 +27,11 @@ function SortBy() {
       value={searchParams.get("sortBy") || "default"}
       defaultValue="default"
     >
-      <SelectTrigger className="w-fit px-3 py-0   font-semibold font-poppins  focus:ring-0 border-none bg-main text-white gap-2 rounded-lg ring-0 shadow-none appearance-none">
+      <SelectTrigger className="w-fit appearance-none gap-2 rounded-lg border-none bg-main px-3 py-0 font-poppins font-semibold text-white shadow-none ring-0 focus:ring-0">
         <SelectValue placeholder="Sort By" />
       </SelectTrigger>
-      <SelectContent side="bottom">
+
+      <SelectContent side="bottom" className="relative z-10">
         <SelectItem value="default">Default</SelectItem>
         <SelectItem value="htlprice">High to Low (price)</SelectItem>
         <SelectItem value="lthprice">Low to High (price)</SelectItem>

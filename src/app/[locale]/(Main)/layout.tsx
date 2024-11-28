@@ -10,7 +10,7 @@ export default function MainLayout({
   return (
     <div key="main layout" className={`relative bg-bgLight`}>
       <NavBar />
-      <main className="grid min-h-[calc(100vh-144px)] overflow-x-clip font-playfair antialiased lg:min-h-[calc(100vh-168px)]">
+      <main className="grid min-h-[calc(100vh-144px)] overflow-clip font-playfair antialiased lg:min-h-[calc(100vh-168px)]">
         <Transition>{children}</Transition>
       </main>
       <Footer />
