@@ -120,13 +120,15 @@ function HomeFilter() {
                   <div className="flex flex-col">
                     <Slider
                       min={10}
-                      max={10000000}
+                      max={100_000_000}
                       step={1000}
                       value={priceRange}
                       handler={handlePriceRange}
                     />
                     <button
-                      onClick={() => handlePriceRange({ from: 0, to: 1000000 })}
+                      onClick={() =>
+                        handlePriceRange({ from: 100_000, to: 10_000_000 })
+                      }
                       className="self-center rounded-md bg-main px-2 py-1 capitalize text-white transition-all hover:bg-mainHover"
                     >
                       reset

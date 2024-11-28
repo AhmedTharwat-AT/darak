@@ -37,7 +37,7 @@ function useFilter() {
             to: Number(searchParams.get("price")?.split("-")[1]),
           }
         : {
-            from: 100000,
+            from: 100_000,
             to: 10_000_000,
           },
   );

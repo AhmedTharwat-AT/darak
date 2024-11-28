@@ -18,7 +18,7 @@ function EmptyListing() {
         </p>
         <BackButton
           text="Publish Your First property"
-          className="text-xs capitalize sm:text-base"
+          className="mr-0 text-xs capitalize sm:text-base"
           href="/properties/new"
         />
       </div>
