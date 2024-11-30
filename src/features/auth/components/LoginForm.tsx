@@ -15,6 +15,7 @@ import { IoMdMail } from "react-icons/io";
 
 function LoginForm({ callbackUrl }: { callbackUrl?: string | undefined }) {
   const [serverError, setServerError] = useState("");
+
   const {
     register,
     formState: { errors, isSubmitting },

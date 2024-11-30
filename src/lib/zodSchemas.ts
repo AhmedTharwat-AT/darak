@@ -117,3 +117,11 @@ export const editUserInfoSchema = z.object({
 });
 
 export type EditUserInfoSchema = z.infer<typeof editUserInfoSchema>;
+
+export const contactSchema = z.object({
+  name: z.string().min(3, "name is less than 4 chars!"),
+  email: z.string().email("invalid email address"),
+  message: z.string().min(4, "message is less than 4 chars!"),
+});
+
+export type ContactSchema = z.infer<typeof contactSchema>;
