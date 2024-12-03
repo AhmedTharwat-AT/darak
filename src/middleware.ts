@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { auth } from "./auth";
 
 const authPages = ["/signin", "/signup"];
-const protectedPages = ["/profile", "/bookmark"];
+const protectedPages = ["/profile", "/bookmark", "/properties/new"];
 const locales = ["en", "ar"];
 
 export const middleware = auth(async (req) => {
@@ -15,11 +15,11 @@ export const middleware = auth(async (req) => {
   const locale = pathnameHasLocale ? pathname.split("/")[1] : "en";
   const newPathname = pathnameHasLocale ? pathname : `/en${pathname}`;
 
-  if (isAuth && authPages.some((page) => pathname.includes(page))) {
+  if (isAuth && authPages.some((page) => pathname.startsWith(page))) {
     return NextResponse.redirect(new URL(`/${locale}`, req.url));
   }
 
-  if (!isAuth && protectedPages.some((page) => pathname.includes(page))) {
+  if (!isAuth && protectedPages.some((page) => pathname.startsWith(page))) {
     return NextResponse.redirect(
       new URL(`/${locale}/signin?callbackUrl=${newPathname}`, req.url),
     );

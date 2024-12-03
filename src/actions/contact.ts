@@ -4,7 +4,6 @@ import emailjs from "@emailjs/nodejs";
 import { ContactSchema } from "@/lib/zodSchemas";
 
 export async function sendMessage(data: ContactSchema) {
-  console.log(data);
   try {
     await emailjs.send(
       process.env.EMAILJS_SERVICE_ID as string,

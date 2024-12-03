@@ -5,7 +5,9 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createPropertySchema, CreatePropertySchema } from "@/lib/zodSchemas";
 import { createProperty } from "@/actions/properties";
+import { isRedirectError } from "next/dist/client/components/redirect";
 import { FileWithPreview, PropertyTypes } from "@/lib/types";
+import { DictionaryType } from "@/app/[locale]/dictionaries";
 
 import ErrorField from "@/components/form/ErrorField";
 import Input from "@/components/form/Input";
@@ -18,12 +20,11 @@ import LocationInput from "@/components/LocationInput";
 import LocationIcon from "@/components/LocationIcon";
 import Spinner from "@/components/Spinner";
 import DropImages from "@/components/DropImages";
-import { isRedirectError } from "next/dist/client/components/redirect";
-import { DictionaryType } from "@/app/[locale]/dictionaries";
+import PropertyCreated from "./PropertyCreated";
 
 function CreatePropertyForm({ dictionary }: { dictionary: DictionaryType }) {
   const [serverMessage, setServerMessage] = useState({
-    status: "",
+    type: "",
     message: "",
   });
   const {
@@ -64,6 +65,7 @@ function CreatePropertyForm({ dictionary }: { dictionary: DictionaryType }) {
     type,
     title,
     description,
+    header,
   } = dictionary.property.new;
 
   async function onSubmit(data: CreatePropertySchema) {
@@ -75,202 +77,215 @@ function CreatePropertyForm({ dictionary }: { dictionary: DictionaryType }) {
       if (isRedirectError(err)) throw err;
 
       setServerMessage({
-        status: "failed",
+        type: "failed",
         message: "Something went wrong!",
       });
     }
   }
 
+  if (serverMessage.type === "success") {
+    return <PropertyCreated />;
+  }
+
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className="mx-auto flex max-w-[900px] flex-col items-center gap-5"
-    >
-      <div className="mb-6 flex w-full max-w-96 overflow-hidden rounded-lg border border-main">
-        <RadioBtn register={register} mode="rent" label={mode.rent} />
-        <RadioBtn register={register} mode="sell" label={mode.sell} />
-      </div>
+    <>
+      <h1 className="pb-6 text-center text-2xl font-semibold capitalize text-black">
+        {header}
+      </h1>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="mx-auto flex max-w-[900px] flex-col items-center gap-5"
+      >
+        <div className="mb-6 flex w-full max-w-96 overflow-hidden rounded-lg border border-main">
+          <RadioBtn register={register} mode="rent" label={mode.rent} />
+          <RadioBtn register={register} mode="sell" label={mode.sell} />
+        </div>
 
-      <div className="w-full">
-        <Label name={title} id="title" />
-        <Input
-          register={register}
-          name="title"
-          placeholder="Add Property Title"
-          className="rounded-lg"
-        />
-        <ErrorField message={errors.title?.message} />
-      </div>
-
-      <div className="w-full">
-        <Textarea
-          register={register}
-          label={description}
-          name="description"
-          placeholder="Add Property description"
-          className="rounded-lg"
-        />
-        <ErrorField message={errors.description?.message} />
-      </div>
-
-      <div className="w-full">
-        <Label name={images} />
-        <DropImages
-          images={getValues("images")}
-          setImages={(images: FileWithPreview[]) =>
-            setValue("images", images, {
-              shouldValidate: true,
-            })
-          }
-          setError={(message: string) =>
-            setError("images", {
-              type: "validate",
-              message,
-            })
-          }
-        />
-        <ErrorField message={errors.images?.message} />
-      </div>
-
-      <div className="flex w-full gap-4 max-md:flex-col">
         <div className="w-full">
-          <Label name={type} />
-          <PropertyTypeMenu
-            className="border"
-            propertyType={getValues("type") as PropertyTypes}
-            handlePropertyType={(type) =>
-              setValue("type", type, { shouldValidate: true })
-            }
-            types={["apartment", "building", "store", "office"]}
+          <Label name={title} id="title" />
+          <Input
+            register={register}
+            name="title"
+            placeholder="Add Property Title"
+            className="rounded-lg"
           />
-          <ErrorField message={errors.type?.message} />
+          <ErrorField message={errors.title?.message} />
         </div>
 
         <div className="w-full">
-          <Label name={price} id="price" />
-          <div className="flex overflow-hidden rounded-lg">
-            <Input
-              register={register}
-              name="price"
-              placeholder="enter whatsapp number"
-            />
-            <div className="flex select-none items-center justify-center self-stretch bg-gray-600 px-2 text-white">
-              <span>EGP</span>
-            </div>
-          </div>
-          <ErrorField message={errors.price?.message} />
+          <Textarea
+            register={register}
+            label={description}
+            name="description"
+            placeholder="Add Property description"
+            className="rounded-lg"
+          />
+          <ErrorField message={errors.description?.message} />
         </div>
-      </div>
 
-      <div className="w-full">
-        <Label name={location} />
-        <div className="flex w-full items-center rounded-lg border bg-white p-1 ps-2">
-          <LocationInput
-            className="w-full border-none p-0"
-            currentLocation={getValues("location")}
-            handleLocation={(val) =>
-              setValue("location", val, { shouldValidate: true })
+        <div className="w-full">
+          <Label name={images} />
+          <DropImages
+            images={getValues("images")}
+            setImages={(images: FileWithPreview[]) =>
+              setValue("images", images, {
+                shouldValidate: true,
+              })
+            }
+            setError={(message: string) =>
+              setError("images", {
+                type: "validate",
+                message,
+              })
             }
           />
-          <LocationIcon />
+          <ErrorField message={errors.images?.message} />
         </div>
-        <ErrorField message={errors.location?.message} />
-      </div>
 
-      <div className="flex w-full gap-4 max-md:flex-col">
-        <div className="w-full">
-          <Label name="phone" />
-          <div className="flex overflow-hidden rounded-lg rtl:flex-row-reverse">
-            <div className="flex select-none items-center justify-center self-stretch bg-gray-600 px-2 text-white">
-              <span>+20</span>
-            </div>
-            <Input
-              register={register}
-              name="phone"
-              placeholder="Enter phone number"
-              className="rtl:text-end"
+        <div className="flex w-full gap-4 max-md:flex-col">
+          <div className="w-full">
+            <Label name={type} />
+            <PropertyTypeMenu
+              className="border"
+              propertyType={getValues("type") as PropertyTypes}
+              handlePropertyType={(type) =>
+                setValue("type", type, { shouldValidate: true })
+              }
+              types={["apartment", "building", "store", "office"]}
             />
+            <ErrorField message={errors.type?.message} />
           </div>
-          <ErrorField message={errors.phone?.message} />
-        </div>
 
-        <div className="w-full">
-          <Label name="whatsapp" />
-          <div className="flex overflow-hidden rounded-lg rtl:flex-row-reverse">
-            <div className="flex select-none items-center justify-center self-stretch bg-gray-600 px-2 text-white">
-              <span>+20</span>
+          <div className="w-full">
+            <Label name={price} id="price" />
+            <div className="flex overflow-hidden rounded-lg">
+              <Input
+                register={register}
+                name="price"
+                placeholder="enter whatsapp number"
+              />
+              <div className="flex select-none items-center justify-center self-stretch bg-gray-600 px-2 text-white">
+                <span>EGP</span>
+              </div>
             </div>
-            <Input
-              register={register}
-              name="whatsapp"
-              placeholder="Enter whatsapp number"
-              className="rtl:text-end"
-            />
+            <ErrorField message={errors.price?.message} />
           </div>
-          <ErrorField message={errors.whatsapp?.message} />
         </div>
-      </div>
 
-      <hr className="my-4 h-1 w-full bg-gray-200" />
-
-      <h3 className="self-start text-lg font-medium capitalize">features</h3>
-
-      <div className="flex w-full gap-4 max-md:flex-col">
         <div className="w-full">
-          <Label name={rooms} id="rooms" />
+          <Label name={location} />
+          <div className="flex w-full items-center rounded-lg border bg-white p-1 ps-2">
+            <LocationInput
+              className="w-full border-none p-0"
+              currentLocation={getValues("location")}
+              handleLocation={(val) =>
+                setValue("location", val, { shouldValidate: true })
+              }
+            />
+            <LocationIcon />
+          </div>
+          <ErrorField message={errors.location?.message} />
+        </div>
+
+        <div className="flex w-full gap-4 max-md:flex-col">
+          <div className="w-full">
+            <Label name="phone" />
+            <div className="flex overflow-hidden rounded-lg rtl:flex-row-reverse">
+              <div className="flex select-none items-center justify-center self-stretch bg-gray-600 px-2 text-white">
+                <span>+20</span>
+              </div>
+              <Input
+                register={register}
+                name="phone"
+                placeholder="Enter phone number"
+                className="rtl:text-end"
+              />
+            </div>
+            <ErrorField message={errors.phone?.message} />
+          </div>
+
+          <div className="w-full">
+            <Label name="whatsapp" />
+            <div className="flex overflow-hidden rounded-lg rtl:flex-row-reverse">
+              <div className="flex select-none items-center justify-center self-stretch bg-gray-600 px-2 text-white">
+                <span>+20</span>
+              </div>
+              <Input
+                register={register}
+                name="whatsapp"
+                placeholder="Enter whatsapp number"
+                className="rtl:text-end"
+              />
+            </div>
+            <ErrorField message={errors.whatsapp?.message} />
+          </div>
+        </div>
+
+        <hr className="my-4 h-1 w-full bg-gray-200" />
+
+        <h3 className="self-start text-lg font-medium capitalize">features</h3>
+
+        <div className="flex w-full gap-4 max-md:flex-col">
+          <div className="w-full">
+            <Label name={rooms} id="rooms" />
+            <QuantityHandler
+              register={register}
+              name="rooms"
+              className="h-11 w-full gap-0 border"
+              value={getValues("rooms")}
+              handler={(val) =>
+                setValue("rooms", val, { shouldValidate: true })
+              }
+            />
+            <ErrorField message={errors.rooms?.message} />
+          </div>
+          <div className="w-full">
+            <Label name={bathrooms} id="bathrooms" />
+            <QuantityHandler
+              register={register}
+              name="bathrooms"
+              className="h-11 w-full gap-0 border"
+              value={getValues("bathrooms")}
+              handler={(val) =>
+                setValue("bathrooms", val, { shouldValidate: true })
+              }
+            />
+            <ErrorField message={errors.bathrooms?.message} />
+          </div>
+        </div>
+
+        <div className="w-full">
+          <Label name={space} id="Space" className="normal-case" />
           <QuantityHandler
             register={register}
-            name="rooms"
+            name="space"
             className="h-11 w-full gap-0 border"
-            value={getValues("rooms")}
-            handler={(val) => setValue("rooms", val, { shouldValidate: true })}
+            value={getValues("space")}
+            handler={(val) => setValue("space", val, { shouldValidate: true })}
           />
-          <ErrorField message={errors.rooms?.message} />
+          <ErrorField message={errors.space?.message} />
         </div>
-        <div className="w-full">
-          <Label name={bathrooms} id="bathrooms" />
-          <QuantityHandler
-            register={register}
-            name="bathrooms"
-            className="h-11 w-full gap-0 border"
-            value={getValues("bathrooms")}
-            handler={(val) =>
-              setValue("bathrooms", val, { shouldValidate: true })
-            }
-          />
-          <ErrorField message={errors.bathrooms?.message} />
+
+        <div className="mt-6 w-full">
+          <Button
+            disabled={isSubmitting}
+            className="flex h-11 w-full items-center justify-center text-lg uppercase hover:bg-main/90 md:text-xl"
+          >
+            {isSubmitting ? (
+              <Spinner className="text-2xl text-white" />
+            ) : (
+              create
+            )}
+          </Button>
+          {serverMessage.type == "error" && (
+            <ErrorField
+              className="text-center text-lg capitalize"
+              message={serverMessage.message}
+            />
+          )}
         </div>
-      </div>
-
-      <div className="w-full">
-        <Label name={space} id="Space" className="normal-case" />
-        <QuantityHandler
-          register={register}
-          name="space"
-          className="h-11 w-full gap-0 border"
-          value={getValues("space")}
-          handler={(val) => setValue("space", val, { shouldValidate: true })}
-        />
-        <ErrorField message={errors.space?.message} />
-      </div>
-
-      <div className="mt-6 w-full">
-        <Button
-          disabled={isSubmitting}
-          className="flex h-11 w-full items-center justify-center text-lg uppercase hover:bg-main/90 md:text-xl"
-        >
-          {isSubmitting ? <Spinner className="text-2xl text-white" /> : create}
-        </Button>
-        {serverMessage && (
-          <ErrorField
-            className={`text-center text-lg capitalize ${
-              serverMessage.status === "success" ? "text-green-700" : ""
-            }`}
-            message={serverMessage.message}
-          />
-        )}
-      </div>
-    </form>
+      </form>
+    </>
   );
 }
 

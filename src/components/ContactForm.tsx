@@ -21,6 +21,7 @@ function ContactForm({ dictionary }: { dictionary: DictionaryType }) {
     handleSubmit,
     register,
     formState: { errors, isSubmitting },
+    reset,
   } = useForm<ContactSchema>({
     resolver: zodResolver(contactSchema),
     defaultValues: {
@@ -33,6 +34,7 @@ function ContactForm({ dictionary }: { dictionary: DictionaryType }) {
   async function onSubmit(data: ContactSchema) {
     const message = await sendMessage(data);
     setServerState(message);
+    if (message.type === "success") reset();
   }
 
   const isError = serverState.type === "error";
@@ -54,7 +56,7 @@ function ContactForm({ dictionary }: { dictionary: DictionaryType }) {
     >
       {serverState.message && (
         <div
-          className={`rounded-md py-2 ${isError ? "text-red-500" : "text-green-500"}`}
+          className={`rounded-md py-2 font-semibold tracking-wide ${isError ? "text-red-500" : "text-green-500"}`}
         >
           {serverState.message}
         </div>

@@ -24,9 +24,6 @@ async function page({ params }: { params: Promise<{ locale: string }> }) {
 
   return (
     <div className="container pb-16 pt-8 font-poppins">
-      <h1 className="pb-6 text-center text-2xl font-semibold capitalize text-black">
-        {dictionary.property.new.header}
-      </h1>
       <Suspense
         fallback={
           <div className="flex min-h-60 items-center justify-center">

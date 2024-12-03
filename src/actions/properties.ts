@@ -69,12 +69,15 @@ export async function createProperty(data: CreatePropertySchema) {
     });
 
     revalidatePath("/", "layout");
-    redirect("/en/profile/listings");
+    return {
+      type: "success",
+      message: "Property created successfully",
+    };
   } catch (error) {
     if (isRedirectError(error)) throw error;
 
     return {
-      status: "failed",
+      type: "failed",
       message: "something went wrong",
     };
   }

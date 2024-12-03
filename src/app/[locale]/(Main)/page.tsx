@@ -12,7 +12,7 @@ export default async function Home({
   params: Promise<{ locale: string }>;
 }) {
   const locale = (await params).locale;
-  const dictionary = await getDictionary(locale || "en");
+  const dictionary = await getDictionary(locale);
 
   return (
     <div className="relative z-10 h-full overflow-y-hidden">
