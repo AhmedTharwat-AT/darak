@@ -9,8 +9,10 @@ import { getDictionary } from "../../dictionaries";
 
 async function page({ params }: { params: Promise<{ locale: string }> }) {
   const session = await auth();
+  const locale = (await params).locale;
+
   if (!session?.user) {
-    redirect("/en/signin?callbackUrl=/en/bookmark");
+    redirect(`/${locale}/signin?callbackUrl=/${locale}/bookmark`);
   }
 
   const user: UserWithProperties = await getUser(session.user.email || "");
@@ -24,7 +26,6 @@ async function page({ params }: { params: Promise<{ locale: string }> }) {
 
   if (!bookmarkedProperties.length) return <EmptyBookmarks />;
 
-  const locale = (await params).locale;
   const dictionary = await getDictionary(locale);
 
   return (

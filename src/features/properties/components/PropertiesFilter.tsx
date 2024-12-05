@@ -98,6 +98,7 @@ function PropertiesFilter({
             <PropertyTypeMenu
               propertyType={propertyType}
               handlePropertyType={handlePropertyType}
+              className="flex px-2 rtl:flex-row-reverse"
             />
           </div>
 

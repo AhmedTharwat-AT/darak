@@ -238,6 +238,7 @@ function CreatePropertyForm({ dictionary }: { dictionary: DictionaryType }) {
             />
             <ErrorField message={errors.rooms?.message} />
           </div>
+
           <div className="w-full">
             <Label name={bathrooms} id="bathrooms" />
             <QuantityHandler

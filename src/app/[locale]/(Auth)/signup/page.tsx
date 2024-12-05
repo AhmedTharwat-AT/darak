@@ -4,12 +4,17 @@ import Link from "next/link";
 import Logo from "@/components/Logo";
 import SignupForm from "@/features/auth/components/SignupForm";
 import GoogleBtn from "@/features/auth/components/GoogleBtn";
+import { auth } from "@/auth";
+import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "Signup",
 };
 
 async function page() {
+  const session = await auth();
+  if (session?.user) redirect("/");
+
   return (
     <div className="flex flex-col items-center justify-center bg-bgLight p-5 font-poppins lg:p-14">
       <div className="w-full max-w-[600px]">

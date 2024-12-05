@@ -4,6 +4,8 @@ import Link from "next/link";
 import Logo from "@/components/Logo";
 import LoginForm from "@/features/auth/components/LoginForm";
 import GoogleBtn from "@/features/auth/components/GoogleBtn";
+import { auth } from "@/auth";
+import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "Login",
@@ -16,9 +18,10 @@ type Props = {
 };
 
 async function page(props: Props) {
-  const searchParams = await props.searchParams;
+  const callbackUrl = (await props.searchParams).callbackUrl;
 
-  const { callbackUrl } = searchParams;
+  const session = await auth();
+  if (session?.user) redirect("/");
 
   return (
     <div className="flex flex-col items-center justify-center bg-bgLight p-5 font-poppins lg:p-14">

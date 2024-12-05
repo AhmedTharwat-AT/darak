@@ -12,19 +12,22 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { ReactNode } from "react";
 
 function PropertyTypeMenu({
-  className,
-  icon = true,
   propertyType,
   handlePropertyType,
+  className,
+  downArrow = true,
   types = PROPERTY_TYPES,
+  icon,
 }: {
-  icon?: boolean;
-  className?: string;
   propertyType: PropertyTypes;
   handlePropertyType: (type: PropertyTypes) => void;
+  downArrow?: boolean;
+  className?: string;
   types?: PropertyTypes[];
+  icon?: ReactNode;
 }) {
   const { dictionary } = useTranslation();
 
@@ -33,14 +36,19 @@ function PropertyTypeMenu({
       <SelectTrigger
         id="property-type-select"
         aria-label="property-type-select"
-        icon={icon}
+        icon={downArrow}
         className={cn(
           "w-full appearance-none rounded-lg bg-white bg-none p-1 ps-2 capitalize shadow-none ring-0 focus:ring-0",
           className,
         )}
       >
-        <SelectValue className="capitalize" placeholder={propertyType} />
+        <SelectValue
+          className="capitalize"
+          placeholder={dictionary.filter.type[propertyType]}
+        />
+        {icon}
       </SelectTrigger>
+
       <SelectContent side="bottom">
         {types.map((type) => (
           <SelectItem

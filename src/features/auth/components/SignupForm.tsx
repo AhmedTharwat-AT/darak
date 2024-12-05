@@ -53,10 +53,10 @@ function SignupForm() {
   }
 
   return (
-    <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
+    <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
       {serverError && <p className="lowercase text-red-500">{serverError}</p>}
       <div>
-        <label className="mb-2 block">Email</label>
+        <label className="mb-1 block">Email</label>
         <div className="relative">
           <IoMdMail className="absolute left-3 top-1/2 size-5 -translate-y-1/2 fill-stroke" />
           <input
@@ -73,7 +73,7 @@ function SignupForm() {
       </div>
 
       <div>
-        <label className="mb-2 block">Name</label>
+        <label className="mb-1 block">Name</label>
         <div className="relative">
           <FaLock className="absolute left-3 top-1/2 size-5 -translate-y-1/2 fill-stroke" />
           <input
@@ -90,7 +90,7 @@ function SignupForm() {
       </div>
 
       <div>
-        <label className="mb-2 block">Phone</label>
+        <label className="mb-1 block">Phone</label>
         <div className="relative">
           <FaLock className="absolute left-3 top-1/2 size-5 -translate-y-1/2 fill-stroke" />
           <input
@@ -107,7 +107,7 @@ function SignupForm() {
       </div>
 
       <div>
-        <label className="mb-2 block">Password</label>
+        <label className="mb-1 block">Password</label>
         <div className="relative">
           <FaLock className="absolute left-3 top-1/2 size-5 -translate-y-1/2 fill-stroke" />
           <input
@@ -124,7 +124,7 @@ function SignupForm() {
       </div>
 
       <div>
-        <label className="mb-2 block">Confirm Password</label>
+        <label className="mb-1 block">Confirm Password</label>
         <div className="relative">
           <FaLock className="absolute left-3 top-1/2 size-5 -translate-y-1/2 fill-stroke" />
           <input
@@ -144,7 +144,7 @@ function SignupForm() {
       {/* <input name="callbackUrl" type="hidden" defaultValue={callbackUrl} /> */}
       <Button
         disabled={isSubmitting}
-        className="h-14 w-full bg-main py-4 text-xl transition-all hover:opacity-90"
+        className="!mt-8 h-14 w-full bg-main py-4 text-xl transition-all hover:opacity-90 hover:shadow-md"
         size="lg"
       >
         {isSubmitting ? <Spinner className="text-2xl text-white" /> : "Sign up"}

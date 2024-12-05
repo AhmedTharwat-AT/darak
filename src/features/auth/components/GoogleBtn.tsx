@@ -13,7 +13,7 @@ function GoogleBtn({ callbackUrl }: { callbackUrl?: string | undefined }) {
       }}
       className="mt-12"
     >
-      <button className="flex w-full items-center justify-center gap-2 rounded-lg border border-stroke py-4">
+      <button className="flex w-full items-center justify-center gap-2 rounded-lg border border-stroke py-4 transition-all hover:bg-white hover:shadow-md">
         <FcGoogle className="size-8" />
         <p>Google</p>
       </button>

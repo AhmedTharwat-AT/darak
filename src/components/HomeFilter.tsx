@@ -1,8 +1,8 @@
 "use client";
 
-import { formatCurrency } from "@/lib/utils";
 import { useTranslation } from "@/context/TranslationProvider";
 import useFilter from "@/hooks/useFilter";
+import { formatCurrency } from "@/lib/utils";
 
 import Image from "next/image";
 import LocationInput from "./LocationInput";
@@ -25,10 +25,13 @@ function HomeFilter() {
     handlePriceRange,
     propertyType,
     handlePropertyType,
-    location,
+    location: currentLocation,
     handleLocation,
   } = useFilter();
+
   const { dictionary } = useTranslation();
+
+  const { location, mode, price, type } = dictionary.filter;
 
   return (
     <div className="mt-14 flex w-full font-poppins">
@@ -41,7 +44,7 @@ function HomeFilter() {
             disabled={propertyMode === "rent"}
             onClick={() => handlePropertyMode("rent")}
           >
-            {dictionary.filter.mode.rent}
+            {mode.rent}
           </Button>
 
           <Button
@@ -51,57 +54,67 @@ function HomeFilter() {
             disabled={propertyMode === "sell"}
             onClick={() => handlePropertyMode("sell")}
           >
-            {dictionary.filter.mode.sell}
+            {mode.sell}
           </Button>
         </div>
 
         <div className="flex w-full items-center justify-between gap-4 rounded-lg rounded-tl-none bg-white p-4 shadow-md max-md:flex-col max-md:justify-center max-sm:max-w-96 md:p-6 lg:gap-6">
           <div className="flex h-24 w-full max-w-96 flex-col justify-between rounded-md border border-grayLight bg-bgLight p-4 sm:max-w-80">
-            <h3 className="text-sm uppercase text-font lg:text-base">
-              {dictionary.filter.location.label}
-            </h3>
+            <label
+              htmlFor="location"
+              className="text-sm uppercase text-font lg:text-base"
+            >
+              {location.label}
+            </label>
 
             <LocationInput
               icon={
                 <Image src={locationIcon} alt="search" width={24} height={24} />
               }
-              currentLocation={location}
+              currentLocation={currentLocation}
               handleLocation={handleLocation}
-              className="h-auto appearance-none truncate border-none bg-bgLight bg-none p-0 text-base capitalize lg:text-xl"
+              className="h-auto w-full appearance-none truncate border-none bg-bgLight bg-none p-0 text-base capitalize lg:text-xl"
             />
           </div>
 
           <div className="flex h-24 w-full max-w-96 flex-col justify-between rounded-md border border-grayLight bg-bgLight p-4 sm:max-w-80">
-            <h3 className="text-sm uppercase text-font lg:text-base">
-              {dictionary.filter.type.label}
-            </h3>
+            <label
+              htmlFor="property-type-select"
+              className="text-sm uppercase text-font lg:text-base"
+            >
+              {type.label}
+            </label>
 
             <div className="flex items-center justify-between">
               <PropertyTypeMenu
                 propertyType={propertyType}
                 handlePropertyType={handlePropertyType}
-                icon={false}
-                className="h-auto appearance-none border-none bg-bgLight bg-none p-0 text-base capitalize lg:text-xl rtl:justify-end"
-              />
-
-              <Image
-                src={houseIcon}
-                alt="house"
-                className="min-w-6 shrink-0"
-                width={24}
-                height={24}
+                downArrow={false}
+                icon={
+                  <Image
+                    src={houseIcon}
+                    alt="house"
+                    className="min-w-6 shrink-0"
+                    width={24}
+                    height={24}
+                  />
+                }
+                className="flex h-auto appearance-none items-center justify-between border-none bg-bgLight bg-none p-0 text-base capitalize lg:text-xl rtl:flex-row-reverse"
               />
             </div>
           </div>
 
           <div className="flex h-24 w-full max-w-96 flex-col justify-between rounded-md border border-grayLight bg-bgLight p-4 sm:max-w-80">
-            <h3 className="text-sm uppercase text-font lg:text-base">
-              {dictionary.filter.price}
-            </h3>
+            <label
+              htmlFor="price"
+              className="text-sm uppercase text-font lg:text-base"
+            >
+              {price}
+            </label>
 
             <div className="flex items-center justify-between gap-x-1">
               <Popover>
-                <PopoverTrigger>
+                <PopoverTrigger id="price">
                   <div className="flex flex-wrap items-center gap-x-2">
                     <p className="h-auto appearance-none truncate bg-none p-0 text-sm capitalize">
                       {formatCurrency(priceRange.from)}
