@@ -61,15 +61,14 @@ function HomeFilter() {
               {dictionary.filter.location.label}
             </h3>
 
-            <div className="flex items-center justify-between gap-1">
-              <LocationInput
-                currentLocation={location}
-                handleLocation={handleLocation}
-                className="h-auto appearance-none truncate border-none bg-bgLight bg-none p-0 text-base capitalize lg:text-xl"
-              />
-
-              <Image src={locationIcon} alt="search" width={24} height={24} />
-            </div>
+            <LocationInput
+              icon={
+                <Image src={locationIcon} alt="search" width={24} height={24} />
+              }
+              currentLocation={location}
+              handleLocation={handleLocation}
+              className="h-auto appearance-none truncate border-none bg-bgLight bg-none p-0 text-base capitalize lg:text-xl"
+            />
           </div>
 
           <div className="flex h-24 w-full max-w-96 flex-col justify-between rounded-md border border-grayLight bg-bgLight p-4 sm:max-w-80">

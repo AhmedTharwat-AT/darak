@@ -27,7 +27,7 @@ async function PropertiesList({
   });
 
   if (!properties || properties.length === 0)
-    return <Error message="No properties to load" />;
+    return <Error message="no properties to load" />;
 
   const session = await auth();
   let user: UserWithProperties;
@@ -81,8 +81,8 @@ async function PropertiesList({
           return (
             <PropertyItem
               key={property.id}
-              isBookmarked={isBookmarked}
               property={property}
+              isBookmarked={isBookmarked}
               dictionary={dictionary}
               locale={locale}
             />

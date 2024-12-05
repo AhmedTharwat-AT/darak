@@ -46,9 +46,15 @@ export type LoginSchema = z.infer<typeof loginSchema>;
 export const registerSchema = z
   .object({
     email: z.string().email("invalid email address"),
-    name: z.string().min(4, "name is less than 4 chars!"),
+    name: z
+      .string()
+      .min(4, "name is less than 4 chars!")
+      .max(20, "name is more than 20 chars!"),
     phone: zPhoneNumber,
-    password: z.string().min(8, "password is less than 8 chars"),
+    password: z
+      .string()
+      .min(8, "password is less than 8 chars")
+      .max(20, "password is more than 20 chars"),
     confirm_password: z.string(),
   })
   .superRefine(({ confirm_password, password }, ctx) => {
@@ -65,7 +71,10 @@ export type RegisterSchema = z.infer<typeof registerSchema>;
 
 export const createPropertySchema = z
   .object({
-    title: z.string().min(4, "Name is less than 4 chars!"),
+    title: z
+      .string()
+      .min(4, "Title is less than 4 chars!")
+      .max(100, "Title is more than 100 chars!"),
     description: z
       .string()
       .min(10, "Description is less than 10 chars!")
@@ -110,7 +119,11 @@ export const createPropertySchema = z
 export type CreatePropertySchema = z.infer<typeof createPropertySchema>;
 
 export const editUserInfoSchema = z.object({
-  name: z.string().min(4, "name is less than 4 chars!").optional(),
+  name: z
+    .string()
+    .min(4, "name is less than 4 chars!")
+    .max(20, "name is more than 20 chars!")
+    .optional(),
   phone: zPhoneNumber.optional(),
   whatsapp: zPhoneNumber.optional(),
   email: z.string().email("invalid email address"),
@@ -119,9 +132,15 @@ export const editUserInfoSchema = z.object({
 export type EditUserInfoSchema = z.infer<typeof editUserInfoSchema>;
 
 export const contactSchema = z.object({
-  name: z.string().min(3, "name is less than 4 chars!"),
+  name: z
+    .string()
+    .min(3, "name is less than 4 chars!")
+    .max(20, "name is more than 20 chars!"),
   email: z.string().email("invalid email address"),
-  message: z.string().min(4, "message is less than 4 chars!"),
+  message: z
+    .string()
+    .min(4, "message is less than 4 chars!")
+    .max(500, "message is more than 500 chars!"),
 });
 
 export type ContactSchema = z.infer<typeof contactSchema>;

@@ -20,27 +20,20 @@ function DeletePropertyForm({
     type: "",
   });
 
+  const isError = state.type === "error";
+
   useEffect(() => {
     if (!state.message) return;
 
-    if (state.type === "success") {
-      toast({
-        description: state.message,
-        variant: "app",
-        className: "text-black p-5",
-        uniqueId: "delete-property",
-      });
-    } else {
-      toast({
-        description: state.message,
-        variant: "destructive",
-        className: "text-white p-5",
-        uniqueId: "delete-property",
-      });
-    }
+    toast({
+      description: state.message,
+      variant: isError ? "destructive" : "app",
+      className: isError ? "text-white p-5" : "text-black p-5",
+      uniqueId: "delete-property",
+    });
 
     onCloseModal();
-  }, [state.message, onCloseModal, state.type]);
+  }, [state.message, onCloseModal, state.type, isError]);
 
   return (
     <form action={formAction}>

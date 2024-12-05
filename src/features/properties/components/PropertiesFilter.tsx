@@ -8,9 +8,9 @@ import QuantityHandler from "@/components/QuantityHandler";
 import Slider from "@/components/Slider";
 import { Button } from "@/components/ui/button";
 
-import LocationIcon from "@/components/LocationIcon";
-import useFilter from "@/hooks/useFilter";
 import { useTranslation } from "@/context/TranslationProvider";
+import useFilter from "@/hooks/useFilter";
+import LocationIcon from "@/components/LocationIcon";
 
 function PropertiesFilter({
   className,
@@ -83,11 +83,11 @@ function PropertiesFilter({
             </h3>
             <div className="flex w-full items-center rounded-lg bg-white p-1 ps-2">
               <LocationInput
+                icon={<LocationIcon />}
                 currentLocation={location}
                 handleLocation={handleLocation}
                 className="w-full border-none p-0"
               />
-              <LocationIcon />
             </div>
           </div>
 

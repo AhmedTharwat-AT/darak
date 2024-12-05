@@ -32,7 +32,6 @@ function QuantityHandler({
         {...register?.(name)}
         value={value}
         onChange={(e) => {
-          console.log(name, e.target.value);
           handler(e.target.value);
         }}
       />

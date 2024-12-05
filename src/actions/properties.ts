@@ -26,7 +26,7 @@ export async function createProperty(data: CreatePropertySchema) {
 
     const user: User = await getUser(session.user?.email);
     if (!user || user.email !== session.user.email) {
-      signOut({ redirectTo: "/en/signin" });
+      await signoutAction();
     }
 
     // upload images to cloudinary
@@ -77,16 +77,25 @@ export async function createProperty(data: CreatePropertySchema) {
     if (isRedirectError(error)) throw error;
 
     return {
-      type: "failed",
+      type: "error",
       message: "something went wrong",
     };
   }
 }
 export async function deleteProperty({ propertyId }: { propertyId: string }) {
   const session = await auth();
-  if (!session) redirect("/en/signin");
+  if (!session)
+    return {
+      type: "error",
+      message: "Please sign in first!",
+    };
 
   try {
+    const user: User = await getUser(session?.user?.email);
+    if (!user || user.email !== session?.user?.email) {
+      await signoutAction();
+    }
+
     const property = await prisma.property.findUnique({
       where: {
         id: propertyId,
@@ -116,24 +125,28 @@ export async function deleteProperty({ propertyId }: { propertyId: string }) {
     revalidatePath("/", "layout");
 
     return {
-      message: "Property was deleted successfully",
       type: "success",
+      message: "Property was deleted successfully",
     };
   } catch (error) {
+    if (isRedirectError(error)) throw error;
+
     return {
-      message: "Something went wrong",
       type: "error",
+      message: "Something went wrong",
     };
   }
 }
 
-export async function bookmarkProperty(state: {
+export async function bookmarkProperty({
+  propertyId,
+}: {
   message: string;
   propertyId: string;
 }) {
   try {
     const session = await auth();
-    if (!session?.user) return { ...state, message: "Please sign in first!" };
+    if (!session?.user) return { propertyId, message: "Please sign in first!" };
 
     const user: User = await getUser(session?.user?.email);
     if (!user || user.email !== session?.user?.email) {
@@ -143,33 +156,35 @@ export async function bookmarkProperty(state: {
     await prisma.bookmarkedProperty.create({
       data: {
         userId: user.id,
-        propertyId: state.propertyId,
+        propertyId: propertyId,
       },
     });
 
     revalidatePath("/", "layout");
 
-    return { ...state, message: "Property bookmarked!" };
+    return { propertyId, message: "Property bookmarked!" };
   } catch (err) {
     if (isRedirectError(err)) throw err;
 
     if (err instanceof PrismaClientKnownRequestError) {
       if (err.code === "P2002") {
-        return { ...state, message: "This property is already bookmarked!" };
+        return { propertyId, message: "This property is already bookmarked!" };
       }
     }
 
-    return { ...state, message: "Unexpected error bookmarking property!" };
+    return { propertyId, message: "Unexpected error bookmarking property!" };
   }
 }
 
-export async function remvoeBookmarked(state: {
+export async function removeBookmarked({
+  propertyId,
+}: {
   message: string;
   propertyId: string;
 }) {
   try {
     const session = await auth();
-    if (!session?.user) return { ...state, message: "Please sign in first!" };
+    if (!session?.user) return { propertyId, message: "Please sign in first!" };
 
     const user: User = await getUser(session.user.email);
     if (!user || user.email !== session?.user?.email) {
@@ -179,7 +194,7 @@ export async function remvoeBookmarked(state: {
     await prisma.bookmarkedProperty.delete({
       where: {
         propertyId_userId: {
-          propertyId: state.propertyId,
+          propertyId: propertyId,
           userId: user.id,
         },
       },
@@ -187,16 +202,16 @@ export async function remvoeBookmarked(state: {
 
     revalidatePath("/", "layout");
 
-    return { ...state, message: "Property removed!" };
+    return { propertyId, message: "Property removed!" };
   } catch (err) {
     if (isRedirectError(err)) throw err;
 
     if (err instanceof PrismaClientKnownRequestError) {
       if (err.code === "P2025") {
-        return { ...state, message: "This property is already removed!" };
+        return { propertyId, message: "This property is already removed!" };
       }
     }
 
-    return { ...state, message: "Unexpected error removing property!" };
+    return { propertyId, message: "Unexpected error removing property!" };
   }
 }

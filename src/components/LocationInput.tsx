@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { useState, useTransition } from "react";
+import { ReactNode, useState, useTransition } from "react";
 import { useTranslation } from "@/context/TranslationProvider";
 import useLocale from "@/hooks/useLocale";
 import data from "../../data/countries.json";
@@ -21,15 +21,18 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Check } from "lucide-react";
+import LocationIcon from "./LocationIcon";
 
 function LocationInput({
   className,
   currentLocation,
   handleLocation,
+  icon,
 }: {
   className?: string;
   currentLocation: string;
   handleLocation: (value: string) => void;
+  icon?: ReactNode | undefined;
 }) {
   const [open, setOpen] = useState(false);
   const { dictionary } = useTranslation();
@@ -62,6 +65,7 @@ function LocationInput({
           }}
         >
           {currentLocation || dictionary.filter.location.placeholder}
+          {icon}
         </Button>
       </PopoverTrigger>
 

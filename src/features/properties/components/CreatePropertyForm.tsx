@@ -1,25 +1,25 @@
 "use client";
 
+import { createProperty } from "@/actions/properties";
+import { DictionaryType } from "@/app/[locale]/dictionaries";
+import { FileWithPreview, PropertyTypes } from "@/lib/types";
+import { createPropertySchema, CreatePropertySchema } from "@/lib/zodSchemas";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { isRedirectError } from "next/dist/client/components/redirect";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { createPropertySchema, CreatePropertySchema } from "@/lib/zodSchemas";
-import { createProperty } from "@/actions/properties";
-import { isRedirectError } from "next/dist/client/components/redirect";
-import { FileWithPreview, PropertyTypes } from "@/lib/types";
-import { DictionaryType } from "@/app/[locale]/dictionaries";
 
+import DropImages from "@/components/DropImages";
 import ErrorField from "@/components/form/ErrorField";
 import Input from "@/components/form/Input";
 import Label from "@/components/form/Label";
 import Textarea from "@/components/form/Textarea";
+import LocationIcon from "@/components/LocationIcon";
+import LocationInput from "@/components/LocationInput";
 import PropertyTypeMenu from "@/components/PropertyTypeMenu";
 import QuantityHandler from "@/components/QuantityHandler";
-import { Button } from "@/components/ui/button";
-import LocationInput from "@/components/LocationInput";
-import LocationIcon from "@/components/LocationIcon";
 import Spinner from "@/components/Spinner";
-import DropImages from "@/components/DropImages";
+import { Button } from "@/components/ui/button";
 import PropertyCreated from "./PropertyCreated";
 
 function CreatePropertyForm({ dictionary }: { dictionary: DictionaryType }) {
@@ -77,7 +77,7 @@ function CreatePropertyForm({ dictionary }: { dictionary: DictionaryType }) {
       if (isRedirectError(err)) throw err;
 
       setServerMessage({
-        type: "failed",
+        type: "error",
         message: "Something went wrong!",
       });
     }
@@ -144,7 +144,7 @@ function CreatePropertyForm({ dictionary }: { dictionary: DictionaryType }) {
 
         <div className="flex w-full gap-4 max-md:flex-col">
           <div className="w-full">
-            <Label name={type} />
+            <Label name={type} id="property-type-select" />
             <PropertyTypeMenu
               className="border"
               propertyType={getValues("type") as PropertyTypes}
@@ -160,9 +160,10 @@ function CreatePropertyForm({ dictionary }: { dictionary: DictionaryType }) {
             <Label name={price} id="price" />
             <div className="flex overflow-hidden rounded-lg">
               <Input
+                dir="ltr"
                 register={register}
                 name="price"
-                placeholder="enter whatsapp number"
+                placeholder="enter property price"
               />
               <div className="flex select-none items-center justify-center self-stretch bg-gray-600 px-2 text-white">
                 <span>EGP</span>
@@ -176,21 +177,21 @@ function CreatePropertyForm({ dictionary }: { dictionary: DictionaryType }) {
           <Label name={location} />
           <div className="flex w-full items-center rounded-lg border bg-white p-1 ps-2">
             <LocationInput
+              icon={<LocationIcon />}
               className="w-full border-none p-0"
               currentLocation={getValues("location")}
               handleLocation={(val) =>
                 setValue("location", val, { shouldValidate: true })
               }
             />
-            <LocationIcon />
           </div>
           <ErrorField message={errors.location?.message} />
         </div>
 
-        <div className="flex w-full gap-4 max-md:flex-col">
+        <div dir="ltr" className="flex w-full gap-4 max-md:flex-col">
           <div className="w-full">
-            <Label name="phone" />
-            <div className="flex overflow-hidden rounded-lg rtl:flex-row-reverse">
+            <Label name="phone" className="rtl:text-end" />
+            <div className="flex overflow-hidden rounded-lg">
               <div className="flex select-none items-center justify-center self-stretch bg-gray-600 px-2 text-white">
                 <span>+20</span>
               </div>
@@ -198,15 +199,14 @@ function CreatePropertyForm({ dictionary }: { dictionary: DictionaryType }) {
                 register={register}
                 name="phone"
                 placeholder="Enter phone number"
-                className="rtl:text-end"
               />
             </div>
             <ErrorField message={errors.phone?.message} />
           </div>
 
           <div className="w-full">
-            <Label name="whatsapp" />
-            <div className="flex overflow-hidden rounded-lg rtl:flex-row-reverse">
+            <Label name="whatsapp" className="rtl:text-end" />
+            <div className="flex overflow-hidden rounded-lg">
               <div className="flex select-none items-center justify-center self-stretch bg-gray-600 px-2 text-white">
                 <span>+20</span>
               </div>
@@ -214,7 +214,6 @@ function CreatePropertyForm({ dictionary }: { dictionary: DictionaryType }) {
                 register={register}
                 name="whatsapp"
                 placeholder="Enter whatsapp number"
-                className="rtl:text-end"
               />
             </div>
             <ErrorField message={errors.whatsapp?.message} />
@@ -255,7 +254,7 @@ function CreatePropertyForm({ dictionary }: { dictionary: DictionaryType }) {
         </div>
 
         <div className="w-full">
-          <Label name={space} id="Space" className="normal-case" />
+          <Label name={space} id="space" className="normal-case" />
           <QuantityHandler
             register={register}
             name="space"

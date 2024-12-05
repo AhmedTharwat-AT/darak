@@ -5,14 +5,17 @@ export default function Input({
   placeholder,
   className,
   register,
+  dir,
 }: {
   name: string;
   placeholder: string;
   className?: string;
   register?: any;
+  dir?: string;
 }) {
   return (
     <input
+      dir={dir}
       type="text"
       id={name}
       name={name}

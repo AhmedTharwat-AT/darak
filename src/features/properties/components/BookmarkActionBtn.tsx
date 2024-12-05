@@ -1,6 +1,6 @@
 "use client";
 
-import { bookmarkProperty, remvoeBookmarked } from "@/actions/properties";
+import { bookmarkProperty, removeBookmarked } from "@/actions/properties";
 import { toast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
@@ -22,7 +22,7 @@ function BookmarkActionBtn({
   const isAdding = type === "add";
   const router = useRouter();
   const [state, formAction, isPending] = useActionState(
-    isAdding ? bookmarkProperty : remvoeBookmarked,
+    isAdding ? bookmarkProperty : removeBookmarked,
     {
       propertyId,
       message: "",
@@ -31,12 +31,14 @@ function BookmarkActionBtn({
 
   useEffect(() => {
     if (!state.message) return;
+
     toast({
       description: state.message,
       variant: "app",
       className: "text-black p-5",
       uniqueId: "bookmark-property",
     });
+
     router.refresh();
   }, [state, router]);
 
