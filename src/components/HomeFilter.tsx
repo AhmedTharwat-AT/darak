@@ -58,8 +58,8 @@ function HomeFilter() {
           </Button>
         </div>
 
-        <div className="flex w-full items-center justify-between gap-4 rounded-lg rounded-tl-none bg-white p-4 shadow-md max-md:flex-col max-md:justify-center max-sm:max-w-96 md:p-6 lg:gap-6">
-          <div className="flex h-24 w-full max-w-96 flex-col justify-between rounded-md border border-grayLight bg-bgLight p-4 sm:max-w-80">
+        <div className="flex w-full items-center justify-between gap-4 rounded-lg rounded-tl-none bg-white p-4 shadow-md max-md:flex-col max-md:justify-center md:p-6 lg:gap-6">
+          <div className="flex h-24 w-full flex-col justify-between rounded-md border border-grayLight bg-bgLight p-4">
             <label
               htmlFor="location"
               className="text-sm uppercase text-font lg:text-base"
@@ -77,7 +77,7 @@ function HomeFilter() {
             />
           </div>
 
-          <div className="flex h-24 w-full max-w-96 flex-col justify-between rounded-md border border-grayLight bg-bgLight p-4 sm:max-w-80">
+          <div className="flex h-24 w-full flex-col justify-between rounded-md border border-grayLight bg-bgLight p-4">
             <label
               htmlFor="property-type-select"
               className="text-sm uppercase text-font lg:text-base"
@@ -104,7 +104,7 @@ function HomeFilter() {
             </div>
           </div>
 
-          <div className="flex h-24 w-full max-w-96 flex-col justify-between rounded-md border border-grayLight bg-bgLight p-4 sm:max-w-80">
+          <div className="flex h-24 w-full flex-col justify-between rounded-md border border-grayLight bg-bgLight p-4">
             <label
               htmlFor="price"
               className="text-sm uppercase text-font lg:text-base"

@@ -2,6 +2,7 @@
 
 import { useAnimation } from "@/context/AnimationProvider";
 import { AnimatePresence, motion, MotionProps } from "framer-motion";
+import Spinner from "../Spinner";
 
 interface CustomMotionProps extends MotionProps {
   className?: string;
@@ -19,7 +20,11 @@ export default function Transition({
 
   return (
     <AnimatePresence mode="wait">
-      {!isAnimating && (
+      {isAnimating ? (
+        <div className="container flex h-full items-center justify-center">
+          <Spinner />
+        </div>
+      ) : (
         <div>
           <CustomMotion
             // key={pathname}

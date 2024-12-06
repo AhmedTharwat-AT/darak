@@ -36,7 +36,7 @@ function LocationInput({
 }) {
   const [open, setOpen] = useState(false);
   const { dictionary } = useTranslation();
-  const [_, startTransition] = useTransition();
+  const [pending, startTransition] = useTransition();
   const { locale } = useLocale();
 
   const locations: {
@@ -82,6 +82,7 @@ function LocationInput({
                   locale === "ar"
                     ? location.city_name_ar
                     : location.city_name_en;
+
                 return (
                   <CommandItem
                     key={location.id}
