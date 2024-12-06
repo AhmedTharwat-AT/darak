@@ -23,6 +23,7 @@ export default function AnimatedLink({
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
+
     if (pathname === href || isAnimating) return;
 
     setIsAnimating(true);
@@ -30,6 +31,7 @@ export default function AnimatedLink({
     // prefetching the next page while displaying the exit animation
     router.prefetch(newHref);
 
+    // a delay untill the exit animations ends
     setTimeout(() => {
       startTransition(() => {
         router.push(newHref);

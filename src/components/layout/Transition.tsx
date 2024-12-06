@@ -27,7 +27,6 @@ export default function Transition({
       ) : (
         <div>
           <CustomMotion
-            // key={pathname}
             className="fixed inset-0 z-[2000] min-h-screen bg-blue-600"
             initial={{ x: "100%" }}
             animate={{ x: ["100%", "-100%"], scaleX: [1, 2, 1] }}
@@ -35,7 +34,6 @@ export default function Transition({
           />
 
           <CustomMotion
-            // key={pathname + "a"}
             className="h-full w-full"
             initial={{ opacity: 0, x: "100%" }}
             animate={{ opacity: 1, x: " 0% " }}
