@@ -111,7 +111,7 @@ export const createPropertySchema = z
       ctx.addIssue({
         code: "custom",
         message: "Provide atleast one contact method!",
-        path: ["whatsapp"],
+        path: ["whatsapp", "phone"],
       });
     }
   });

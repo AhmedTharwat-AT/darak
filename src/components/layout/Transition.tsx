@@ -8,7 +8,6 @@ interface CustomMotionProps extends MotionProps {
   className?: string;
 }
 
-// Create a new component that uses the custom props
 const CustomMotion = motion<CustomMotionProps>("div");
 
 export default function Transition({

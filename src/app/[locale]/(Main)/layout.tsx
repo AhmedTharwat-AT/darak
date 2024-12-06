@@ -17,10 +17,3 @@ export default function MainLayout({
     </div>
   );
 }
-
-// "overrides": {
-//   "@types/react": "npm:types-react@19.0.0-rc.1",
-//   "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1",
-//   "react": "19.0.0-rc-69d4b800-20241021",
-//   "react-dom": "19.0.0-rc-69d4b800-20241021"
-// }
