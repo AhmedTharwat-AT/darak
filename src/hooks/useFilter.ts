@@ -54,7 +54,6 @@ function useFilter() {
   );
 
   // helper to set search params
-
   const createAllQueryString = useCallback(() => {
     const params = new URLSearchParams(searchParams.toString());
 
@@ -116,8 +115,8 @@ function useFilter() {
     setPropertyMode("rent");
     setRooms(1);
     setBathrooms(1);
-    setPriceRange({ from: 100000, to: 1000_000 });
-    setSpace({ from: 50, to: 200 });
+    setPriceRange({ from: 100_000, to: 10_000_000 });
+    setSpace({ from: 10, to: 2000 });
     setLocation("");
     router.push(pathWithlocale, { scroll: false });
   }
