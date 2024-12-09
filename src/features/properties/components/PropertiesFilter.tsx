@@ -43,7 +43,7 @@ function PropertiesFilter({
   return (
     <div
       className={cn(
-        "top-4 h-full max-h-screen w-full shrink-0 rounded-lg bg-bgDark p-6 font-poppins md:sticky md:overflow-y-auto",
+        "top-4 h-full max-h-fit w-full shrink-0 overflow-x-hidden rounded-lg bg-bgDark p-6 font-poppins md:sticky md:overflow-y-auto",
         className,
       )}
     >
@@ -183,7 +183,7 @@ function PropertiesFilter({
             />
           </div>
 
-          <div className="flex justify-between gap-4">
+          <div className="flex justify-center gap-4 md:justify-between">
             <Button
               onClick={reset}
               className="w-32 rounded-lg border border-main bg-transparent font-medium capitalize text-main"
