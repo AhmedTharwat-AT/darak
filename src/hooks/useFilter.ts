@@ -42,7 +42,7 @@ function useFilter() {
           },
   );
   const [space, setSpace] = useState<{ from: number; to: number }>(() =>
-    searchParams.get("price")
+    searchParams.get("space")
       ? {
           from: Number(searchParams.get("space")?.split("-")[0]),
           to: Number(searchParams.get("space")?.split("-")[1]),
