@@ -4,7 +4,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: {
     template: "%s | Darak",
-    default: "Darak | Get Your Real State",
+    default: "Darak | Get Your Real Estate",
   },
   description: "",
 };
