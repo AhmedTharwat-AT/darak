@@ -40,7 +40,7 @@ export default function Transition({
             exit={{
               opacity: 0,
               x: "10%",
-              transition: { ease: "easeIn", duration: 0.195, delay: 0 },
+              transition: { ease: "easeIn", duration: 0.2, delay: 0 },
             }}
           >
             {children}
