@@ -94,6 +94,7 @@ async function page(props: {
               <p className="break-all text-xl font-bold sm:text-3xl">
                 {formatCurrency(property.price, locale)}
               </p>
+
               <PropertyContacts property={property} />
             </div>
           </div>

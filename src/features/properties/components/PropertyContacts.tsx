@@ -9,6 +9,7 @@ function PropertyContacts({ property }: { property: PropertyWithImages }) {
     : property.owner?.whatsapp
       ? `https://wa.me/${property.owner?.whatsapp}`
       : "";
+
   const phoneLink = property.phone
     ? `tel:${property.phone}`
     : property.owner?.phone
@@ -25,6 +26,7 @@ function PropertyContacts({ property }: { property: PropertyWithImages }) {
           </Button>
         </a>
       )}
+
       {whatsappLink && (
         <a href={whatsappLink} target="_blank" title={whatsappLink}>
           <Button className="bg-[#67C15E]">
@@ -33,10 +35,11 @@ function PropertyContacts({ property }: { property: PropertyWithImages }) {
           </Button>
         </a>
       )}
-      {!phoneLink && !whatsappLink && (
-        <Button className="space-x-2 bg-red-500 capitalize text-white">
-          <span className="text-xl">no contacts</span>
-        </Button>
+
+      {!whatsappLink && !phoneLink && (
+        <p className="rounded-lg border border-gray-300 px-2 py-2">
+          no contact info
+        </p>
       )}
     </div>
   );
