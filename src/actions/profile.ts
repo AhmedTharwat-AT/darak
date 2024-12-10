@@ -3,7 +3,7 @@
 import { auth, signOut } from "@/auth";
 import prisma from "@/lib/prisma_db";
 import { getDataURI, getProfilePublicId } from "@/lib/utils";
-import { EditUserInfoSchema } from "@/lib/zodSchemas";
+import { editUserInfoSchema, EditUserInfoSchema } from "@/lib/zodSchemas";
 import { getUser } from "@/services/prismaApi";
 import { User } from "@prisma/client";
 import { v2 as cloudinary } from "cloudinary";
@@ -25,6 +25,8 @@ export async function editUserInfo(data: EditUserInfoSchema) {
     if (data.email !== session.user.email) {
       signOut({ redirectTo: "/signin" });
     }
+
+    editUserInfoSchema.parse(data);
 
     await prisma.user.update({
       where: { email: data.email },
@@ -48,12 +50,14 @@ export async function editUserInfo(data: EditUserInfoSchema) {
     };
   }
 }
+
 const supportedImageTypes = [
   "image/jpg",
   "image/jpeg",
   "image/png",
   "image/webp",
 ];
+
 export async function changeProfilePicture(
   _state: { message: string; status: string },
   data: FormData,

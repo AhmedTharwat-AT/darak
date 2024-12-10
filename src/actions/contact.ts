@@ -1,10 +1,12 @@
 "use server";
 
 import emailjs from "@emailjs/nodejs";
-import { ContactSchema } from "@/lib/zodSchemas";
+import { contactSchema, ContactSchema } from "@/lib/zodSchemas";
 
 export async function sendMessage(data: ContactSchema) {
   try {
+    contactSchema.parse(data);
+
     await emailjs.send(
       process.env.EMAILJS_SERVICE_ID as string,
       process.env.EMAILJS_TEMPLATE_ID as string,

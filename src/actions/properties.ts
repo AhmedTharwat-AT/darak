@@ -3,7 +3,7 @@
 import { auth, signOut } from "@/auth";
 import prisma from "@/lib/prisma_db";
 import { getDataURI } from "@/lib/utils";
-import { CreatePropertySchema } from "@/lib/zodSchemas";
+import { createPropertySchema, CreatePropertySchema } from "@/lib/zodSchemas";
 import { getUser } from "@/services/prismaApi";
 import { User } from "@prisma/client";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
@@ -12,6 +12,7 @@ import { revalidatePath } from "next/cache";
 import { isRedirectError } from "next/dist/client/components/redirect";
 import { redirect } from "next/navigation";
 import { signoutAction } from "./auth";
+import { create } from "domain";
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -28,6 +29,8 @@ export async function createProperty(data: CreatePropertySchema) {
     if (!user || user.email !== session.user.email) {
       await signoutAction();
     }
+
+    createPropertySchema.parse(data);
 
     // upload images to cloudinary
     const images = await Promise.all(

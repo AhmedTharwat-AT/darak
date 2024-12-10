@@ -104,6 +104,12 @@ export const createPropertySchema = z
       .custom<FileWithPreview[]>()
       .refine((files) => files.length <= 3 && files.length > 0, {
         message: "Please upload maximum 3 images!",
+      })
+      .refine((files) => files.every((f) => f.size <= 1000_000), {
+        message: "Please upload images smaller than 1mb!",
+      })
+      .refine((files) => files.every((f) => f.type.startsWith("image")), {
+        message: "please select valid images type (jpg , png , jpeg , webp)!",
       }),
   })
   .superRefine(({ whatsapp, phone }, ctx) => {

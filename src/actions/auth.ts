@@ -4,13 +4,15 @@ import prisma from "@/lib/prisma_db";
 import { auth, signIn, signOut } from "@/auth";
 import { AuthError } from "next-auth";
 import { isRedirectError } from "next/dist/client/components/redirect";
-import { LoginSchema, RegisterSchema } from "@/lib/zodSchemas";
+import { LoginSchema, registerSchema, RegisterSchema } from "@/lib/zodSchemas";
 import { hash } from "bcryptjs";
 import { redirect } from "next/navigation";
 
 export async function createUser(data: RegisterSchema) {
-  const { email, password, name, phone } = data;
   try {
+    registerSchema.parse(data);
+
+    const { email, password, name, phone } = data;
     // check if user exists
     const user = await prisma.user.findUnique({
       where: {

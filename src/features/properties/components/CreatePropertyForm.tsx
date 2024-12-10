@@ -33,7 +33,6 @@ function CreatePropertyForm({ dictionary }: { dictionary: DictionaryType }) {
     formState: { errors, isSubmitting },
     getValues,
     setValue,
-    setError,
     reset,
   } = useForm<CreatePropertySchema>({
     resolver: zodResolver(createPropertySchema),
@@ -132,12 +131,12 @@ function CreatePropertyForm({ dictionary }: { dictionary: DictionaryType }) {
                 shouldValidate: true,
               })
             }
-            setError={(message: string) =>
-              setError("images", {
-                type: "validate",
-                message,
-              })
-            }
+            // setError={(message: string) =>
+            //   setError("images", {
+            //     type: "validate",
+            //     message,
+            //   })
+            // }
           />
           <ErrorField message={errors.images?.message} />
         </div>

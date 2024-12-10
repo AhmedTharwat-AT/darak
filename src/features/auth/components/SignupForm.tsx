@@ -46,6 +46,7 @@ function SignupForm() {
 
       if (err instanceof Error) {
         setServerError(err.message);
+        return;
       }
 
       setServerError("Problem with the server!");

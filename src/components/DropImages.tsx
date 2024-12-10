@@ -3,24 +3,24 @@ import Image from "next/image";
 import { useCallback } from "react";
 import { FileWithPath, useDropzone } from "react-dropzone";
 import { ImCross } from "react-icons/im";
+import ErrorField from "./form/ErrorField";
 
 function DropImages({
   images,
   setImages,
-  setError,
 }: {
   images: FileWithPreview[];
   setImages: (images: FileWithPreview[]) => void;
-  setError: (message: string) => void;
 }) {
   const onDrop = useCallback(
     (acceptedimages: FileWithPath[]) => {
       const currFile = acceptedimages[0];
       // check if file is larger than 1mb
-      if (currFile.size > 1000000) {
-        setError("please select images smaller than 1mb");
-        return;
-      }
+      // if (currFile?.size > 1000000) {
+      //   setError("please select images smaller than 1mb");
+      //   return;
+      // }
+
       // check if file already exist
       const newimages: FileWithPreview[] = [
         ...images.filter((f) => f.name !== currFile.name),
@@ -28,23 +28,28 @@ function DropImages({
           preview: URL.createObjectURL(currFile),
         }),
       ];
+
       setImages(newimages);
     },
 
-    [images, setImages, setError],
+    [images, setImages],
   );
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    onDrop,
-    accept: {
-      "image/png": [".png", ".jpg", ".jpeg", ".webp"],
-    },
-    maxFiles: 3,
-    multiple: true,
-    onError: () =>
-      setError("please select valid images type (jpg , png , jpeg , webp)"),
-    disabled: images.length >= 3,
-  });
+  const { getRootProps, getInputProps, isDragActive, fileRejections } =
+    useDropzone({
+      onDropAccepted: onDrop,
+      accept: {
+        "image/*": [".png", ".jpg", ".jpeg", ".webp"],
+      },
+      maxFiles: 3,
+      multiple: true,
+      maxSize: 1000_000,
+      disabled: images.length >= 3,
+      // onError: (ee) => {
+      //   console.log(ee);
+      //   setError("please select valid images type (jpg , png , jpeg , webp)");
+      // },
+    });
 
   return (
     <div className="w-full">
@@ -99,6 +104,21 @@ function DropImages({
                 />
               </div>
             </div>
+          ))}
+        </div>
+      )}
+
+      {fileRejections.length > 0 && (
+        <div>
+          {fileRejections[0].errors.map((error) => (
+            <ErrorField
+              key={error.code}
+              message={
+                error.code === "file-too-large"
+                  ? "please select images smaller than 1mb"
+                  : error.message
+              }
+            />
           ))}
         </div>
       )}
