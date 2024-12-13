@@ -69,11 +69,13 @@ export async function signinAction(
     if (isRedirectError(err)) {
       throw err;
     }
+
     if (err instanceof AuthError)
       return {
         type: "error",
         message: String(err.cause?.err).replace("Error:", ""),
       };
+
     return { type: "error", message: "Error signing in" };
   }
 }

@@ -24,7 +24,7 @@ export default function Transition({
           <Spinner />
         </div>
       ) : (
-        <div>
+        <>
           <CustomMotion
             className="fixed inset-0 z-[2000] min-h-screen bg-blue-600"
             initial={{ x: "100%" }}
@@ -45,7 +45,7 @@ export default function Transition({
           >
             {children}
           </CustomMotion>
-        </div>
+        </>
       )}
     </AnimatePresence>
   );

@@ -9,6 +9,11 @@ import EmptyListing from "@/features/profile/components/EmptyListing";
 import ListingsTable from "@/features/profile/components/ListingsTable";
 import { FaPlus } from "react-icons/fa";
 import SignoutWhenUserDeleted from "@/features/auth/components/SignoutWhenUserDeleted";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Listings",
+};
 
 async function page({ params }: { params: Promise<{ locale: string }> }) {
   const session = await auth();
@@ -28,7 +33,7 @@ async function page({ params }: { params: Promise<{ locale: string }> }) {
   if (!properties.length) return <EmptyListing />;
 
   return (
-    <ul className="w-full">
+    <section>
       <div className="mb-3 flex items-center justify-end">
         <AnimatedLink
           href="/properties/new"
@@ -44,7 +49,7 @@ async function page({ params }: { params: Promise<{ locale: string }> }) {
       </div>
 
       <ListingsTable properties={properties} />
-    </ul>
+    </section>
   );
 }
 

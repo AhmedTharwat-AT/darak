@@ -4,7 +4,12 @@ import Image from "next/image";
 
 function PropertyCreated() {
   return (
-    <div className="flex flex-col items-center justify-center gap-4 text-center font-poppins">
+    <div
+      ref={(ref) => {
+        ref?.scrollIntoView({ behavior: "smooth", block: "center" });
+      }}
+      className="flex flex-col items-center justify-center gap-4 text-center font-poppins"
+    >
       <h1 className="text-xl sm:text-2xl">We&apos;ve Received Your Request!</h1>
 
       <p className="max-w-[600px] text-sm sm:text-base">

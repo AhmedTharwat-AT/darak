@@ -28,11 +28,7 @@ const nextConfig = {
       },
     ],
   },
-  logging: {
-    fetches: {
-      fullUrl: true,
-    },
-  },
+
   experimental: {
     staleTimes: {
       dynamic: 0,

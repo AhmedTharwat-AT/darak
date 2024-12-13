@@ -6,6 +6,11 @@ import { UserWithProperties } from "@/lib/types";
 
 import SignoutWhenUserDeleted from "@/features/auth/components/SignoutWhenUserDeleted";
 import UserInfo from "@/features/profile/components/UserInfo";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Profile",
+};
 
 async function page({ params }: { params: Promise<{ locale: string }> }) {
   const session = await auth();
@@ -23,12 +28,12 @@ async function page({ params }: { params: Promise<{ locale: string }> }) {
   const dictionary = await getDictionary(locale);
 
   return (
-    <div>
+    <section>
       <h1 className="text-2xl font-semibold">
         {dictionary.profile.account.title}
       </h1>
       <UserInfo user={user} dictionary={dictionary} />
-    </div>
+    </section>
   );
 }
 

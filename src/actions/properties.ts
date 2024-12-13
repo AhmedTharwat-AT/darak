@@ -1,6 +1,6 @@
 "use server";
 
-import { auth, signOut } from "@/auth";
+import { auth } from "@/auth";
 import prisma from "@/lib/prisma_db";
 import { getDataURI } from "@/lib/utils";
 import { createPropertySchema, CreatePropertySchema } from "@/lib/zodSchemas";
@@ -12,7 +12,6 @@ import { revalidatePath } from "next/cache";
 import { isRedirectError } from "next/dist/client/components/redirect";
 import { redirect } from "next/navigation";
 import { signoutAction } from "./auth";
-import { create } from "domain";
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -81,7 +80,7 @@ export async function createProperty(data: CreatePropertySchema) {
 
     return {
       type: "error",
-      message: "something went wrong",
+      message: "Something went wrong",
     };
   }
 }

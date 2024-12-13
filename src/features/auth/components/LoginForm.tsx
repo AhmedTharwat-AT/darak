@@ -43,12 +43,7 @@ function LoginForm({ callbackUrl }: { callbackUrl?: string | undefined }) {
     } catch (err) {
       if (isRedirectError(err)) throw err;
 
-      if (err instanceof AuthError) {
-        setServerError(err.message);
-        return;
-      }
-
-      setServerError("Problem with the server!");
+      setServerError("Something went wrong!");
     }
   }
 

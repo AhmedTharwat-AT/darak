@@ -12,6 +12,11 @@ import { FaLocationDot } from "react-icons/fa6";
 import { redirect } from "next/navigation";
 import { getDictionary } from "@/app/[locale]/dictionaries";
 import { auth } from "@/auth";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Property Details",
+};
 
 async function page(props: {
   params: Promise<{ propertyId: string; locale: string }>;
@@ -40,7 +45,7 @@ async function page(props: {
   }
 
   return (
-    <main className="font-poppins">
+    <section className="font-poppins">
       <div className="container my-8 flex flex-col bp:my-12">
         <BackButton text="Back" />
 
@@ -100,7 +105,7 @@ async function page(props: {
           </div>
         </div>
       </div>
-    </main>
+    </section>
   );
 }
 

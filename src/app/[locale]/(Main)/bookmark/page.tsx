@@ -6,6 +6,11 @@ import EmptyBookmarks from "@/features/properties/components/EmptyBookmarks";
 import PropertyItem from "@/features/properties/components/PropertyItem";
 import SignoutWhenUserDeleted from "@/features/auth/components/SignoutWhenUserDeleted";
 import { getDictionary } from "../../dictionaries";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Bookmarks",
+};
 
 async function page({ params }: { params: Promise<{ locale: string }> }) {
   const session = await auth();
@@ -29,24 +34,22 @@ async function page({ params }: { params: Promise<{ locale: string }> }) {
   const dictionary = await getDictionary(locale);
 
   return (
-    <div>
-      <div className="container py-8 font-poppins">
-        <h1 className="mb-4 text-center text-xl font-medium capitalize sm:text-2xl md:mb-6">
-          {dictionary.bookmarks.title}
-        </h1>
-        <ul className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {bookmarkedProperties.map((bookmarked: PropertyWithImages) => (
-            <PropertyItem
-              key={bookmarked.id}
-              property={bookmarked}
-              isBookmarked={true}
-              dictionary={dictionary}
-              locale={locale}
-            />
-          ))}
-        </ul>
-      </div>
-    </div>
+    <section className="container py-8 font-poppins">
+      <h1 className="mb-4 text-center text-xl font-medium capitalize sm:text-2xl md:mb-6">
+        {dictionary.bookmarks.title}
+      </h1>
+      <ul className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+        {bookmarkedProperties.map((bookmarked: PropertyWithImages) => (
+          <PropertyItem
+            key={bookmarked.id}
+            property={bookmarked}
+            isBookmarked={true}
+            dictionary={dictionary}
+            locale={locale}
+          />
+        ))}
+      </ul>
+    </section>
   );
 }
 

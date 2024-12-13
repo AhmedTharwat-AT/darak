@@ -276,6 +276,7 @@ function CreatePropertyForm({ dictionary }: { dictionary: DictionaryType }) {
               create
             )}
           </Button>
+
           {serverMessage.type == "error" && (
             <ErrorField
               className="text-center text-lg capitalize"

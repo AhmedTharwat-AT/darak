@@ -1,5 +1,5 @@
 import Image from "next/image";
-import loginImage from "@/assets/login.jpg";
+import loginImage from "@/assets/auth-page.jpg";
 
 export default function AuthLayout({
   children,
@@ -11,11 +11,14 @@ export default function AuthLayout({
       <main className="grid min-h-screen grid-cols-1 antialiased lg:grid-cols-2">
         {children}
 
-        <Image
-          src={loginImage}
-          className="hidden size-full min-h-[720px] object-cover object-center lg:block"
-          alt="hero"
-        />
+        <div className="relative size-full">
+          <Image
+            src={loginImage}
+            fill
+            className="size-full object-cover max-lg:hidden"
+            alt="hero"
+          />
+        </div>
       </main>
     </div>
   );

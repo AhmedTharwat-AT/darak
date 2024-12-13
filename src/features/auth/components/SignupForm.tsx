@@ -44,17 +44,12 @@ function SignupForm() {
     } catch (err) {
       if (isRedirectError(err)) throw err;
 
-      if (err instanceof Error) {
-        setServerError(err.message);
-        return;
-      }
-
-      setServerError("Problem with the server!");
+      setServerError("Something went wrong!");
     }
   }
 
   return (
-    <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
+    <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
       {serverError && <p className="lowercase text-red-500">{serverError}</p>}
       <div>
         <label className="mb-1 block">Email</label>

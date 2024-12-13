@@ -1,13 +1,18 @@
 import ContactForm from "@/components/ContactForm";
 import HeroImage from "@/components/HeroImage";
 import { getDictionary } from "../../dictionaries";
-// className="right-0 -scale-x-100 lg:-right-28"
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Contact Us",
+};
+
 async function page({ params }: { params: Promise<{ locale: string }> }) {
   const locale = (await params).locale;
   const dictionary = await getDictionary(locale);
 
   return (
-    <div className="h-full py-8">
+    <section className="h-full py-8">
       <HeroImage className="object-left-bottom max-sm:object-cover max-sm:object-[-200px_100%]" />
 
       <div className="container relative z-10 flex h-full flex-col justify-center font-poppins">
@@ -19,7 +24,7 @@ async function page({ params }: { params: Promise<{ locale: string }> }) {
         </div>
         <ContactForm dictionary={dictionary} />
       </div>
-    </div>
+    </section>
   );
 }
 

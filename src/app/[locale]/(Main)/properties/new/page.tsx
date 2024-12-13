@@ -4,8 +4,13 @@ import Spinner from "@/components/Spinner";
 import SignoutWhenUserDeleted from "@/features/auth/components/SignoutWhenUserDeleted";
 import CreatePropertyForm from "@/features/properties/components/CreatePropertyForm";
 import { getUser } from "@/services/prismaApi";
+import { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
+
+export const metadata: Metadata = {
+  title: "Create Property",
+};
 
 async function page({ params }: { params: Promise<{ locale: string }> }) {
   const session = await auth();
@@ -23,7 +28,7 @@ async function page({ params }: { params: Promise<{ locale: string }> }) {
   const dictionary = await getDictionary(locale);
 
   return (
-    <div className="container pb-16 pt-8 font-poppins">
+    <section className="container pb-16 pt-8 font-poppins">
       <Suspense
         fallback={
           <div className="flex min-h-60 items-center justify-center">
@@ -33,7 +38,7 @@ async function page({ params }: { params: Promise<{ locale: string }> }) {
       >
         <CreatePropertyForm dictionary={dictionary} />
       </Suspense>
-    </div>
+    </section>
   );
 }
 
