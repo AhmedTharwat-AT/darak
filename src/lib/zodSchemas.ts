@@ -50,7 +50,10 @@ export const registerSchema = z
       .string()
       .min(4, "name is less than 4 chars!")
       .max(20, "name is more than 20 chars!"),
-    phone: zPhoneNumber,
+    phone: zPhoneNumber.refine(
+      (value) => !!value,
+      "Please provide a phone number",
+    ),
     password: z
       .string()
       .min(8, "password is less than 8 chars")

@@ -30,6 +30,8 @@ function SignupForm() {
     },
   });
 
+  console.log(errors);
+
   async function onSubmit(data: RegisterSchema) {
     try {
       const state = await createUser(data);
