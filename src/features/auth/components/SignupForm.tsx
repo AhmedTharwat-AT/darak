@@ -9,8 +9,9 @@ import { Button } from "@/components/ui/button";
 import Spinner from "@/components/Spinner";
 import { FaLock } from "react-icons/fa6";
 import { IoMdMail } from "react-icons/io";
+import { FaPhoneAlt } from "react-icons/fa";
+import { FaUserAlt } from "react-icons/fa";
 import { isRedirectError } from "next/dist/client/components/redirect";
-import { AuthError } from "next-auth";
 import { toast } from "@/hooks/use-toast";
 
 function SignupForm() {
@@ -29,8 +30,6 @@ function SignupForm() {
       confirm_password: "",
     },
   });
-
-  console.log(errors);
 
   async function onSubmit(data: RegisterSchema) {
     try {
@@ -73,7 +72,7 @@ function SignupForm() {
       <div>
         <label className="mb-1 block">Name</label>
         <div className="relative">
-          <FaLock className="absolute left-3 top-1/2 size-5 -translate-y-1/2 fill-stroke" />
+          <FaUserAlt className="absolute left-3 top-1/2 size-5 -translate-y-1/2 fill-stroke" />
           <input
             disabled={isSubmitting}
             className="w-full rounded-lg border border-stroke py-4 pe-4 ps-10 focus:border-main"
@@ -90,7 +89,7 @@ function SignupForm() {
       <div>
         <label className="mb-1 block">Phone</label>
         <div className="relative">
-          <FaLock className="absolute left-3 top-1/2 size-5 -translate-y-1/2 fill-stroke" />
+          <FaPhoneAlt className="absolute left-3 top-1/2 size-5 -translate-y-1/2 fill-stroke" />
           <input
             disabled={isSubmitting}
             className="w-full rounded-lg border border-stroke py-4 pe-4 ps-10 focus:border-main"
