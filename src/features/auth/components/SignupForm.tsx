@@ -13,6 +13,7 @@ import { FaPhoneAlt } from "react-icons/fa";
 import { FaUserAlt } from "react-icons/fa";
 import { isRedirectError } from "next/dist/client/components/redirect";
 import { toast } from "@/hooks/use-toast";
+import ErrorField from "@/components/form/ErrorField";
 
 function SignupForm() {
   const [serverError, setServerError] = useState("");
@@ -51,7 +52,8 @@ function SignupForm() {
 
   return (
     <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
-      {serverError && <p className="lowercase text-red-500">{serverError}</p>}
+      {serverError && <ErrorField message={serverError} />}
+
       <div>
         <label className="mb-1 block">Email</label>
         <div className="relative">
@@ -64,9 +66,8 @@ function SignupForm() {
             placeholder="Enter your email"
           />
         </div>
-        {errors.email && (
-          <p className="lowercase text-red-500">{errors.email.message}</p>
-        )}
+
+        {errors.email && <ErrorField message={errors.email.message} />}
       </div>
 
       <div>
@@ -81,9 +82,8 @@ function SignupForm() {
             placeholder="Enter your name"
           />
         </div>
-        {errors.name && (
-          <p className="lowercase text-red-500">{errors.name.message}</p>
-        )}
+
+        {errors.name && <ErrorField message={errors.name.message} />}
       </div>
 
       <div>
@@ -98,9 +98,8 @@ function SignupForm() {
             placeholder="Enter your phone"
           />
         </div>
-        {errors.phone && (
-          <p className="lowercase text-red-500">{errors.phone.message}</p>
-        )}
+
+        {errors.phone && <ErrorField message={errors.phone.message} />}
       </div>
 
       <div>
@@ -115,9 +114,8 @@ function SignupForm() {
             placeholder="Enter your password"
           />
         </div>
-        {errors.password && (
-          <p className="lowercase text-red-500">{errors.password.message}</p>
-        )}
+
+        {errors.password && <ErrorField message={errors.password.message} />}
       </div>
 
       <div>
@@ -132,13 +130,12 @@ function SignupForm() {
             placeholder="Confirm your password"
           />
         </div>
+
         {errors.confirm_password && (
-          <p className="lowercase text-red-500">
-            {errors.confirm_password.message}
-          </p>
+          <ErrorField message={errors.confirm_password.message} />
         )}
       </div>
-      {/* <input name="callbackUrl" type="hidden" defaultValue={callbackUrl} /> */}
+
       <Button
         disabled={isSubmitting}
         className="!mt-8 h-14 w-full bg-main py-4 text-xl transition-all hover:opacity-90 hover:shadow-md"

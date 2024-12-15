@@ -17,13 +17,15 @@ export default function Transition({
 }) {
   const { isAnimating } = useAnimation();
 
+  // ? (
+  //   <div className="container flex h-full items-center justify-center">
+  //     <Spinner />
+  //   </div>
+  // ) :
+
   return (
     <AnimatePresence mode="wait">
-      {isAnimating ? (
-        <div className="container flex h-full items-center justify-center">
-          <Spinner />
-        </div>
-      ) : (
+      {!isAnimating && (
         <>
           <CustomMotion
             className="fixed inset-0 z-[2000] min-h-screen bg-blue-600"

@@ -1,7 +1,7 @@
 import { MdErrorOutline } from "react-icons/md";
 import BackButton from "./BackButton";
 
-function Error({ message }: { message: string }) {
+function ErrorMessage({ message }: { message: string }) {
   return (
     <div className="container my-4 flex min-h-32 flex-col items-center justify-center gap-4 rounded-lg bg-bgDark font-poppins">
       <div className="flex items-center gap-1">
@@ -18,4 +18,4 @@ function Error({ message }: { message: string }) {
   );
 }
 
-export default Error;
+export default ErrorMessage;

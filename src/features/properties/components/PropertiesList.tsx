@@ -8,7 +8,7 @@ import {
 } from "@/lib/types";
 
 import PropertyItem from "./PropertyItem";
-import Error from "@/components/Error";
+import ErrorMessage from "@/components/ErrorMessage";
 
 async function PropertiesList({
   page,
@@ -27,7 +27,7 @@ async function PropertiesList({
   });
 
   if (!properties || properties.length === 0)
-    return <Error message="no properties to load" />;
+    return <ErrorMessage message="no properties to load" />;
 
   const session = await auth();
   let user: UserWithProperties;

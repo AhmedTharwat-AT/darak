@@ -3,7 +3,7 @@ import { formatCurrency } from "@/lib/utils";
 import { getProperty, getUser } from "@/services/prismaApi";
 
 import BackButton from "@/components/BackButton";
-import Error from "@/components/Error";
+import ErrorMessage from "@/components/ErrorMessage";
 import BookmarkActionBtn from "@/features/properties/components/BookmarkActionBtn";
 import PropertyCarousel from "@/features/properties/components/PropertyCarousel";
 import PropertyContacts from "@/features/properties/components/PropertyContacts";
@@ -25,7 +25,7 @@ async function page(props: {
   const property: PropertyWithImages = await getProperty(propertyId);
 
   if (!property || property.status !== "approved")
-    return <Error message="Property was not found" />;
+    return <ErrorMessage message="Property was not found" />;
 
   const dictionary = await getDictionary(locale);
 

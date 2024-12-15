@@ -19,12 +19,15 @@ export default function AnimatedLink({
   const { pathname, locale } = useLocale();
   const { setIsAnimating, startTransition, isAnimating } = useAnimation();
 
-  const newHref = "/" + locale + href;
+  let newHref = "";
+
+  if (href === "/") newHref = `/${locale}`;
+  else newHref = `/${locale}${href}`;
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
 
-    if (pathname === href || isAnimating) return;
+    if (pathname === newHref || isAnimating) return;
 
     setIsAnimating(true);
 
@@ -36,7 +39,7 @@ export default function AnimatedLink({
       startTransition(() => {
         router.push(newHref);
       });
-    }, 200);
+    }, 210);
   };
 
   return (
