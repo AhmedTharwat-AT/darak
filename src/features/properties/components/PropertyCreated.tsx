@@ -1,5 +1,5 @@
 import BackButton from "@/components/BackButton";
-import messageImage from "@/assets/illustrations/message.jpg";
+import messageImage from "@/assets/illustrations/message.png";
 import Image from "next/image";
 
 function PropertyCreated() {

@@ -27,6 +27,7 @@ function CreatePropertyForm({ dictionary }: { dictionary: DictionaryType }) {
     type: "",
     message: "",
   });
+
   const {
     register,
     handleSubmit,

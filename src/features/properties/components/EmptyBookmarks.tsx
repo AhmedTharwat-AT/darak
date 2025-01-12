@@ -1,4 +1,4 @@
-import emptyBookmarks from "@/assets/illustrations/empty-saved.jpg";
+import emptyBookmarks from "@/assets/illustrations/empty-saved.png";
 import BackButton from "@/components/BackButton";
 import Image from "next/image";
 
@@ -8,7 +8,7 @@ function EmptyBookmarks() {
       <Image
         src={emptyBookmarks}
         alt="bookmarks"
-        className="object-cover"
+        className="mix-blend- object-cover"
         width={400}
         height={200}
       />

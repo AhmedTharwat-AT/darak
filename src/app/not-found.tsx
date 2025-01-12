@@ -1,5 +1,4 @@
-import NavBar from "@/components/layout/NavBar";
-import notFoundImage from "@/assets/404-page.png";
+import notFoundImage from "@/assets/illustrations/notfound.png";
 import Image from "next/image";
 import BackButton from "@/components/BackButton";
 import Footer from "@/components/layout/Footer";

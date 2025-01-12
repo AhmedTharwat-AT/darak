@@ -9,7 +9,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { MdModeEdit } from "react-icons/md";
+import { RiImageAddFill } from "react-icons/ri";
 import ChangePictureForm from "./ChangePictureForm";
 import defauleProfile from "@/assets/profile.jpg";
 
@@ -20,7 +20,7 @@ function ProfilePicture({ user }: { user: User }) {
         <DialogTrigger asChild>
           <button className="group relative overflow-hidden rounded-full">
             <div className="absolute inset-0 flex cursor-pointer items-center justify-center bg-gray-500 bg-opacity-0 transition group-hover:bg-opacity-50">
-              <MdModeEdit className="text-5xl text-white opacity-0 transition group-hover:opacity-100" />
+              <RiImageAddFill className="text-5xl text-white opacity-0 transition group-hover:opacity-100" />
             </div>
             <Image
               src={user.image || defauleProfile}

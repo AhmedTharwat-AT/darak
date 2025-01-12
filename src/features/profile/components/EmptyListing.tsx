@@ -1,5 +1,5 @@
 import Image from "next/image";
-import forSale from "@/assets/illustrations/for-sale.jpg";
+import forSale from "@/assets/illustrations/for-sale.png";
 import BackButton from "@/components/BackButton";
 
 function EmptyListing() {

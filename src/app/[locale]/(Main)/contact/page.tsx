@@ -13,7 +13,9 @@ async function page({ params }: { params: Promise<{ locale: string }> }) {
 
   return (
     <section className="h-full py-8">
-      <HeroImage className="object-left-bottom max-sm:object-cover max-sm:object-[-200px_100%]" />
+      <div className="absolute inset-0 w-full -scale-x-100">
+        <HeroImage className="object-left-bottom max-sm:object-cover" />
+      </div>
 
       <div className="container relative z-10 flex h-full flex-col justify-center font-poppins">
         <div className="space-y-2">
