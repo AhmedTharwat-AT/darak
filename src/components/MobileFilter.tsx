@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Dialog,
   DialogContent,
@@ -7,8 +9,13 @@ import {
 import { DialogDescription } from "@radix-ui/react-dialog";
 import { CiFilter } from "react-icons/ci";
 import PropertiesFilter from "../features/properties/components/PropertiesFilter";
+import { useTranslation } from "@/context/TranslationProvider";
 
 function MobileFilter() {
+  const { locale } = useTranslation();
+
+  const isRtl = locale === "ar";
+
   return (
     <Dialog>
       <DialogTrigger className="block md:hidden" asChild>
@@ -19,11 +26,12 @@ function MobileFilter() {
       <DialogContent
         aria-describedby={"filter"}
         className="max-h-[95vh] max-w-[90vw] overflow-hidden rounded-[var(--radius)] bg-bgDark max-sm:p-4"
+        dir={isRtl ? "rtl" : "ltr"}
       >
         <DialogDescription></DialogDescription>
 
         <DialogTitle className="font-medium uppercase text-blacker">
-          Filter
+          {isRtl ? "تصفية" : "Filter"}
         </DialogTitle>
 
         <PropertiesFilter

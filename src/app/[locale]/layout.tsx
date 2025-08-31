@@ -34,7 +34,7 @@ async function RootLayout({
       className={`${playfair.variable} ${poppins.variable}`}
     >
       <body>
-        <TranslationProvider dictionary={dictionary}>
+        <TranslationProvider dictionary={dictionary} locale={locale}>
           <AnimationProvider>{children}</AnimationProvider>
         </TranslationProvider>
         <Toaster />

@@ -3,19 +3,22 @@
 import { DictionaryType } from "@/app/[locale]/dictionaries";
 import { createContext, use } from "react";
 
-const TranslationContext = createContext<{ dictionary: DictionaryType } | null>(
-  null,
-);
+const TranslationContext = createContext<{
+  dictionary: DictionaryType;
+  locale: string;
+} | null>(null);
 
 function TranslationProvider({
   children,
   dictionary,
+  locale,
 }: {
   children: React.ReactNode;
   dictionary: DictionaryType;
+  locale: string;
 }) {
   return (
-    <TranslationContext.Provider value={{ dictionary }}>
+    <TranslationContext.Provider value={{ dictionary, locale }}>
       {children}
     </TranslationContext.Provider>
   );

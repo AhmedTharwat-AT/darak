@@ -69,7 +69,7 @@ function LocationInput({
         </Button>
       </PopoverTrigger>
 
-      <PopoverContent className="w-[200px] p-0">
+      <PopoverContent className="z-[100] w-[200px] p-0">
         <Command>
           <CommandInput placeholder={dictionary.filter.location.placeholder} />
 
