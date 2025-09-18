@@ -12,6 +12,7 @@ import { revalidatePath } from "next/cache";
 import { isRedirectError } from "next/dist/client/components/redirect";
 import { redirect } from "next/navigation";
 import { signoutAction } from "./auth";
+import { sendMessage } from "./contact";
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -68,6 +69,12 @@ export async function createProperty(data: CreatePropertySchema) {
           createMany: { data: images },
         },
       },
+    });
+
+    await sendMessage({
+      name: `New property created`,
+      email: user?.email,
+      message: `New property created "${data.title}" by ${user?.name || "N/A"}`,
     });
 
     revalidatePath("/", "layout");

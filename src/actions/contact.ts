@@ -22,6 +22,7 @@ export async function sendMessage(data: ContactSchema) {
       message: "Message sent successfully",
     };
   } catch (err) {
+    console.log(err);
     return {
       type: "error",
       message: "Error sending message",

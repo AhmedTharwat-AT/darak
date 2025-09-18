@@ -21,6 +21,7 @@ async function page({ params }: { params: Promise<{ locale: string }> }) {
   }
 
   const user = await getUser(session?.user?.email || "");
+
   if (!user) {
     return <SignoutWhenUserDeleted />;
   }
